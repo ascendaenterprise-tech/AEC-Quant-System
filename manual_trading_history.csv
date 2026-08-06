@@ -1,0 +1,11 @@
+date,realized_pnl,instruments,source
+2026-08-06,-2340.32,NQ futures,manual_trades_IBKR_mobile_screenshots
+2026-08-05,4298.0,NQ futures,manual_trades_IBKR_mobile_screenshots
+2026-08-04,-654.28,NQ futures,manual_trades_IBKR_mobile_screenshots
+2026-08-03,22256.56,NQ futures,manual_trades_IBKR_mobile_screenshots
+2026-07-28,3995.2,NQ futures + options,manual_trades_IBKR_mobile_screenshots
+2026-07-08,-42875.0,NQ futures,manual_trades_IBKR_mobile_screenshots
+2026-07-07,-4814.0,NQ futures,manual_trades_IBKR_mobile_screenshots
+2026-07-03,-5052.0,NQ futures,manual_trades_IBKR_mobile_screenshots
+2026-06-12,0.0,"SPCX equity (opening positions only, no P&L yet)",manual_trades_IBKR_mobile_screenshots
+2026-05-19,0.0,PLTR/AMZN/CRM/NVDA equity (opening positions only),manual_trades_IBKR_mobile_screenshots
