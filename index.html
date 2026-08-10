@@ -2,60 +2,130 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>AEC Live Trade Dashboard</title>
+<title>AEC Trading Terminal</title>
 <style>
-    body { font-family: -apple-system, sans-serif; background:#0d1117; color:#e6edf3; padding:30px; margin:0; }
-    h1 { font-size: 22px; }
-    .stats { display:flex; gap:20px; margin:20px 0; flex-wrap:wrap; }
-    .card { background:#161b22; border:1px solid #30363d; border-radius:8px; padding:16px 24px; }
-    .card .label { font-size:12px; color:#8b949e; text-transform:uppercase; }
-    .card .value { font-size:24px; font-weight:bold; margin-top:4px; }
-    table { border-collapse:collapse; width:100%; margin-top:20px; font-size:13px; }
+    body { font-family: -apple-system, sans-serif; background:#0d1117; color:#e6edf3; padding:24px; margin:0; }
+    h1 { font-size: 22px; margin-bottom:4px; }
+    h2 { font-size: 15px; margin:0 0 12px 0; color:#e6edf3; }
+    .subtitle { color:#8b949e; font-size:13px; margin-bottom:20px; }
+    .stats { display:flex; gap:16px; margin:16px 0; flex-wrap:wrap; }
+    .card { background:#161b22; border:1px solid #30363d; border-radius:8px; padding:14px 20px; }
+    .card .label { font-size:11px; color:#8b949e; text-transform:uppercase; }
+    .card .value { font-size:22px; font-weight:bold; margin-top:4px; }
+    table { border-collapse:collapse; width:100%; font-size:13px; }
     th, td { text-align:left; padding:8px 12px; border-bottom:1px solid #30363d; }
     th { color:#8b949e; text-transform:uppercase; font-size:11px; }
-    .note { color:#8b949e; font-size:12px; margin-top:20px; }
+    .note { color:#8b949e; font-size:12px; margin-top:16px; }
     .win { color:#4ade80; font-weight:bold; }
     .loss { color:#f87171; font-weight:bold; }
     .controls select, .controls input, .controls button {
-        background:#161b22; border:1px solid #30363d; color:#e6edf3;
+        background:#0d1117; border:1px solid #30363d; color:#e6edf3;
         padding:6px 10px; border-radius:6px; font-size:13px;
     }
     .controls button { cursor:pointer; }
     .controls button:hover { background:#21262d; }
-    .layout { display:flex; gap:24px; align-items:flex-start; }
-    .main-col { flex: 1 1 auto; min-width:0; }
-    .chart-col { flex: 0 0 420px; position:sticky; top:30px; }
-    .chart-col .chart-label { font-size:12px; color:#8b949e; text-transform:uppercase; margin-bottom:8px; }
-    .tradingview-widget-container { background:#161b22; border:1px solid #30363d; border-radius:8px;
-        overflow:hidden; height:600px; }
+    .panel { background:#161b22; border:1px solid #30363d; border-radius:8px; padding:18px; margin-bottom:20px; }
+
+    .terminal-grid { display:grid; grid-template-columns: 1fr 340px; gap:20px; align-items:start; }
+    .chart-panel { height:520px; padding:0; overflow:hidden; }
+    .chart-panel-inner { height:100%; }
+    .sidebar { display:flex; flex-direction:column; gap:20px; }
+
+    .status-row { display:flex; justify-content:space-between; padding:6px 0; font-size:13px;
+        border-bottom:1px solid #21262d; }
+    .status-row:last-child { border-bottom:none; }
+    .status-label { color:#8b949e; }
+    .status-dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; }
+    .dot-green { background:#4ade80; }
+    .dot-red { background:#f87171; }
+    .dot-gray { background:#6e7681; }
+
+    .news-item { padding:10px 0; border-bottom:1px solid #21262d; font-size:12.5px; }
+    .news-item:last-child { border-bottom:none; }
+    .news-item a { color:#e6edf3; text-decoration:none; }
+    .news-item a:hover { color:#58a6ff; }
+    .news-time { color:#6e7681; font-size:11px; margin-top:3px; }
+    .news-error { color:#8b949e; font-size:12.5px; line-height:1.5; }
+    .news-error a { color:#58a6ff; }
+
     @media (max-width: 1100px) {
-        .layout { flex-direction: column; }
-        .chart-col { position:static; width:100%; }
+        .terminal-grid { grid-template-columns: 1fr; }
     }
 </style>
 </head>
 <body>
-    <h1>AEC Live Trade Dashboard (Book 1 -- NQ)</h1>
-    <div class="layout">
-    <div class="main-col">
+    <h1>AEC Trading Terminal</h1>
+    <div class="subtitle">Book 1 -- NQ -- 5 systems: Layer I, OTE+BOS, HTF Rejection (4H), Z-Score MR v2, VWAP Reversion</div>
+
     <div class="stats" id="stats">Loading trade_log.csv...</div>
-    <div class="controls" id="controls" style="display:none; margin-top:16px; gap:12px; align-items:center;">
-        <select id="sourceFilter" onchange="renderPage(1)">
-            <option value="all">All sources</option>
-            <option value="live">Live only</option>
-            <option value="backtest">Backtest only</option>
-        </select>
-        <input id="searchBox" type="text" placeholder="Search reason/side..." oninput="renderPage(1)">
-        <span id="pageInfo" style="color:#8b949e; font-size:12px; margin-left:auto;"></span>
-        <button onclick="prevPage()">&larr; Prev</button>
-        <button onclick="nextPage()">Next &rarr;</button>
+
+    <div class="terminal-grid">
+        <div class="panel chart-panel">
+            <div class="chart-panel-inner" id="tradingview_chart"></div>
+        </div>
+
+        <div class="sidebar">
+            <div class="panel">
+                <h2>System Status</h2>
+                <div id="statusPanel">
+                    <div class="news-error">Loading system_status.json...</div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Market News</h2>
+                <div id="newsPanel">
+                    <div class="news-error">Loading...</div>
+                </div>
+            </div>
+        </div>
     </div>
-    <table id="tradeTable">
-        <tr><th>Entry Time</th><th>Symbol</th><th>Side</th><th>Entry</th><th>Exit</th><th>Qty</th><th>P&amp;L</th><th>Source</th><th>Reason</th></tr>
-    </table>
-    <p class="note">Reads trade_log.csv from this same repo. Updates whenever a fresh copy of that
-    file is pushed to GitHub -- not continuously live like the local dashboard version.
-    Shows ALL rows via pagination (50/page), not just the most recent 30.</p>
+
+    <div class="panel">
+        <h2>Strategy Breakdown</h2>
+        <table id="strategyTable">
+            <tr><th>System</th><th>Trades</th><th>Total P&amp;L</th><th>Win Rate</th></tr>
+        </table>
+    </div>
+
+    <div class="panel">
+        <h2>Trade Log</h2>
+        <div class="controls" id="controls" style="display:none; margin-bottom:16px; gap:12px; align-items:center;">
+            <select id="sourceFilter" onchange="renderPage(1)">
+                <option value="all">All sources</option>
+                <option value="live">Live only</option>
+                <option value="backtest">Backtest only</option>
+            </select>
+            <input id="searchBox" type="text" placeholder="Search reason/side..." oninput="renderPage(1)">
+            <span id="pageInfo" style="color:#8b949e; font-size:12px; margin-left:auto;"></span>
+            <button onclick="prevPage()">&larr; Prev</button>
+            <button onclick="nextPage()">Next &rarr;</button>
+        </div>
+        <table id="tradeTable">
+            <tr><th>Entry Time</th><th>Symbol</th><th>Side</th><th>Entry</th><th>Exit</th><th>Qty</th><th>P&amp;L</th><th>Source</th><th>Reason</th></tr>
+        </table>
+        <p class="note">Reads trade_log.csv from this same repo. Updates whenever a fresh copy is pushed to
+        GitHub -- not continuously live. Shows ALL rows via pagination (50/page).</p>
+    </div>
+
+<script src="https://s3.charts-static.tradingview.com/tv.js"></script>
+<script>
+    new TradingView.widget({
+        "autosize": true,
+        "symbol": "CME_MINI:NQ1!",
+        "interval": "5",
+        "timezone": "America/Chicago",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "toolbar_bg": "#161b22",
+        "enable_publishing": false,
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "save_image": false,
+        "container_id": "tradingview_chart"
+    });
+</script>
 
 <script>
 let allTrades = [];
@@ -64,7 +134,7 @@ const PAGE_SIZE = 50;
 
 async function loadDashboard() {
     try {
-        const response = await fetch('trade_log.csv?t=' + Date.now()); // cache-bust
+        const response = await fetch('trade_log.csv?t=' + Date.now());
         if (!response.ok) throw new Error('trade_log.csv not found in this repo yet');
         const text = await response.text();
         const lines = text.trim().split('\n');
@@ -87,7 +157,7 @@ async function loadDashboard() {
             return;
         }
 
-        allTrades = trades.slice().reverse(); // newest first
+        allTrades = trades.slice().reverse();
 
         const wins = trades.filter(t => t.pnl > 0);
         const losses = trades.filter(t => t.pnl <= 0);
@@ -106,10 +176,39 @@ async function loadDashboard() {
         `;
         document.getElementById('controls').style.display = 'flex';
         renderPage(1);
+        renderStrategyBreakdown(trades);
 
     } catch (err) {
         document.getElementById('stats').innerHTML = `<div class="card"><div class="label">Error</div><div class="value" style="font-size:14px;">${err.message}</div></div>`;
     }
+}
+
+function extractSystem(notes) {
+    if (!notes) return 'Live (Layer I)';
+    const known = ['Layer I', 'OTE+BOS', 'HTF Rejection', 'Z-Score MR v2', 'VWAP Reversion'];
+    for (const k of known) {
+        if (notes.includes(k)) return k;
+    }
+    return 'Other';
+}
+
+function renderStrategyBreakdown(trades) {
+    const groups = {};
+    trades.forEach(t => {
+        const sys = extractSystem(t.notes);
+        if (!groups[sys]) groups[sys] = [];
+        groups[sys].push(t.pnl);
+    });
+
+    let rows = '<tr><th>System</th><th>Trades</th><th>Total P&amp;L</th><th>Win Rate</th></tr>';
+    Object.keys(groups).sort().forEach(sys => {
+        const pnls = groups[sys];
+        const total = pnls.reduce((a,b) => a+b, 0);
+        const wr = (100 * pnls.filter(p => p > 0).length / pnls.length).toFixed(1);
+        const cls = total >= 0 ? 'win' : 'loss';
+        rows += `<tr><td>${sys}</td><td>${pnls.length}</td><td class="${cls}">$${total.toFixed(2)}</td><td>${wr}%</td></tr>`;
+    });
+    document.getElementById('strategyTable').innerHTML = rows;
 }
 
 function getFiltered() {
@@ -156,36 +255,73 @@ function renderPage(page) {
 function nextPage() { renderPage(currentPage + 1); }
 function prevPage() { renderPage(currentPage - 1); }
 
-loadDashboard();
-setInterval(loadDashboard, 15000); // re-check every 15s in case the page is left open after a fresh push
-</script>
-    </div>
+async function loadStatus() {
+    const panel = document.getElementById('statusPanel');
+    try {
+        const response = await fetch('system_status.json?t=' + Date.now());
+        if (!response.ok) throw new Error('not found');
+        const s = await response.json();
 
-    <div class="chart-col">
-        <div class="chart-label">Live NQ Chart</div>
-        <div class="tradingview-widget-container">
-            <div id="tradingview_chart"></div>
-        </div>
-    </div>
-    </div>
+        const lastUpdated = new Date(s.last_updated);
+        const ageMin = Math.round((Date.now() - lastUpdated.getTime()) / 60000);
+        const dotClass = ageMin < 5 ? 'dot-green' : (ageMin < 30 ? 'dot-red' : 'dot-gray');
 
-    <script src="https://s3.charts-static.tradingview.com/tv.js"></script>
-    <script>
-        new TradingView.widget({
-            "autosize": true,
-            "symbol": "CME_MINI:NQ1!",
-            "interval": "5",
-            "timezone": "America/Chicago",
-            "theme": "dark",
-            "style": "1",
-            "locale": "en",
-            "toolbar_bg": "#161b22",
-            "enable_publishing": false,
-            "hide_top_toolbar": false,
-            "hide_legend": false,
-            "save_image": false,
-            "container_id": "tradingview_chart"
+        let html = `<div class="status-row"><span class="status-label"><span class="status-dot ${dotClass}"></span>Last updated</span><span>${ageMin} min ago</span></div>`;
+        html += `<div class="status-row"><span class="status-label">Account</span><span>${s.account || 'N/A'}</span></div>`;
+        html += `<div class="status-row"><span class="status-label">Balance</span><span>$${(s.balance||0).toLocaleString(undefined,{minimumFractionDigits:2})}</span></div>`;
+        html += `<div class="status-row"><span class="status-label">Position</span><span>${s.in_position ? s.position_side : 'Flat'}</span></div>`;
+        html += `<div class="status-row"><span class="status-label">Session P&amp;L</span><span class="${s.session_realized_pnl>=0?'win':'loss'}">$${(s.session_realized_pnl||0).toFixed(2)}</span></div>`;
+        html += `<div class="status-row"><span class="status-label">Session entries</span><span>${s.session_entries||0}</span></div>`;
+        (s.systems_active || []).forEach(sys => {
+            html += `<div class="status-row"><span class="status-label"><span class="status-dot dot-green"></span>${sys}</span><span>Active</span></div>`;
         });
-    </script>
+
+        panel.innerHTML = html;
+    } catch (err) {
+        panel.innerHTML = `<div class="news-error">system_status.json not available yet -- it's written by the
+        live executor and needs to be pushed via auto_push.py (or manually) at least once.</div>`;
+    }
+}
+
+const FINNHUB_API_KEY = "YOUR_FREE_FINNHUB_API_KEY_HERE";
+
+async function loadNews() {
+    const panel = document.getElementById('newsPanel');
+    if (!FINNHUB_API_KEY || FINNHUB_API_KEY === "YOUR_FREE_FINNHUB_API_KEY_HERE") {
+        panel.innerHTML = `<div class="news-error">No API key set yet. Get a free key at
+        <a href="https://finnhub.io/register" target="_blank">finnhub.io/register</a> (no credit card),
+        then paste it into the FINNHUB_API_KEY line in this file.</div>`;
+        return;
+    }
+    try {
+        const response = await fetch(`https://finnhub.io/api/v1/news?category=general&token=${FINNHUB_API_KEY}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const news = await response.json();
+        if (!Array.isArray(news) || news.length === 0) throw new Error('no articles returned');
+
+        let html = '';
+        news.slice(0, 8).forEach(item => {
+            const date = new Date(item.datetime * 1000);
+            html += `<div class="news-item">
+                <a href="${item.url}" target="_blank">${item.headline}</a>
+                <div class="news-time">${item.source} -- ${date.toLocaleString()}</div>
+            </div>`;
+        });
+        panel.innerHTML = html;
+    } catch (err) {
+        panel.innerHTML = `<div class="news-error">News feed unavailable (${err.message}) -- this may be a
+        real CORS restriction on Finnhub's free tier blocking direct browser requests. View NQ/market news
+        directly at <a href="https://finnhub.io" target="_blank">finnhub.io</a> or
+        <a href="https://www.marketwatch.com" target="_blank">marketwatch.com</a> instead.</div>`;
+    }
+}
+
+loadDashboard();
+loadStatus();
+loadNews();
+setInterval(loadDashboard, 15000);
+setInterval(loadStatus, 30000);
+setInterval(loadNews, 300000);
+</script>
 </body>
 </html>
