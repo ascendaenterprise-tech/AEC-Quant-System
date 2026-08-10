@@ -256,6 +256,29 @@
 
     <br>
 
+    <div class="grid" style="grid-template-columns: 1fr 1.6fr;">
+        <div class="panel" id="taGaugeSection">
+            <div class="panel-title">Technical Rating <span class="tag">NQ 1H</span></div>
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+                {"interval":"1h","width":"100%","isTransparent":true,"height":"400","symbol":"CME_MINI:NQ1!","showIntervalTabs":true,"displayMode":"single","locale":"en","colorTheme":"dark"}
+                </script>
+            </div>
+        </div>
+        <div class="panel" id="screenerSection">
+            <div class="panel-title">Screener <span class="tag">Futures</span></div>
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+                {"width":"100%","height":"400","defaultColumn":"overview","defaultScreen":"most_capitalized","market":"futures","showToolbar":true,"colorTheme":"dark","locale":"en","isTransparent":true}
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
     <div class="panel" id="whalesSection">
         <div class="panel-title">13F Whales <span class="tag" id="whalesTag">real SEC EDGAR data</span></div>
         <div id="whalesPanel"><div class="msg">loading...</div></div>
@@ -710,7 +733,17 @@ setInterval(loadWhales, 300000);
   --wire-white:#FFFFFF; --wire-cream2:#C8C8C8; --wire-cream3:#888888; --wire-red:#B23A2E; --wire-green:#3FA85C;
   --font-display:'Cormorant Garamond','Georgia',serif; --font-mono:'DM Mono','Courier New',monospace; --font-body:'Jost','Helvetica Neue',sans-serif;
 }
-#wireRoot{font-family:var(--font-body);background:var(--wire-ink);color:var(--wire-white);-webkit-font-smoothing:antialiased;border-radius:10px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,0.4);margin-top:16px;}
+#wireRoot{font-family:var(--font-body);background:var(--wire-ink);color:var(--wire-white);-webkit-font-smoothing:antialiased;border-radius:10px;overflow:hidden;box-shadow:0 10px 34px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);margin-top:16px;}
+#wireRoot .research-card{background:linear-gradient(160deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));box-shadow:inset 0 1px 0 rgba(255,255,255,0.04);transition:transform 0.15s, box-shadow 0.15s;}
+#wireRoot .research-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);}
+#wireRoot .filter-chip{border-radius:6px;}
+#wireRoot .filter-chip.active{box-shadow:0 3px 10px rgba(255,255,255,0.15);}
+#wireRoot .refresh-btn{border-radius:6px;}
+#wireRoot .article-source{border-radius:4px;}
+#wireRoot .article:hover{box-shadow:inset 0 0 0 1px rgba(255,255,255,0.04);}
+#wireRoot .aec-cta{border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);}
+#wireRoot .aec-cta-btn{border-radius:6px;}
+#wireRoot .research-readall{border-radius:6px;}
 #wireRoot a{color:inherit;text-decoration:none}
 #wireRoot .masthead{background:var(--wire-ink);border-bottom:.5px solid var(--wire-rule)}
 #wireRoot .masthead-top{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.5rem;font-family:var(--font-mono);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--wire-cream3);border-bottom:.5px solid var(--wire-rule-light);flex-wrap:wrap;gap:.5rem}
@@ -813,7 +846,7 @@ setInterval(loadWhales, 300000);
       <svg class="diamond" viewBox="0 0 100 100"><polygon points="50,5 70,30 50,55 30,30" fill="#E8E8E8"/><polygon points="50,5 80,35 70,30" fill="#F5F5F5"/><polygon points="50,55 70,30 80,35" fill="#C0C0D0"/><polygon points="50,55 30,30 20,35" fill="#A0A0B0"/><polygon points="50,55 80,35 50,80" fill="#909090"/><polygon points="50,80 20,35 50,55" fill="#707070"/></svg>
       <div>
         <div class="masthead-logo">AEC <b>WIRE</b></div>
-        <div class="masthead-sub">Fifteen sources · One terminal · Ascenda Enterprise Capital</div>
+        <div class="masthead-sub">Seventeen sources · One terminal · Ascenda Enterprise Capital</div>
       </div>
     </div>
     <div class="masthead-date" id="dateblock"></div>
@@ -918,7 +951,7 @@ setInterval(loadWhales, 300000);
 
     <aside>
       <div class="side-block">
-        <div class="side-title">Sources <span style="font-weight:400;opacity:.5" id="sourceCount">0/15</span></div>
+        <div class="side-title">Sources <span style="font-weight:400;opacity:.5" id="sourceCount">0/17</span></div>
         <div id="sourceList"></div>
       </div>
       <div class="side-block">
@@ -937,7 +970,7 @@ setInterval(loadWhales, 300000);
       </div>
       <div class="side-block about-block">
         <div class="side-title">About AEC Wire</div>
-        <p>AEC Wire pulls live headlines from fifteen major financial and general news outlets via public RSS feeds — no algorithm, no engagement bait, just the stories as published.</p>
+        <p>AEC Wire pulls live headlines from seventeen major financial and general news outlets via public RSS feeds — no algorithm, no engagement bait, just the stories as published.</p>
         <p>A research tool built by <a href="https://ascendaenterprisecapital.com" target="_blank" rel="noopener">Ascenda Enterprise Capital</a>.</p>
       </div>
     </aside>
@@ -1004,6 +1037,8 @@ var SOURCES = [
   {id:'kiplinger',    name:'Kiplinger',          cls:'src-fortune',     rss:'https://www.kiplinger.com/rss/channel/index.xml'},
   {id:'nasdaq',     name:'Nasdaq',           cls:'src-nasdaq',      rss:'https://www.nasdaq.com/feed/rssoutbound?category=Stocks'},
   {id:'fool',  name:'Motley Fool',        cls:'src-thestreet',   rss:'https://www.fool.com/feeds/index.aspx'},
+  {id:'reutersbiz',  name:'Reuters Business', cls:'src-reuters',  rss:'https://www.reutersagency.com/feed/?best-topics=business-finance'},
+  {id:'zacks',       name:'Zacks',            cls:'src-zacks',    rss:'https://www.zacks.com/rss/rank_5.php'},
 ];
 var activeFilter = 'all';
 var allArticles = [];
