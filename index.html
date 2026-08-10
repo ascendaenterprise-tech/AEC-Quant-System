@@ -22,10 +22,22 @@
     }
     .controls button { cursor:pointer; }
     .controls button:hover { background:#21262d; }
+    .layout { display:flex; gap:24px; align-items:flex-start; }
+    .main-col { flex: 1 1 auto; min-width:0; }
+    .chart-col { flex: 0 0 420px; position:sticky; top:30px; }
+    .chart-col .chart-label { font-size:12px; color:#8b949e; text-transform:uppercase; margin-bottom:8px; }
+    .tradingview-widget-container { background:#161b22; border:1px solid #30363d; border-radius:8px;
+        overflow:hidden; height:600px; }
+    @media (max-width: 1100px) {
+        .layout { flex-direction: column; }
+        .chart-col { position:static; width:100%; }
+    }
 </style>
 </head>
 <body>
     <h1>AEC Live Trade Dashboard (Book 1 -- NQ)</h1>
+    <div class="layout">
+    <div class="main-col">
     <div class="stats" id="stats">Loading trade_log.csv...</div>
     <div class="controls" id="controls" style="display:none; margin-top:16px; gap:12px; align-items:center;">
         <select id="sourceFilter" onchange="renderPage(1)">
@@ -147,5 +159,33 @@ function prevPage() { renderPage(currentPage - 1); }
 loadDashboard();
 setInterval(loadDashboard, 15000); // re-check every 15s in case the page is left open after a fresh push
 </script>
+    </div>
+
+    <div class="chart-col">
+        <div class="chart-label">Live NQ Chart</div>
+        <div class="tradingview-widget-container">
+            <div id="tradingview_chart"></div>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://s3.charts-static.tradingview.com/tv.js"></script>
+    <script>
+        new TradingView.widget({
+            "autosize": true,
+            "symbol": "CME_MINI:NQ1!",
+            "interval": "5",
+            "timezone": "America/Chicago",
+            "theme": "dark",
+            "style": "1",
+            "locale": "en",
+            "toolbar_bg": "#161b22",
+            "enable_publishing": false,
+            "hide_top_toolbar": false,
+            "hide_legend": false,
+            "save_image": false,
+            "container_id": "tradingview_chart"
+        });
+    </script>
 </body>
 </html>
