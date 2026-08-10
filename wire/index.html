@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<title>AEC WIRE — Live Market &amp; News Terminal | Ascenda Enterprise Capital</title>
+<meta name="description" content="Live aggregated news from Bloomberg, WSJ, CNBC, Reuters, MarketWatch, Financial Times, Yahoo Finance, Investing.com, AP, and Finviz — curated by Ascenda Enterprise Capital."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 70,30 50,55 30,30' fill='%23E8E8E8'/%3E%3Cpolygon points='50,5 80,35 70,30' fill='%23F5F5F5'/%3E%3Cpolygon points='50,55 70,30 80,35' fill='%23C0C0D0'/%3E%3Cpolygon points='50,55 30,30 20,35' fill='%23A0A0B0'/%3E%3Cpolygon points='50,55 80,35 50,80' fill='%23909090'/%3E%3Cpolygon points='50,80 20,35 50,55' fill='%23707070'/%3E%3C/svg%3E"/>
+<style>
+:root{
+  --ink:#06050D;
+  --ink2:#0D0C16;
+  --rule:rgba(255,255,255,0.1);
+  --rule-light:rgba(255,255,255,0.06);
+  --white:#FFFFFF;
+  --cream2:#C8C8C8;
+  --cream3:#888888;
+  --red:#B23A2E;
+  --green:#3FA85C;
+  --font-display:'Cormorant Garamond','Georgia',serif;
+  --font-mono:'DM Mono','Courier New',monospace;
+  --font-body:'Jost','Helvetica Neue',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--ink);color:var(--white);font-family:var(--font-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+.masthead{background:var(--ink);border-bottom:.5px solid var(--rule);position:sticky;top:0;z-index:100}
+.masthead-top{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.5rem;font-family:var(--font-mono);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream3);border-bottom:.5px solid var(--rule-light);flex-wrap:wrap;gap:.5rem}
+.masthead-top a{color:var(--cream3);transition:color .2s}
+.masthead-top a:hover{color:var(--white)}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--red);display:inline-block;animation:pulse 1.8s infinite;margin-right:.5rem}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.masthead-main{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.5rem 1.6rem;flex-wrap:wrap;gap:1rem}
+.brand-block{display:flex;align-items:center;gap:.9rem}
+.diamond{width:30px;height:30px;flex-shrink:0}
+.masthead-logo{font-family:var(--font-display);font-size:2rem;font-weight:300;letter-spacing:.01em;line-height:1}
+.masthead-logo b{font-weight:600}
+.masthead-sub{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cream3);margin-top:.3rem}
+.masthead-date{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.05em;text-align:right;color:var(--cream3);line-height:1.6}
+.masthead-date b{color:var(--white);font-weight:600}
+
+.filter-bar{background:var(--ink);border-bottom:.5px solid var(--rule);padding:.9rem 1.5rem;display:flex;gap:.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:0;z-index:90}
+.filter-bar::-webkit-scrollbar{display:none}
+.filter-chip{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;background:transparent;border:.5px solid var(--rule);color:var(--cream3);padding:.5rem 1rem;white-space:nowrap;cursor:pointer;transition:all .15s;flex-shrink:0}
+.filter-chip:hover{border-color:rgba(255,255,255,.3);color:var(--white)}
+.filter-chip.active{background:var(--white);color:var(--ink);border-color:var(--white)}
+.filter-chip .count{opacity:.5;margin-left:.4rem}
+
+.container{max-width:1280px;margin:0 auto;padding:0 1.5rem}
+.layout{display:grid;grid-template-columns:1fr 320px;gap:0;border-left:.5px solid var(--rule)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+
+.feed-col{border-right:.5px solid var(--rule)}
+.feed-status{padding:1.1rem 1.75rem;font-family:var(--font-mono);font-size:.56rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cream3);display:flex;justify-content:space-between;align-items:center;border-bottom:.5px solid var(--rule);flex-wrap:wrap;gap:.6rem}
+.refresh-btn{background:none;border:.5px solid var(--rule);color:var(--cream2);font-family:var(--font-mono);font-size:.54rem;letter-spacing:.08em;text-transform:uppercase;padding:.45rem .9rem;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;transition:all .15s}
+.refresh-btn:hover{background:var(--white);color:var(--ink);border-color:var(--white)}
+.refresh-btn.loading svg{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.research-section{padding:2.5rem 1.75rem;border-bottom:.5px solid var(--rule)}
+.research-label{font-family:var(--font-mono);font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cream3);margin-bottom:.6rem}
+.research-title{font-family:var(--font-display);font-size:1.6rem;font-weight:300;color:var(--white);margin-bottom:.6rem}
+.research-title em{font-style:italic;color:var(--cream2)}
+.research-sub{font-size:.85rem;color:rgba(255,255,255,.45);font-weight:300;line-height:1.8;margin-bottom:1.75rem;max-width:520px}
+.research-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--rule);margin-bottom:1.75rem}
+.research-card{background:var(--ink2);padding:1.5rem;cursor:pointer;transition:background .2s}
+.research-card:hover{background:rgba(255,255,255,.05)}
+.research-meta{font-family:var(--font-mono);font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream3);margin-bottom:.55rem}
+.research-headline{font-family:var(--font-display);font-size:.98rem;color:var(--white);margin-bottom:.55rem;line-height:1.4;font-weight:500}
+.research-excerpt{font-size:.78rem;color:var(--cream2);line-height:1.7;font-weight:300;margin-bottom:.6rem}
+.research-link{font-family:var(--font-mono);font-size:.44rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.research-readall{display:inline-block;font-family:var(--font-mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--white);border:.5px solid var(--rule);padding:.75rem 1.5rem;cursor:pointer;transition:all .2s}
+.research-readall:hover{border-color:rgba(255,255,255,.4)}
+
+.cal-section{border-bottom:.5px solid var(--rule)}
+.cal-header{padding:1.1rem 1.75rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem;border-bottom:.5px solid var(--rule)}
+.cal-title{font-family:var(--font-display);font-size:1.3rem;font-weight:300;color:var(--white)}
+.cal-title b{font-weight:600}
+.cal-key{display:flex;gap:1rem;font-family:var(--font-mono);font-size:.52rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cream3)}
+.cal-key span{display:flex;align-items:center;gap:.4rem}
+.impact-dot{width:8px;height:8px;display:inline-block;border-radius:50%}
+.impact-high{background:#B23A2E}
+.impact-medium{background:#C8893A}
+.impact-low{background:#888}
+.cal-setup{padding:2rem 1.75rem;text-align:center}
+.cal-setup p{font-size:.85rem;color:var(--cream2);line-height:1.8;margin-bottom:1rem;font-weight:300}
+.cal-setup input{width:100%;max-width:380px;background:rgba(255,255,255,0.05);border:.5px solid var(--rule);color:#fff;padding:.8rem 1rem;font-family:var(--font-mono);font-size:.65rem;margin-bottom:.75rem;outline:none;display:block;margin-left:auto;margin-right:auto}
+.cal-setup button{background:var(--white);color:var(--ink);font-family:var(--font-mono);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;padding:.8rem 1.6rem;border:none;cursor:pointer;font-weight:700}
+.cal-row{display:grid;grid-template-columns:70px 50px 1fr auto;gap:1rem;align-items:center;padding:.9rem 1.75rem;border-bottom:.5px solid var(--rule-light);font-size:.82rem}
+.cal-time{font-family:var(--font-mono);font-size:.65rem;color:var(--cream3)}
+.cal-currency{font-family:var(--font-mono);font-size:.6rem;font-weight:700;color:var(--white);background:rgba(255,255,255,.08);padding:.2rem .4rem;text-align:center}
+.cal-event{color:var(--cream2);font-weight:300}
+.cal-values{display:flex;gap:1rem;font-family:var(--font-mono);font-size:.62rem;color:var(--cream3)}
+.cal-values b{color:var(--white)}
+
+.article{padding:1.75rem;border-bottom:.5px solid var(--rule);display:grid;grid-template-columns:auto 1fr;gap:1.5rem;cursor:pointer;transition:background .15s;text-decoration:none;color:inherit}
+.article:hover{background:rgba(255,255,255,.02)}
+.article-num{font-family:var(--font-mono);font-size:.6rem;color:rgba(255,255,255,.2);font-weight:700;padding-top:.25rem}
+.news-impact-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:.6rem;vertical-align:middle;flex-shrink:0}
+.news-impact-high{background:#B23A2E;box-shadow:0 0 6px rgba(178,58,46,.6)}
+.news-impact-medium{background:#C8893A;box-shadow:0 0 6px rgba(200,137,58,.5)}
+.article-source{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;margin-bottom:.7rem;font-weight:700;border:.5px solid currentColor}
+.src-bloomberg{color:#FF8A5C}.src-wsj{color:#FFFFFF;border-color:rgba(255,255,255,.4)}.src-cnbc{color:#5CADFF}.src-ap{color:#FF6B5C}.src-marketwatch{color:#3FE6A0}.src-ft{color:#FF99B8}.src-reuters{color:#FFB95C}.src-yahoo{color:#B98AFF}.src-investing{color:#5CC9FF}.src-finviz{color:#D4AF6A}
+.src-nasdaq{color:#5CADFF}
+.src-forbes{color:#D4AF6A}
+.src-fortune{color:#FF8A5C}
+.src-ibd{color:#3FE6A0}
+.src-zacks{color:#B98AFF}
+.src-seekingalpha{color:#3FE6A0}
+.src-thestreet{color:#FFB95C}
+.article-headline{font-family:var(--font-display);font-size:1.25rem;font-weight:500;line-height:1.3;margin-bottom:.6rem;color:var(--white)}
+.article:hover .article-headline{text-decoration:underline}
+.article-summary{font-size:.85rem;line-height:1.7;color:var(--cream2);font-weight:300;margin-bottom:.7rem}
+.article-meta{font-family:var(--font-mono);font-size:.54rem;letter-spacing:.04em;color:var(--cream3);text-transform:uppercase}
+
+.error-state,.empty-state{padding:4rem 1.75rem;text-align:center;font-family:var(--font-mono);font-size:.65rem;color:var(--cream3);letter-spacing:.04em}
+.skeleton{padding:1.75rem;border-bottom:.5px solid var(--rule)}
+.skel-line{height:.85rem;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.09),rgba(255,255,255,.04));background-size:200% 100%;animation:shimmer 1.5s infinite;margin-bottom:.6rem}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+.sidebar{padding:0}
+.side-block{border-bottom:.5px solid var(--rule);padding:1.75rem}
+.side-title{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:1px solid var(--white);display:flex;align-items:center;justify-content:space-between;color:var(--white)}
+.source-toggle-row{display:flex;justify-content:space-between;align-items:center;padding:.55rem 0;font-family:var(--font-mono);font-size:.64rem;color:var(--cream2)}
+.source-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:.55rem}
+.about-block p{font-size:.85rem;line-height:1.85;color:rgba(255,255,255,.45);font-weight:300;margin-bottom:1rem}
+.about-block a{color:var(--white);text-decoration:underline;text-underline-offset:3px}
+
+.aec-cta{background:rgba(255,255,255,.04);border:.5px solid var(--rule);padding:1.5rem;text-align:center;margin:1.5rem}
+.aec-cta-title{font-family:var(--font-display);font-size:1.1rem;font-weight:300;margin-bottom:.5rem;color:var(--white)}
+.aec-cta-sub{font-size:.78rem;color:var(--cream3);margin-bottom:1.1rem;line-height:1.6}
+.aec-cta-btn{display:inline-block;font-family:var(--font-mono);font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;background:var(--white);color:var(--ink);padding:.8rem 1.6rem;font-weight:700;transition:all .2s;cursor:pointer;border:none}
+.aec-cta-btn:hover{background:var(--cream2)}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center;padding:2rem;overflow-y:auto}
+.modal-box{background:var(--ink2);border:.5px solid var(--rule);max-width:520px;width:100%;padding:3rem 2.5rem;position:relative;margin:auto}
+.modal-close{position:absolute;top:1.25rem;right:1.25rem;background:none;border:none;color:rgba(255,255,255,.4);font-size:1.2rem;cursor:pointer;font-family:var(--font-mono)}
+
+footer{background:var(--ink2);color:var(--cream3);padding:2.5rem 1.5rem;text-align:center;font-family:var(--font-mono);font-size:.56rem;letter-spacing:.06em;border-top:.5px solid var(--rule)}
+footer a{color:var(--white)}
+footer .foot-links{margin-top:.75rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+
+@media(max-width:600px){
+  .masthead-logo{font-size:1.5rem}
+  .article{padding:1.25rem;grid-template-columns:1fr;gap:.5rem}
+  .article-num{display:none}
+  .cal-row{grid-template-columns:60px 40px 1fr;gap:.5rem}
+  .cal-values{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <span><span class="live-dot"></span>LIVE FEED — AUTO-REFRESH EVERY 5 MIN</span>
+    <span style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
+      <a href="#" onclick="document.getElementById('research-modal').style.display='flex';return false;">RESEARCH NOTES</a>
+      <a href="#" onclick="document.getElementById('portal-modal').style.display='flex';return false;">INVESTOR PORTAL</a>
+      <a href="https://ascendaenterprisecapital.com" target="_blank" rel="noopener">ASCENDAENTERPRISECAPITAL.COM</a>
+    </span>
+  </div>
+  <div class="masthead-main">
+    <div class="brand-block">
+      <svg class="diamond" viewBox="0 0 100 100"><polygon points="50,5 70,30 50,55 30,30" fill="#E8E8E8"/><polygon points="50,5 80,35 70,30" fill="#F5F5F5"/><polygon points="50,55 70,30 80,35" fill="#C0C0D0"/><polygon points="50,55 30,30 20,35" fill="#A0A0B0"/><polygon points="50,55 80,35 50,80" fill="#909090"/><polygon points="50,80 20,35 50,55" fill="#707070"/></svg>
+      <div>
+        <div class="masthead-logo">AEC <b>WIRE</b></div>
+        <div class="masthead-sub">Fifteen sources · One terminal · Ascenda Enterprise Capital</div>
+      </div>
+    </div>
+    <div class="masthead-date" id="dateblock"></div>
+  </div>
+</header>
+
+<!-- TRADINGVIEW TICKER -->
+<div style="background:#0D0C16;border-bottom:.5px solid var(--rule)">
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {"symbols":[{"proName":"FOREXCOM:NSXUSD","title":"NAS100"},{"proName":"FOREXCOM:SPXUSD","title":"SPX"},{"proName":"FOREXCOM:DJI","title":"DOW"},{"proName":"OANDA:XAUUSD","title":"GOLD"},{"proName":"OANDA:WTIUSD","title":"OIL"},{"proName":"FX:EURUSD","title":"EUR/USD"},{"proName":"FX:GBPUSD","title":"GBP/USD"},{"proName":"FX:USDJPY","title":"USD/JPY"},{"proName":"BINANCE:BTCUSDT","title":"BTC"},{"proName":"CBOE:VIX","title":"VIX"},{"proName":"TVC:DXY","title":"DXY"}],"showSymbolLogo":false,"isTransparent":true,"displayMode":"adaptive","colorTheme":"dark","locale":"en"}
+    </script>
+  </div>
+</div>
+
+<nav class="filter-bar" id="filterBar"></nav>
+
+<div class="container">
+  <div class="layout">
+    <main class="feed-col">
+
+      <!-- RESEARCH NOTES -->
+      <div class="research-section">
+        <div class="research-label">AEC Market Intelligence</div>
+        <div class="research-title">Research <em>Notes</em></div>
+        <div class="research-sub">Weekly market analysis, macro commentary, and trade insights from Izaiah Cottle and the AEC trading desk.</div>
+        <div class="research-grid">
+          <div class="research-card" onclick="document.getElementById('research-modal').style.display='flex'">
+            <div class="research-meta">Jun 14, 2026 · Futures</div>
+            <div class="research-headline">NQ at Critical Confluence — What the June 14 Open Tells Us</div>
+            <div class="research-excerpt">The NASDAQ 100 futures opened directly into a weekly Fair Value Gap. With CPI printing hotter than expected, the market is pricing in higher-for-longer…</div>
+            <div class="research-link">Read Full Note →</div>
+          </div>
+          <div class="research-card" onclick="document.getElementById('research-modal').style.display='flex'">
+            <div class="research-meta">Jun 7, 2026 · Macro</div>
+            <div class="research-headline">The Dollar, Gold, and Why Institutions Are Quietly Rotating</div>
+            <div class="research-excerpt">The USD Index has weakened three consecutive weeks while Gold holds above $2,300. This is not coincidence…</div>
+            <div class="research-link">Read Full Note →</div>
+          </div>
+          <div class="research-card" onclick="document.getElementById('research-modal').style.display='flex'">
+            <div class="research-meta">May 31, 2026 · Real Estate</div>
+            <div class="research-headline">Atlanta Real Estate: Why We Are Still Buyers in a High Rate Environment</div>
+            <div class="research-excerpt">Conventional wisdom says avoid real estate above 7% rates. AEC respectfully disagrees…</div>
+            <div class="research-link">Read Full Note →</div>
+          </div>
+          <div class="research-card" onclick="document.getElementById('research-modal').style.display='flex'">
+            <div class="research-meta">Jul 2, 2026 · Market Commentary</div>
+            <div class="research-headline">Trading Through the Fog — Why Patience Beats Aggression Right Now</div>
+            <div class="research-excerpt">Between an active Iran conflict, a historic oil supply shock, and renewed flare-ups in Lebanon, this is a market defined by headline risk…</div>
+            <div class="research-link">Read Full Note →</div>
+          </div>
+        </div>
+        <button class="research-readall" onclick="document.getElementById('research-modal').style.display='flex'">Read All Research Notes →</button>
+      </div>
+
+      <!-- ECONOMIC CALENDAR -->
+      <div class="cal-section">
+        <div class="cal-header">
+          <div class="cal-title">Economic <b>Calendar</b> — High Impact Events</div>
+          <div class="cal-key">
+            <span><span class="impact-dot impact-high"></span>High</span>
+            <span><span class="impact-dot impact-medium"></span>Medium</span>
+            <span><span class="impact-dot impact-low"></span>Low</span>
+          </div>
+        </div>
+        <div style="padding:.7rem 1.75rem;font-family:var(--font-mono);font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cream3);border-bottom:.5px solid var(--rule-light);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem">
+          <span>All times displayed in <b style="color:var(--white)">Eastern Time (ET · New York)</b></span>
+          <span style="color:rgba(255,255,255,.3)">Click the clock icon inside the calendar to confirm timezone lock</span>
+        </div>
+
+        <!-- KEY MACRO EVENTS REFERENCE -->
+        <div style="padding:1.75rem;border-bottom:.5px solid var(--rule)">
+          <div style="font-family:var(--font-mono);font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream3);margin-bottom:1rem">Key Macro Releases — Next Dates (ET)</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--rule)" id="macroGrid">
+            <div style="background:var(--ink2);padding:1rem 1.1rem"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem"><span class="impact-dot impact-high"></span><span style="font-family:var(--font-mono);font-size:.6rem;font-weight:700;color:#fff">CPI</span></div><div style="font-size:.72rem;color:var(--cream2);line-height:1.5;margin-bottom:.5rem">Consumer Price Index — headline U.S. inflation gauge.</div><div class="macro-next" id="next-cpi" style="font-family:var(--font-mono);font-size:.58rem;color:#fff;font-weight:700"></div></div>
+            <div style="background:var(--ink2);padding:1rem 1.1rem"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem"><span class="impact-dot impact-high"></span><span style="font-family:var(--font-mono);font-size:.6rem;font-weight:700;color:#fff">PPI</span></div><div style="font-size:.72rem;color:var(--cream2);line-height:1.5;margin-bottom:.5rem">Producer Price Index — wholesale inflation, leading indicator for CPI.</div><div class="macro-next" id="next-ppi" style="font-family:var(--font-mono);font-size:.58rem;color:#fff;font-weight:700"></div></div>
+            <div style="background:var(--ink2);padding:1rem 1.1rem"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem"><span class="impact-dot impact-high"></span><span style="font-family:var(--font-mono);font-size:.6rem;font-weight:700;color:#fff">NFP</span></div><div style="font-size:.72rem;color:var(--cream2);line-height:1.5;margin-bottom:.5rem">Non-Farm Payrolls — monthly jobs report (Employment Situation).</div><div class="macro-next" id="next-nfp" style="font-family:var(--font-mono);font-size:.58rem;color:#fff;font-weight:700"></div></div>
+            <div style="background:var(--ink2);padding:1rem 1.1rem"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem"><span class="impact-dot impact-high"></span><span style="font-family:var(--font-mono);font-size:.6rem;font-weight:700;color:#fff">FOMC</span></div><div style="font-size:.72rem;color:var(--cream2);line-height:1.5;margin-bottom:.5rem">Federal Reserve rate decision + press conference.</div><div class="macro-next" id="next-fomc" style="font-family:var(--font-mono);font-size:.58rem;color:#fff;font-weight:700"></div></div>
+            <div style="background:var(--ink2);padding:1rem 1.1rem"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem"><span class="impact-dot impact-high"></span><span style="font-family:var(--font-mono);font-size:.6rem;font-weight:700;color:#fff">Core PCE</span></div><div style="font-size:.72rem;color:var(--cream2);line-height:1.5;margin-bottom:.5rem">Fed's preferred inflation gauge — part of Personal Income &amp; Outlays.</div><div class="macro-next" id="next-pce" style="font-family:var(--font-mono);font-size:.58rem;color:rgba(255,255,255,.4)"></div></div>
+            <div style="background:var(--ink2);padding:1rem 1.1rem"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem"><span class="impact-dot impact-high"></span><span style="font-family:var(--font-mono);font-size:.6rem;font-weight:700;color:#fff">GDP</span></div><div style="font-size:.72rem;color:var(--cream2);line-height:1.5;margin-bottom:.5rem">Gross Domestic Product — quarterly growth, advance/second/third prints.</div><div class="macro-next" id="next-gdp" style="font-family:var(--font-mono);font-size:.58rem;color:rgba(255,255,255,.4)"></div></div>
+            <div style="background:var(--ink2);padding:1rem 1.1rem"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem"><span class="impact-dot impact-medium"></span><span style="font-family:var(--font-mono);font-size:.6rem;font-weight:700;color:#fff">Retail Sales</span></div><div style="font-size:.72rem;color:var(--cream2);line-height:1.5;margin-bottom:.5rem">Consumer spending gauge, released mid-month.</div><div class="macro-next" id="next-retail" style="font-family:var(--font-mono);font-size:.58rem;color:rgba(255,255,255,.4)"></div></div>
+            <div style="background:var(--ink2);padding:1rem 1.1rem"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem"><span class="impact-dot impact-medium"></span><span style="font-family:var(--font-mono);font-size:.6rem;font-weight:700;color:#fff">Jobless Claims</span></div><div style="font-size:.72rem;color:var(--cream2);line-height:1.5;margin-bottom:.5rem">Weekly unemployment filings, every Thursday.</div><div class="macro-next" id="next-claims" style="font-family:var(--font-mono);font-size:.58rem;color:#fff;font-weight:700"></div></div>
+            <div style="background:var(--ink2);padding:1rem 1.1rem"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem"><span class="impact-dot impact-medium"></span><span style="font-family:var(--font-mono);font-size:.6rem;font-weight:700;color:#fff">ISM PMI</span></div><div style="font-size:.72rem;color:var(--cream2);line-height:1.5;margin-bottom:.5rem">Manufacturing / Services activity index, first business days of month.</div><div class="macro-next" id="next-pmi" style="font-family:var(--font-mono);font-size:.58rem;color:#fff;font-weight:700"></div></div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:.44rem;letter-spacing:.06em;color:rgba(255,255,255,.25);margin-top:1rem">CPI, PPI, NFP dates sourced from BLS's published release schedule. FOMC dates from the Federal Reserve. GDP/Core PCE/Retail Sales dates vary by release — confirm exact date in the live calendar below.</div>
+        </div>
+
+        <div id="calendarBody">
+          <div style="width:100%;overflow:hidden">
+            <iframe src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&importance=3,2&features=datepicker,timezone&countries=25,32,6,37,72,22,17,39,14,10,35,43,56,36,110,11,26,12,4,5&calType=week&timeZone=8&lang=1"
+              width="100%" height="450" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0"
+              style="border:none;background:transparent;filter:invert(1) hue-rotate(180deg)">
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEWS FEED -->
+      <div class="feed-status">
+        <span id="feedStatus">Loading wire feeds…</span>
+        <button class="refresh-btn" id="refreshBtn" onclick="loadAllFeeds(true)">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 4v6h6M20 20v-6h-6M4 10a8 8 0 0114-5M20 14a8 8 0 01-14 5"/></svg>
+          Refresh
+        </button>
+      </div>
+      <div style="padding:.7rem 1.75rem;font-family:var(--font-mono);font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cream3);border-bottom:.5px solid var(--rule-light);display:flex;gap:1.25rem;flex-wrap:wrap">
+        <span><span class="news-impact-dot news-impact-high" style="margin-right:.4rem"></span>Headline flags a high-impact macro theme (CPI, Fed, jobs, rates)</span>
+        <span><span class="news-impact-dot news-impact-medium" style="margin-right:.4rem"></span>Medium-impact theme (earnings, PMI, guidance)</span>
+      </div>
+      <div id="feedContainer"></div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="side-block">
+        <div class="side-title">Sources <span style="font-weight:400;opacity:.5" id="sourceCount">0/10</span></div>
+        <div id="sourceList"></div>
+      </div>
+
+      <div class="side-block">
+        <div class="side-title">Markets</div>
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+          {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"en","width":"100%","height":"280","isTransparent":true,"showSymbolLogo":false,"tabs":[{"title":"Indices","symbols":[{"s":"FOREXCOM:NSXUSD","d":"NAS100"},{"s":"FOREXCOM:SPXUSD","d":"SPX"},{"s":"FOREXCOM:DJI","d":"DOW"}]},{"title":"Forex","symbols":[{"s":"FX:EURUSD"},{"s":"FX:GBPUSD"},{"s":"FX:USDJPY"}]},{"title":"Commodities","symbols":[{"s":"OANDA:XAUUSD","d":"Gold"},{"s":"OANDA:WTIUSD","d":"Oil"}]}]}
+          </script>
+        </div>
+      </div>
+
+      <div class="aec-cta">
+        <div class="aec-cta-title">Ascenda Enterprise Capital</div>
+        <div class="aec-cta-sub">Multi-strategy investment firm. Currently accepting accredited investors.</div>
+        <button class="aec-cta-btn" onclick="document.getElementById('portal-modal').style.display='flex'">Investor Portal →</button>
+        <div style="margin-top:.6rem"><a href="https://ascendaenterprisecapital.com" target="_blank" rel="noopener" style="font-family:var(--font-mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream3);text-decoration:underline">View Full Firm Site →</a></div>
+      </div>
+
+      <div class="side-block about-block">
+        <div class="side-title">About AEC Wire</div>
+        <p>AEC Wire pulls live headlines from ten major financial and general news outlets via public RSS feeds — no algorithm, no engagement bait, just the stories as published.</p>
+        <p>A research tool built by <a href="https://ascendaenterprisecapital.com" target="_blank" rel="noopener">Ascenda Enterprise Capital</a>.</p>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer>
+  AEC WIRE — A RESEARCH TOOL BY ASCENDA ENTERPRISE CAPITAL LLC · ALL HEADLINES © THEIR RESPECTIVE PUBLISHERS · SOURCED VIA PUBLIC RSS
+  <div class="foot-links">
+    <a href="https://ascendaenterprisecapital.com" target="_blank" rel="noopener">Ascenda Enterprise Capital</a>
+    <a href="https://ascendaenterprisecapital.com#contact" target="_blank" rel="noopener">Contact</a>
+    <a href="https://ascendaenterprisecapital.com#research" target="_blank" rel="noopener">Research</a>
+  </div>
+</footer>
+
+<!-- RESEARCH MODAL -->
+<div id="research-modal" class="modal-overlay" onclick="if(event.target===this)this.style.display='none'" style="overflow-y:auto">
+  <div style="max-width:800px;margin:auto;position:relative;width:100%">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;position:sticky;top:0;background:rgba(10,9,13,0.97);padding:1rem 0;border-bottom:.5px solid var(--rule)">
+      <div>
+        <div style="font-family:var(--font-mono);font-size:.48rem;letter-spacing:.22em;text-transform:uppercase;color:#888;margin-bottom:.3rem">AEC Market Intelligence</div>
+        <div style="font-family:var(--font-display);font-size:1.4rem;color:#fff;font-weight:300">Research Notes</div>
+      </div>
+      <button onclick="document.getElementById('research-modal').style.display='none'" style="background:none;border:.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,.5);cursor:pointer;padding:.5rem 1rem;font-family:var(--font-mono);font-size:.5rem;letter-spacing:.1em">X CLOSE</button>
+    </div>
+    <div style="margin-bottom:3rem;padding-bottom:3rem;border-bottom:.5px solid var(--rule)">
+      <div style="font-family:var(--font-mono);font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.75rem">Jun 14, 2026 · Futures · By Izaiah Cottle</div>
+      <h3 style="font-family:var(--font-display);font-size:1.8rem;font-weight:300;color:#fff;line-height:1.2;margin-bottom:1.25rem">NQ at Critical Confluence — What the June 14 Open Tells Us</h3>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:1rem">The NASDAQ 100 futures opened directly into a weekly Fair Value Gap on June 14. With CPI printing hotter than expected, the market is pricing in higher-for-longer — and the institutional reaction was immediate.</p>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:1rem">What caught AEC's attention was not the CPI print itself — it was the order flow response. In the first 15 minutes of the New York open, NQ absorbed significant sell-side liquidity at the 18,840 level without breaking. That absorption pattern, confirmed by our DOM layer, signaled institutional accumulation rather than distribution.</p>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:1rem">Our Z-Score framework showed price at 2.1 standard deviations below the 20-period mean on the 15-minute chart — historically a high-probability mean reversion zone. Combined with the FVG confluence and order flow confirmation, the setup aligned across all three layers of AEC's system.</p>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9"><strong style="color:rgba(255,255,255,.7)">AEC positioning:</strong> Tactically long on confirmed momentum above 18,900, with defined risk below 18,780. Position sizing per Kelly Criterion.</p>
+    </div>
+    <div style="margin-bottom:3rem;padding-bottom:3rem;border-bottom:.5px solid var(--rule)">
+      <div style="font-family:var(--font-mono);font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.75rem">Jun 7, 2026 · Macro · By Izaiah Cottle</div>
+      <h3 style="font-family:var(--font-display);font-size:1.8rem;font-weight:300;color:#fff;line-height:1.2;margin-bottom:1.25rem">The Dollar, Gold, and Why Institutions Are Quietly Rotating</h3>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:1rem">The USD Index has weakened three consecutive weeks while Gold holds above $2,300. This is not coincidence — this is a deliberate institutional rotation that most retail participants are missing entirely.</p>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:1rem">AEC's order flow analysis on Gold futures shows consistent absorption at the $2,280-$2,300 range over the past three weeks. Every dip into that zone has been met with institutional buying — the kind of patient, systematic accumulation that precedes significant directional moves.</p>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9"><strong style="color:rgba(255,255,255,.7)">AEC positioning:</strong> Long Gold on pullbacks to $2,280 with targets at $2,420 and $2,500. Stop below $2,240 on weekly close basis.</p>
+    </div>
+    <div style="margin-bottom:2rem">
+      <div style="font-family:var(--font-mono);font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.75rem">May 31, 2026 · Real Estate · By Izaiah Cottle</div>
+      <h3 style="font-family:var(--font-display);font-size:1.8rem;font-weight:300;color:#fff;line-height:1.2;margin-bottom:1.25rem">Atlanta Real Estate: Why We Are Still Buyers in a High Rate Environment</h3>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:1rem">Conventional wisdom says avoid real estate above 7% rates. AEC respectfully disagrees — here is the Atlanta submarket thesis that justifies our continued acquisition posture.</p>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:1rem">Atlanta is not a typical market. Population has grown faster than any major U.S. metro over the past five years. Job creation in technology, film, logistics, and financial services continues to outpace housing supply significantly. The fundamentals remain firmly intact regardless of the rate environment.</p>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9"><strong style="color:rgba(255,255,255,.7)">Target submarkets:</strong> Southwest Atlanta, College Park, East Point, and select DeKalb County corridors.</p>
+    </div>
+    <div style="margin-bottom:2rem">
+      <div style="font-family:var(--font-mono);font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.75rem">Jul 2, 2026 · Market Commentary · By Izaiah Cottle</div>
+      <h3 style="font-family:var(--font-display);font-size:1.8rem;font-weight:300;color:#fff;line-height:1.2;margin-bottom:1.25rem">Trading Through the Fog — Why Patience Beats Aggression Right Now</h3>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:1rem">The current environment is not a friendly one for newer traders, and we want to be direct about that rather than sell false confidence. Between an active 2026 Iran conflict, a Strait of Hormuz disruption the IEA called the largest oil supply shock in the market's history, a new Fed chair still finding his footing on rate policy, and now renewed flare-ups in Lebanon, this is a market defined by headline risk rather than clean technical structure.</p>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:1rem"><strong style="color:rgba(255,255,255,.7)">What actually happened in Lebanon:</strong> On June 29-30, Israeli forces detonated a Hezbollah tunnel network near Majdal Zoun as part of enforcement activity under the existing Israel-Lebanon ceasefire framework — not a new bombing campaign. Markets treated it accordingly: it barely moved gold or oil on its own. The more consequential story remains the Iran conflict that began in late February, which sent oil into a historic supply shock and pushed gold to fresh highs before easing in recent weeks as US-Iran talks in Qatar showed signs of progress.</p>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:1rem"><strong style="color:rgba(255,255,255,.7)">Gold:</strong> Trading near $4,065–$4,090/oz, up over 22% year-over-year, but down roughly 8% over the past month as talk of progress in negotiations cooled the safe-haven bid. Constructive medium-term given central bank accumulation, but vulnerable to sharp pullbacks on any real de-escalation headline.</p>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:1rem"><strong style="color:rgba(255,255,255,.7)">Crude Oil (WTI):</strong> Pulled back to the high-$60s as shipping disruption eases. A break in the Qatar talks could snap the prior supply-shock premium right back.</p>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.55);line-height:1.9"><strong style="color:rgba(255,255,255,.7)">AEC positioning:</strong> Smaller size, watched over traded aggressively. The tape feels calm on the surface while headline risk sits underneath it — exactly the setup that produces violent, low-warning moves. Separately, AEC's proprietary Quantum Trading System remains in active development, targeting broader availability within the next year.</p>
+    </div>
+    <div style="text-align:center;padding:1.5rem 0;border-top:.5px solid var(--rule)">
+      <p style="font-family:var(--font-mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.2)">New research notes published weekly</p>
+    </div>
+  </div>
+</div>
+
+<!-- PORTAL MODAL -->
+<div id="portal-modal" class="modal-overlay" onclick="if(event.target===this)this.style.display='none'">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('portal-modal').style.display='none'">X</button>
+    <div style="font-family:var(--font-mono);font-size:.48rem;letter-spacing:.22em;text-transform:uppercase;color:#C8893A;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem">
+      <span style="width:6px;height:6px;border-radius:50%;background:#C8893A;display:inline-block;animation:pulse 2s infinite"></span>
+      Investor Portal — In Development
+    </div>
+    <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:1rem;line-height:1.2">Private Investor Portal</div>
+    <div style="font-size:.9rem;color:rgba(255,255,255,.45);font-weight:300;line-height:1.9;margin-bottom:2rem">The AEC Investor Portal is currently in active development. Confirmed investors will receive direct login credentials upon onboarding. Real-time P&amp;L, quarterly reports, and fund communications — all in one secure dashboard.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);margin-bottom:2rem">
+      <div style="background:var(--ink2);padding:1rem 1.25rem"><div style="font-family:var(--font-mono);font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.3rem">Feature</div><div style="font-family:var(--font-mono);font-size:.52rem;color:rgba(255,255,255,.5)">Real-Time P&amp;L</div></div>
+      <div style="background:var(--ink2);padding:1rem 1.25rem"><div style="font-family:var(--font-mono);font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.3rem">Feature</div><div style="font-family:var(--font-mono);font-size:.52rem;color:rgba(255,255,255,.5)">Quarterly Reports</div></div>
+      <div style="background:var(--ink2);padding:1rem 1.25rem"><div style="font-family:var(--font-mono);font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.3rem">Feature</div><div style="font-family:var(--font-mono);font-size:.52rem;color:rgba(255,255,255,.5)">Fund Communications</div></div>
+      <div style="background:var(--ink2);padding:1rem 1.25rem"><div style="font-family:var(--font-mono);font-size:.44rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.3rem">Feature</div><div style="font-family:var(--font-mono);font-size:.52rem;color:rgba(255,255,255,.5)">Document Vault</div></div>
+    </div>
+    <a href="mailto:izaiah@ascendaenterprisecapital.com" style="display:block;text-align:center;font-family:var(--font-mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;background:rgba(255,255,255,0.08);color:#fff;border:.5px solid rgba(255,255,255,0.2);padding:1rem;text-decoration:none">Contact for Portal Access</a>
+  </div>
+</div>
+
+<script>
+var SOURCES = [
+  {id:'wsj',        name:'WSJ',              cls:'src-wsj',         rss:'https://feeds.a.dj.com/rss/RSSMarketsMain.xml'},
+  {id:'marketwatch',name:'MarketWatch',      cls:'src-marketwatch', rss:'https://www.marketwatch.com/rss/topstories'},
+  {id:'yahoo',      name:'Yahoo Finance',    cls:'src-yahoo',       rss:'https://finance.yahoo.com/news/rssindex'},
+  {id:'cnbc',       name:'CNBC',             cls:'src-cnbc',        rss:'https://www.cnbc.com/id/100003114/device/rss/rss.html'},
+  {id:'ft',         name:'Financial Times',  cls:'src-ft',          rss:'https://www.ft.com/?format=rss'},
+  {id:'bloomberg',  name:'Bloomberg',        cls:'src-bloomberg',   rss:'https://feeds.bloomberg.com/markets/news.rss'},
+  {id:'politico',    name:'Politico Econ',          cls:'src-reuters',     rss:'https://rss.politico.com/economy.xml'},
+  {id:'npr',         name:'NPR Business',          cls:'src-ap',          rss:'https://feeds.npr.org/1006/rss.xml'},
+  {id:'investing',  name:'Investing.com',    cls:'src-investing',   rss:'https://www.investing.com/rss/news_301.rss'},
+  {id:'barrons',     name:'Barrons',           cls:'src-finviz',      rss:'https://www.barrons.com/xml/rss/3_7510.xml'},
+  {id:'seekingalpha',name:'Seeking Alpha',   cls:'src-seekingalpha',rss:'https://seekingalpha.com/market_currents.xml'},
+  {id:'investopedia',     name:'Investopedia',           cls:'src-forbes',      rss:'https://www.investopedia.com/feedbuilder/feed/getfeed/?feedName=rss_headline'},
+  {id:'kiplinger',    name:'Kiplinger',          cls:'src-fortune',     rss:'https://www.kiplinger.com/rss/channel/index.xml'},
+  {id:'nasdaq',     name:'Nasdaq',           cls:'src-nasdaq',      rss:'https://www.nasdaq.com/feed/rssoutbound?category=Stocks'},
+  {id:'fool',  name:'Motley Fool',        cls:'src-thestreet',   rss:'https://www.fool.com/feeds/index.aspx'},
+];
+
+var activeFilter = 'all';
+var allArticles = [];
+var sourceStatus = {};
+
+var ET_ZONE = 'America/New_York';
+
+// Confirmed official release dates (BLS / Federal Reserve published schedules)
+var CPI_DATES  = ['2026-07-14','2026-08-12','2026-09-11','2026-10-14','2026-11-10','2026-12-10'];
+var PPI_DATES  = ['2026-07-15','2026-08-13','2026-09-10','2026-10-15','2026-11-13','2026-12-15'];
+var NFP_DATES  = ['2026-07-02','2026-08-07','2026-09-04','2026-10-02','2026-11-06','2026-12-04'];
+var FOMC_DATES = ['2026-07-29','2026-09-16','2026-10-28','2026-12-09'];
+
+function todayET() {
+  var s = new Date().toLocaleDateString('en-CA', { timeZone: ET_ZONE }); // YYYY-MM-DD
+  return s;
+}
+
+function nextFromList(dates) {
+  var today = todayET();
+  for (var i=0; i<dates.length; i++) {
+    if (dates[i] >= today) return dates[i];
+  }
+  return null;
+}
+
+function formatMacroDate(iso) {
+  if (!iso) return 'Date TBD — see live calendar';
+  var d = new Date(iso + 'T12:00:00Z');
+  return 'Next: ' + d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric', timeZone: ET_ZONE }) + ' · 8:30 AM ET';
+}
+
+function nextThursday() {
+  var now = new Date();
+  var etStr = now.toLocaleString('en-US', { timeZone: ET_ZONE });
+  var etNow = new Date(etStr);
+  var day = etNow.getDay(); // 0=Sun..4=Thu..6=Sat
+  var diff = (4 - day + 7) % 7;
+  if (diff === 0 && etNow.getHours() >= 9) diff = 7; // if past release time today, roll to next week
+  var next = new Date(etNow);
+  next.setDate(etNow.getDate() + diff);
+  return 'Next: ' + next.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }) + ' · 8:30 AM ET';
+}
+
+function nextFirstBusinessDay() {
+  var now = new Date();
+  var etStr = now.toLocaleString('en-US', { timeZone: ET_ZONE });
+  var etNow = new Date(etStr);
+  function firstBizDay(year, month) {
+    var d = new Date(year, month, 1);
+    while (d.getDay() === 0 || d.getDay() === 6) d.setDate(d.getDate() + 1);
+    return d;
+  }
+  var candidate = firstBizDay(etNow.getFullYear(), etNow.getMonth());
+  if (candidate < etNow) candidate = firstBizDay(etNow.getFullYear(), etNow.getMonth() + 1);
+  return 'Next: ' + candidate.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }) + ' · 10:00 AM ET';
+}
+
+function renderMacroDates() {
+  var cpiEl = document.getElementById('next-cpi');
+  var ppiEl = document.getElementById('next-ppi');
+  var nfpEl = document.getElementById('next-nfp');
+  var fomcEl = document.getElementById('next-fomc');
+  var claimsEl = document.getElementById('next-claims');
+  var pmiEl = document.getElementById('next-pmi');
+  var pceEl = document.getElementById('next-pce');
+  var gdpEl = document.getElementById('next-gdp');
+  var retailEl = document.getElementById('next-retail');
+  if (cpiEl) cpiEl.textContent = formatMacroDate(nextFromList(CPI_DATES));
+  if (ppiEl) ppiEl.textContent = formatMacroDate(nextFromList(PPI_DATES));
+  if (nfpEl) nfpEl.textContent = formatMacroDate(nextFromList(NFP_DATES));
+  if (fomcEl) {
+    var fomcDate = nextFromList(FOMC_DATES);
+    fomcEl.textContent = fomcDate ? ('Next: ' + new Date(fomcDate + 'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric', timeZone: ET_ZONE}) + ' · 2:00 PM ET') : 'Date TBD — see live calendar';
+  }
+  if (claimsEl) claimsEl.textContent = nextThursday();
+  if (pmiEl) pmiEl.textContent = nextFirstBusinessDay();
+  if (pceEl) pceEl.textContent = 'See live calendar below';
+  if (gdpEl) gdpEl.textContent = 'See live calendar below';
+  if (retailEl) retailEl.textContent = 'See live calendar below';
+}
+renderMacroDates();
+
+function updateDate() {
+  var now = new Date();
+  var weekday = now.toLocaleDateString('en-US',{weekday:'long', timeZone: ET_ZONE}).toUpperCase();
+  var dateStr = now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric', timeZone: ET_ZONE});
+  var timeStr = now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit', timeZone: ET_ZONE});
+  document.getElementById('dateblock').innerHTML = '<b>' + weekday + '</b> ' + dateStr + ' · ' + timeStr + ' ET';
+}
+updateDate();
+setInterval(updateDate, 60000);
+
+function renderFilterBar() {
+  var html = '<button class="filter-chip ' + (activeFilter==='all'?'active':'') + '" onclick="setFilter(\'all\')">All Sources <span class="count" id="cnt-all">0</span></button>';
+  SOURCES.forEach(function(s) {
+    html += '<button class="filter-chip ' + (activeFilter===s.id?'active':'') + '" onclick="setFilter(\'' + s.id + '\')">' + s.name + ' <span class="count" id="cnt-' + s.id + '">0</span></button>';
+  });
+  document.getElementById('filterBar').innerHTML = html;
+}
+
+function setFilter(id) {
+  activeFilter = id;
+  renderFilterBar();
+  renderArticles();
+  // Scroll to feed
+  var feed = document.getElementById('feedContainer');
+  if(feed) feed.scrollIntoView({behavior:'smooth', block:'start'});
+  // If no articles loaded yet, trigger load
+  if(allArticles.length === 0) loadAllFeeds(false);
+}
+renderFilterBar();
+
+function renderSourceList() {
+  var html = '';
+  var onlineCount = 0;
+  SOURCES.forEach(function(s) {
+    var status = sourceStatus[s.id] || 'pending';
+    if(status === 'ok') onlineCount++;
+    var dotColor = status==='ok' ? '#3FA85C' : status==='error' ? '#B23A2E' : '#888';
+    html += '<div class="source-toggle-row"><span><span class="source-dot" style="background:' + dotColor + '"></span>' + s.name + '</span><span style="color:#666;font-size:.56rem">' + (status==='ok'?'LIVE':status==='error'?'OFFLINE':'...') + '</span></div>';
+  });
+  document.getElementById('sourceList').innerHTML = html;
+  document.getElementById('sourceCount').textContent = onlineCount + '/' + SOURCES.length;
+}
+renderSourceList();
+
+function stripHtml(str) {
+  if(!str) return '';
+  var tmp = document.createElement('div');
+  tmp.innerHTML = str;
+  return (tmp.textContent || tmp.innerText || '').trim();
+}
+
+var HIGH_IMPACT_KEYWORDS = [
+  'cpi','consumer price index','ppi','producer price index','nonfarm payroll','non-farm payroll','nfp',
+  'fomc','fed rate','federal reserve rate','interest rate decision','rate hike','rate cut','powell',
+  'core pce','pce inflation','gdp','recession','inflation report','jobs report','unemployment rate',
+  'debt ceiling','treasury yield','fed chair','central bank','rate decision'
+];
+var MEDIUM_IMPACT_KEYWORDS = [
+  'retail sales','jobless claims','unemployment claims','ism pmi','pmi','manufacturing index',
+  'consumer confidence','housing starts','durable goods','trade balance','earnings','guidance',
+  'downgrade','upgrade','forecast','merger','acquisition','ipo','bond yield','tariff','sanctions'
+];
+
+function classifyImpact(title, summary) {
+  var text = ((title||'') + ' ' + (summary||'')).toLowerCase();
+  for (var i=0; i<HIGH_IMPACT_KEYWORDS.length; i++) {
+    if (text.indexOf(HIGH_IMPACT_KEYWORDS[i]) !== -1) return 'high';
+  }
+  for (var j=0; j<MEDIUM_IMPACT_KEYWORDS.length; j++) {
+    if (text.indexOf(MEDIUM_IMPACT_KEYWORDS[j]) !== -1) return 'medium';
+  }
+  return null;
+}
+
+function timeAgo(date) {
+  var sec = Math.floor((new Date() - date) / 1000);
+  if(sec < 60) return 'just now';
+  var min = Math.floor(sec/60);
+  if(min < 60) return min + 'm ago';
+  var hr = Math.floor(min/60);
+  if(hr < 24) return hr + 'h ago';
+  return Math.floor(hr/24) + 'd ago';
+}
+
+var NEWS_WORKER = 'https://aec-news.ascendaenterprise.workers.dev/';
+var workerDataLoaded = false;
+
+async function loadFromWorker() {
+  var res = await fetch(NEWS_WORKER);
+  var data = await res.json();
+  if(!data.ok) throw new Error('Worker error');
+  var merged = [];
+  SOURCES.forEach(function(source) {
+    var feed = data.feeds[source.id];
+    if(feed && feed.ok && feed.items.length > 0) {
+      sourceStatus[source.id] = 'ok';
+      feed.items.forEach(function(item) {
+        merged.push({
+          source: source.id,
+          sourceName: source.name,
+          sourceCls: source.cls,
+          title: item.title,
+          summary: item.summary || '',
+          link: item.link,
+          pubDate: item.pubDate ? new Date(item.pubDate) : new Date()
+        });
+      });
+    } else {
+      sourceStatus[source.id] = 'error';
+    }
+  });
+  return merged;
+}
+
+async function fetchSourceFeed(source) {
+  return [];
+}
+
+function renderSkeletons() {
+  var html = '';
+  for(var i=0;i<6;i++) html += '<div class="skeleton"><div class="skel-line" style="width:30%;height:1rem"></div><div class="skel-line" style="width:90%;height:1.3rem"></div><div class="skel-line" style="width:70%"></div></div>';
+  document.getElementById('feedContainer').innerHTML = html;
+}
+
+function updateFilterCounts() {
+  var allCnt = document.getElementById('cnt-all');
+  if(allCnt) allCnt.textContent = allArticles.length;
+  SOURCES.forEach(function(s) {
+    var c = document.getElementById('cnt-' + s.id);
+    if(c) c.textContent = allArticles.filter(function(a){return a.source===s.id;}).length;
+  });
+}
+
+function renderArticles() {
+  var filtered = activeFilter === 'all' ? allArticles : allArticles.filter(function(a){return a.source===activeFilter;});
+  if(allArticles.length === 0) {
+    document.getElementById('feedContainer').innerHTML = '<div class="empty-state">Headlines loading — refresh if this persists.</div>';
+    return;
+  }
+  if(filtered.length === 0) {
+    var srcName = activeFilter === 'all' ? 'this source' : activeFilter;
+    document.getElementById('feedContainer').innerHTML = '<div class="empty-state">No headlines from ' + srcName + ' right now. Try refreshing or select another source.</div>';
+    return;
+  }
+  var html = '';
+  filtered.slice(0,60).forEach(function(a,i) {
+    var impact = classifyImpact(a.title, a.summary);
+    var dot = impact ? '<span class="news-impact-dot news-impact-' + impact + '" title="' + (impact==='high'?'High impact — likely to move markets':'Medium impact — worth watching') + '"></span>' : '';
+    html += '<a class="article" href="' + a.link + '" target="_blank" rel="noopener noreferrer"><span class="article-num">' + String(i+1).padStart(2,'0') + '</span><div><span class="article-source ' + a.sourceCls + '">' + dot + a.sourceName + '</span><div class="article-headline">' + a.title + '</div>' + (a.summary ? '<div class="article-summary">' + a.summary + (a.summary.length>=180?'…':'') + '</div>' : '') + '<div class="article-meta">' + timeAgo(a.pubDate) + '</div></div></a>';
+  });
+  document.getElementById('feedContainer').innerHTML = html;
+}
+
+async function loadAllFeeds(manualRefresh) {
+  var btn = document.getElementById('refreshBtn');
+  var status = document.getElementById('feedStatus');
+  btn.classList.add('loading');
+  status.textContent = 'Fetching from AEC News Worker...';
+  if(!manualRefresh) renderSkeletons();
+  try {
+    var merged = await loadFromWorker();
+    merged.sort(function(a,b){return b.pubDate - a.pubDate;});
+    allArticles = merged;
+    var liveCount = Object.values(sourceStatus).filter(function(s){return s==='ok';}).length;
+    if(allArticles.length === 0) {
+      status.textContent = 'No articles retrieved — try refreshing';
+      document.getElementById('feedContainer').innerHTML = '<div class="error-state">Worker returned no articles. Try refreshing.</div>';
+    } else {
+      status.textContent = allArticles.length + ' headlines · ' + liveCount + '/' + SOURCES.length + ' sources live · Updated ' + new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit', timeZone: ET_ZONE}) + ' ET';
+    }
+  } catch(e) {
+    status.textContent = 'Worker unreachable — try refreshing';
+    document.getElementById('feedContainer').innerHTML = '<div class="error-state">AEC News Worker unreachable.<br><br>Try refreshing in a moment.</div>';
+  }
+  btn.classList.remove('loading');
+  renderSourceList();
+  updateFilterCounts();
+  renderArticles();
+}
+
+loadAllFeeds(false);
+setInterval(function(){loadAllFeeds(true);}, 5*60*1000);
+
+// ECONOMIC CALENDAR
+// Calendar handled by Investing.com iframe
+</script>
+</body>
+</html>
