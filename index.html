@@ -73,15 +73,25 @@
         border: 1px solid var(--border);
         background: linear-gradient(160deg, var(--panel-bg-raised) 0%, var(--panel-bg) 100%);
         padding: 16px; border-radius: 12px;
-        box-shadow: 0 14px 40px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
-        transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+        box-shadow: 0 18px 50px rgba(0,0,0,0.6), 0 4px 14px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.06) inset, 0 0 0 1px rgba(255,255,255,0.02) inset;
+        transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.15s ease-out;
+        position: relative;
     }
+    .panel:hover { border-color: rgba(255,255,255,0.18); }
     .panel-title {
         font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
         color: var(--text-dim); border-bottom: 1px solid var(--border);
         padding-bottom: 10px; margin-bottom: 12px; display: flex; justify-content: space-between;
     }
     .panel-title .tag { color: var(--text-dim); font-weight: 400; letter-spacing: 0; opacity: 0.7; }
+    .panel-title .tag.live-pulse {
+        color: var(--red); opacity: 1; display: inline-flex; align-items: center; gap: 5px;
+    }
+    .panel-title .tag.live-pulse::before {
+        content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red);
+        box-shadow: 0 0 8px var(--red); animation: livepulse 1.6s ease-in-out infinite;
+    }
+    @keyframes livepulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     .chart-panel .chart-inner { height: 460px; border-radius: 6px; overflow: hidden; }
     table { width: 100%; border-collapse: collapse; font-size: 12px; }
     th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); }
@@ -255,9 +265,9 @@
 
     <br>
 
-    <div class="grid" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="grid" style="grid-template-columns: 1fr 1fr 1fr; margin-bottom:16px;">
         <div class="panel" id="tvSection">
-            <div class="panel-title">Live TV <span class="tag">Yahoo Finance</span></div>
+            <div class="panel-title">Live TV <span class="tag live-pulse">Yahoo Finance</span></div>
             <div style="position:relative; padding-bottom:75%; height:0;">
                 <iframe src="https://www.youtube.com/embed/live_stream?channel=UCEAZeUIeJs0IjQiqTCdVSIg&autoplay=0"
                         style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
@@ -265,7 +275,7 @@
             </div>
         </div>
         <div class="panel" id="tvSectionBloomberg">
-            <div class="panel-title">Live TV <span class="tag">Bloomberg</span></div>
+            <div class="panel-title">Live TV <span class="tag live-pulse">Bloomberg</span></div>
             <div style="position:relative; padding-bottom:75%; height:0;">
                 <iframe src="https://www.youtube.com/embed/live_stream?channel=UCIALMKvObZNtJ6AmdCLP7Lg&autoplay=0"
                         style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
@@ -273,9 +283,36 @@
             </div>
         </div>
         <div class="panel" id="tvSectionCNBC">
-            <div class="panel-title">Live TV <span class="tag">CNBC</span></div>
+            <div class="panel-title">Live TV <span class="tag live-pulse">CNBC</span></div>
             <div style="position:relative; padding-bottom:75%; height:0;">
                 <iframe src="https://www.youtube.com/embed/live_stream?channel=UCrp_UI8XtuYfpiqluWLD7Lw&autoplay=0"
+                        style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+                        allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="panel" id="tvSectionReuters">
+            <div class="panel-title">Live TV <span class="tag live-pulse">Reuters</span></div>
+            <div style="position:relative; padding-bottom:75%; height:0;">
+                <iframe src="https://www.youtube.com/embed/live_stream?channel=UCjTMxYSAvQ9DNPYjtxNgkCw&autoplay=0"
+                        style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+                        allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="panel" id="tvSectionNBC">
+            <div class="panel-title">Live TV <span class="tag live-pulse">NBC News NOW</span></div>
+            <div style="position:relative; padding-bottom:75%; height:0;">
+                <iframe src="https://www.youtube.com/embed/live_stream?channel=UCdUCBzZCacPI61FdL7x9yvQ&autoplay=0"
+                        style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+                        allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="panel" id="tvSectionFoxBiz">
+            <div class="panel-title">Live TV <span class="tag live-pulse">Fox Business</span></div>
+            <div style="position:relative; padding-bottom:75%; height:0;">
+                <iframe src="https://www.youtube.com/embed/live_stream?channel=UC7UQyQ1NRIAIDMKn75WYwlw&autoplay=0"
                         style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
                         allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
@@ -339,7 +376,6 @@
         </table>
     </div>
 
-<script src="https://unpkg.com/three@0.149.0/build/three.min.js"></script>
 <script src="https://unpkg.com/globe.gl"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://unpkg.com/topojson-client@3"></script>
@@ -667,24 +703,35 @@ function initGlobe() {
     world.controls().autoRotate = true;
     world.controls().autoRotateSpeed = 0.5;
 
-    const CLOUDS_ALT = 0.004;
-    const CLOUDS_ROTATION_SPEED = -0.006;
-    new THREE.TextureLoader().load(
-        'https://unpkg.com/three-globe/example/clouds/clouds.png',
-        cloudsTexture => {
-            const clouds = new THREE.Mesh(
-                new THREE.SphereGeometry(world.getGlobeRadius() * (1 + CLOUDS_ALT), 75, 75),
-                new THREE.MeshPhongMaterial({ map: cloudsTexture, transparent: true })
+    // Cloud layer -- defensive: only attempts if THREE is actually exposed
+    // globally by globe.gl's own bundle. Wrapped so a failure here can
+    // NEVER break the core globe rendering above.
+    try {
+        if (typeof THREE !== 'undefined') {
+            const CLOUDS_ALT = 0.004;
+            const CLOUDS_ROTATION_SPEED = -0.006;
+            new THREE.TextureLoader().load(
+                'https://unpkg.com/three-globe/example/clouds/clouds.png',
+                cloudsTexture => {
+                    const clouds = new THREE.Mesh(
+                        new THREE.SphereGeometry(world.getGlobeRadius() * (1 + CLOUDS_ALT), 75, 75),
+                        new THREE.MeshPhongMaterial({ map: cloudsTexture, transparent: true })
+                    );
+                    world.scene().add(clouds);
+                    (function rotateClouds() {
+                        clouds.rotation.y += CLOUDS_ROTATION_SPEED * Math.PI / 180;
+                        requestAnimationFrame(rotateClouds);
+                    })();
+                },
+                undefined,
+                (err) => console.warn('[Cloud texture failed to load]', err)
             );
-            world.scene().add(clouds);
-            (function rotateClouds() {
-                clouds.rotation.y += CLOUDS_ROTATION_SPEED * Math.PI / 180;
-                requestAnimationFrame(rotateClouds);
-            })();
-        },
-        undefined,
-        (err) => console.warn('[Cloud texture failed to load]', err)
-    );
+        } else {
+            console.warn('[THREE not globally available -- skipping cloud layer, globe itself unaffected]');
+        }
+    } catch (err) {
+        console.warn('[Cloud layer setup failed -- globe itself unaffected]', err);
+    }
 
     window.addEventListener('resize', () => {
         world.width(el.clientWidth).height(el.clientHeight);
