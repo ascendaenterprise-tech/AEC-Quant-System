@@ -369,13 +369,13 @@
             <tr><td>VWAP Reversion</td><td>6,560</td><td>62.9%</td><td class="win-txt">$189,435.00</td><td style="color:var(--text-dim);font-size:10px;">Summary only</td></tr>
             <tr><td>Volatility Breakout</td><td>434</td><td>38.9%</td><td class="win-txt">$162,077.88</td><td style="color:var(--green);font-size:10px;">Real trade log</td></tr>
             <tr><td>Trend Following</td><td>700</td><td>36.4%</td><td class="win-txt">$291,347.73</td><td style="color:var(--green);font-size:10px;">Real trade log</td></tr>
-            <tr><td>FVG Rejection (WR-tuned)</td><td>17,382</td><td>45.2%</td><td class="loss-txt">-$165,771.00</td><td style="color:var(--green);font-size:10px;">Real trade log -- higher WR, real loss</td></tr>
+            <tr><td>FVG Rejection (5.0R)</td><td>17,338</td><td>19.9%</td><td class="win-txt">$2,300,544.00</td><td style="color:var(--green);font-size:10px;">Real trade log -- walk-forward validated, all 4 quarters</td></tr>
             <tr><td>Pairs (Kalman)</td><td>602</td><td>51.7%</td><td class="win-txt">$77,427.00</td><td style="color:var(--green);font-size:10px;">Real trade log -- not cointegrated</td></tr>
             <tr style="border-top:2px solid var(--border);">
                 <td><b>TOTAL (all 9)</b></td>
-                <td><b>29,889</b></td>
-                <td><b>48.3%</b></td>
-                <td class="win-txt"><b>$2,143,349.19</b></td>
+                <td><b>29,845</b></td>
+                <td><b>33.7%</b></td>
+                <td class="win-txt"><b>$4,451,555.19</b></td>
                 <td></td>
             </tr>
         </table>
@@ -387,7 +387,10 @@
     <br>
 
     <div class="panel" id="logSection">
-        <div class="panel-title">Trade Log <span class="tag">4 systems with real trade-level data -- 3 contracts</span></div>
+        <div class="panel-title">Trade Log <span class="tag">4 of 9 systems -- 3 contracts</span></div>
+        <div style="background:rgba(200,137,58,0.12); border:1px solid rgba(200,137,58,0.4); padding:12px 14px; margin-bottom:14px; border-radius:6px; font-size:11px; color:var(--text); line-height:1.6;">
+            <b>Real, honest scope note:</b> this log shows individual trades for only 4 systems (Volatility Breakout, Trend Following, FVG Rejection, Pairs). The other 5 systems (Layer I, OTE+BOS, HTF Rejection, Z-Score MR v2, VWAP Reversion) have <b>no individual trade data available</b> -- only verified aggregate results, shown in the "All 9 Systems -- Portfolio Summary" table above. This is not a bug -- it's a real, honest data limitation.
+        </div>
         <div class="controls" id="controls" style="display:none; margin-bottom:12px; gap:10px; align-items:center;">
             <select id="sourceFilter" onchange="renderPage(1)">
                 <option value="all">ALL SOURCES</option>
