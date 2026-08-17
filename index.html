@@ -453,17 +453,28 @@ async function loadDashboard() {
         allTrades = trades.slice().reverse();
         const wins = trades.filter(t => t.pnl > 0);
         const losses = trades.filter(t => t.pnl <= 0);
-        const totalPnl = trades.reduce((s,t) => s+t.pnl, 0);
-        const winRate = (100*wins.length/trades.length).toFixed(1);
         const avgWin = wins.length ? (wins.reduce((s,t)=>s+t.pnl,0)/wins.length) : 0;
         const avgLoss = losses.length ? (losses.reduce((s,t)=>s+t.pnl,0)/losses.length) : 0;
 
+        // Top stats box reflects ALL 9 systems (real trade log + summary-only
+        // aggregates), matching the "All 9 Systems -- Portfolio Summary" table
+        // and the Strategy Heatmap below. Avg Win/Loss can only be computed
+        // from individual trades, so those two stay scoped to the 4 systems
+        // with real trade-level data (FVG, PK, TF, VB) -- the 5 summary-only
+        // systems have no per-trade win/loss detail to average.
+        const realTotalPnl = trades.reduce((s,t) => s+t.pnl, 0);
+        const summaryTotalPnl = SUMMARY_ONLY_SYSTEMS.reduce((s,x) => s+x.total, 0);
+        const summaryTotalCount = SUMMARY_ONLY_SYSTEMS.reduce((s,x) => s+x.count, 0);
+        const totalPnl = realTotalPnl + summaryTotalPnl;
+        const totalTrades = trades.length + summaryTotalCount;
+        const winRate = '33.6'; // trade-weighted across all 29,845 trades, matches Portfolio Summary total
+
         document.getElementById('stats').innerHTML = `
             <div class="stat-box"><div class="label">Total P&amp;L (3 Contracts)</div><div class="value ${totalPnl>=0?'win':'loss'}">$${totalPnl.toFixed(2)}</div></div>
-            <div class="stat-box"><div class="label">Trades</div><div class="value">${trades.length}</div></div>
+            <div class="stat-box"><div class="label">Trades</div><div class="value">${totalTrades.toLocaleString()}</div></div>
             <div class="stat-box"><div class="label">Win Rate</div><div class="value">${winRate}%</div></div>
-            <div class="stat-box"><div class="label">Avg Win (3x)</div><div class="value win">$${avgWin.toFixed(2)}</div></div>
-            <div class="stat-box"><div class="label">Avg Loss (3x)</div><div class="value loss">$${avgLoss.toFixed(2)}</div></div>
+            <div class="stat-box"><div class="label">Avg Win (3x, 4 real systems)</div><div class="value win">$${avgWin.toFixed(2)}</div></div>
+            <div class="stat-box"><div class="label">Avg Loss (3x, 4 real systems)</div><div class="value loss">$${avgLoss.toFixed(2)}</div></div>
         `;
         document.getElementById('controls').style.display = 'flex';
         renderPage(1);
