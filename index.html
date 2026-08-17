@@ -250,7 +250,7 @@
     <br>
 
     <div class="panel" id="heatmapSection">
-        <div class="panel-title">Strategy Heatmap <span class="tag">sized by trade count, colored by P&amp;L</span></div>
+        <div class="panel-title">Strategy Heatmap <span class="tag">sized by trade count, colored by P&amp;L -- 4 real trade log, 5 summary only</span></div>
         <div class="heatmap" id="heatmap"></div>
     </div>
 
@@ -503,6 +503,16 @@ function renderStrategyBreakdown(trades) {
     document.getElementById('strategyTable').innerHTML = rows;
 }
 
+// Verified aggregate-only figures for the 5 systems with no individual trade log
+// (same real numbers as the "All 9 Systems -- Portfolio Summary" table below).
+const SUMMARY_ONLY_SYSTEMS = [
+    { sys: 'L1',   total: 51535.08,  count: 1348, wr: 41.8 },
+    { sys: 'OTE',  total: 541023.72, count: 407,  wr: 65.8 },
+    { sys: 'HTF',  total: 61264.38,  count: 82,   wr: 59.8 },
+    { sys: 'ZMR',  total: 935009.40, count: 2374, wr: 35.6 },
+    { sys: 'VWAP', total: 189435.00, count: 6560, wr: 62.9 },
+];
+
 function renderHeatmap(trades) {
     const groups = {};
     trades.forEach(t => {
@@ -510,22 +520,35 @@ function renderHeatmap(trades) {
         if (!groups[sys]) groups[sys] = [];
         groups[sys].push(t.pnl);
     });
-    const maxCount = Math.max(...Object.values(groups).map(g => g.length));
-    let html = '';
-    Object.keys(groups).sort().forEach(sys => {
+
+    // Build one combined list (real per-trade systems + summary-only systems)
+    // so sizing and coloring are computed consistently across all 9.
+    const cells = Object.keys(groups).map(sys => {
         const pnls = groups[sys];
-        const total = pnls.reduce((a,b)=>a+b,0);
-        const wr = (100*pnls.filter(p=>p>0).length/pnls.length).toFixed(1);
-        const sizeRatio = pnls.length / maxCount;
+        return {
+            sys,
+            total: pnls.reduce((a,b)=>a+b,0),
+            count: pnls.length,
+            wr: (100*pnls.filter(p=>p>0).length/pnls.length).toFixed(1),
+            summaryOnly: false
+        };
+    }).concat(SUMMARY_ONLY_SYSTEMS.map(s => ({
+        sys: s.sys, total: s.total, count: s.count, wr: s.wr.toFixed(1), summaryOnly: true
+    })));
+
+    const maxCount = Math.max(...cells.map(c => c.count));
+    let html = '';
+    cells.sort((a,b) => a.sys.localeCompare(b.sys)).forEach(c => {
+        const sizeRatio = c.count / maxCount;
         const flexBasis = Math.max(140, sizeRatio * 260);
-        const intensity = Math.min(1, Math.abs(total) / 100000);
-        const color = total >= 0
+        const intensity = Math.min(1, Math.abs(c.total) / 100000);
+        const color = c.total >= 0
             ? `rgba(74, 222, 128, ${0.08 + intensity*0.25})`
             : `rgba(248, 113, 113, ${0.08 + intensity*0.25})`;
         html += `<div class="heat-cell" style="flex-basis:${flexBasis}px; background:${color};">
-            <div class="sys-name">${sys}</div>
-            <div class="sys-pnl ${total>=0?'win-txt':'loss-txt'}">$${total.toLocaleString(undefined,{maximumFractionDigits:0})}</div>
-            <div class="sys-meta">${pnls.length} trades -- ${wr}% win</div>
+            <div class="sys-name">${c.sys}</div>
+            <div class="sys-pnl ${c.total>=0?'win-txt':'loss-txt'}">$${c.total.toLocaleString(undefined,{maximumFractionDigits:0})}</div>
+            <div class="sys-meta">${c.count.toLocaleString()} trades -- ${c.wr}% win${c.summaryOnly ? ' -- summary only' : ''}</div>
         </div>`;
     });
     document.getElementById('heatmap').innerHTML = html;
