@@ -175,14 +175,10 @@
         <div id="globeViz"></div>
     </div>
 
-    <div class="grid" style="grid-template-columns: 1fr 1fr 1fr; margin-bottom:16px;">
+    <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom:16px;">
         <div class="panel" id="usMapSection">
             <div class="panel-title">United States <span class="tag">financial hubs</span></div>
             <div id="usMapViz"></div>
-        </div>
-        <div class="globe-borderless" id="usGlobeSection">
-            <div class="borderless-label">US Financial Hubs <span class="tag">drag to rotate</span></div>
-            <div id="usGlobeViz"></div>
         </div>
         <div class="panel">
             <div class="panel-title">Session Clock <span class="tag" id="sessionUtcLabel">--</span></div>
@@ -232,8 +228,27 @@
 
     <div class="grid">
         <div class="panel chart-panel grid-2" id="chartSection">
-            <div class="panel-title">NQ :: LIVE <span class="tag">5m</span></div>
-            <div class="chart-inner" id="tradingview_chart"></div>
+            <div class="panel-title">Market Watch <span class="tag">Nasdaq -- S&amp;P -- Volatility, real data</span></div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; height:460px;">
+                <div class="tradingview-widget-container" style="height:100%;">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                    {"symbol":"NASDAQ:QQQ","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","isTransparent":true,"autosize":true,"largeChartUrl":""}
+                    </script>
+                </div>
+                <div class="tradingview-widget-container" style="height:100%;">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                    {"symbol":"AMEX:SPY","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","isTransparent":true,"autosize":true,"largeChartUrl":""}
+                    </script>
+                </div>
+                <div class="tradingview-widget-container" style="height:100%;">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                    {"symbol":"CBOE:VIX","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","isTransparent":true,"autosize":true,"largeChartUrl":""}
+                    </script>
+                </div>
+            </div>
         </div>
         <div style="display:flex; flex-direction:column; gap:14px;">
             <div class="panel" id="statusSection">
@@ -410,16 +425,6 @@
 <script src="https://unpkg.com/globe.gl"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://unpkg.com/topojson-client@3"></script>
-<script src="https://s3.tradingview.com/tv.js"></script>
-
-<script>
-new TradingView.widget({
-    "autosize": true, "symbol": "CME_MINI:NQ1!", "interval": "5",
-    "timezone": "America/Chicago", "theme": "dark", "style": "1", "locale": "en",
-    "toolbar_bg": "#0f0d0a", "enable_publishing": false, "hide_top_toolbar": false,
-    "hide_legend": false, "save_image": false, "container_id": "tradingview_chart"
-});
-</script>
 
 <script>
 function updateClock() {
@@ -813,33 +818,6 @@ const US_HUBS = [
     {name:"Greenwich CT (Hedge Funds)", lat:41.0262, lng:-73.6282},
 ];
 
-function initUsGlobe() {
-    const el = document.getElementById('usGlobeViz');
-    if (!el || typeof Globe === 'undefined') {
-        el.innerHTML = '<div class="msg">Globe library failed to load -- check network access to unpkg.com.</div>';
-        return;
-    }
-    const world = Globe()(el)
-        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
-        .backgroundColor('rgba(0,0,0,0)')
-        .pointsData(US_HUBS)
-        .pointLat('lat').pointLng('lng')
-        .pointColor(() => '#4ade80')
-        .pointAltitude(0.02)
-        .pointRadius(0.7)
-        .pointLabel(d => d.name)
-        .width(el.clientWidth)
-        .height(el.clientHeight);
-
-    world.pointOfView({ lat: 39.8, lng: -98.5, altitude: 1.1 }, 0);
-    world.controls().autoRotate = true;
-    world.controls().autoRotateSpeed = 0.3;
-
-    window.addEventListener('resize', () => {
-        world.width(el.clientWidth).height(el.clientHeight);
-    });
-}
-
 async function initUsMap() {
     const el = document.getElementById('usMapViz');
     if (!el || typeof d3 === 'undefined' || typeof topojson === 'undefined') {
@@ -992,7 +970,6 @@ function initPanelTilt() {
 }
 
 initGlobe();
-initUsGlobe();
 initUsMap();
 renderSessionWheel();
 setInterval(renderSessionWheel, 60000);
