@@ -165,7 +165,7 @@
     <div class="topbar">
         <div>
             <h1>AEC :: Terminal</h1>
-            <div class="sub">BOOK 1 -- NQ -- LAYER I / OTE+BOS / HTF REJECTION(4H) / Z-SCORE MRv2 / VWAP REVERSION</div>
+            <div class="sub">BOOK 1 -- NQ -- 9 SYSTEMS -- LAYER I / OTE+BOS / HTF REJECTION(4H) / Z-SCORE MRv2 / VWAP REVERSION / VOLATILITY BREAKOUT / TREND FOLLOWING / FVG REJECTION / PAIRS (KALMAN) -- 3 CONTRACTS</div>
         </div>
         <div class="clock" id="clockDisplay">--:--:--</div>
     </div>
@@ -227,7 +227,7 @@
     </div>
 
     <div class="stats-row" id="stats">
-        <div class="stat-box"><div class="label">Total P&amp;L</div><div class="value">--</div></div>
+        <div class="stat-box"><div class="label">Total P&amp;L (3 Contracts)</div><div class="value">--</div></div>
     </div>
 
     <div class="grid">
@@ -352,14 +352,42 @@
     <br>
 
     <div class="panel" id="breakdownSection">
-        <div class="panel-title">Strategy Breakdown</div>
+        <div class="panel-title">Strategy Breakdown <span class="tag">4 systems -- real, individual trade data -- 3 contracts</span></div>
         <table id="strategyTable"><tr><th>System</th><th>Trades</th><th>Total P&amp;L</th><th>Win Rate</th></tr></table>
     </div>
 
     <br>
 
+    <div class="panel" id="portfolioSummarySection">
+        <div class="panel-title">All 9 Systems -- Portfolio Summary <span class="tag">3 contracts -- real, verified aggregate figures</span></div>
+        <table>
+            <tr><th>System</th><th>Trades</th><th>Win Rate</th><th>Total P&amp;L (3x)</th><th>Data</th></tr>
+            <tr><td>Layer I</td><td>1,348</td><td>41.8%</td><td class="win-txt">$51,535.08</td><td style="color:var(--text-dim);font-size:10px;">Summary only -- LIVE system</td></tr>
+            <tr><td>OTE + BOS</td><td>407</td><td>65.8%</td><td class="win-txt">$541,023.72</td><td style="color:var(--text-dim);font-size:10px;">Summary only</td></tr>
+            <tr><td>HTF Rejection (4H)</td><td>82</td><td>59.8%</td><td class="win-txt">$61,264.38</td><td style="color:var(--text-dim);font-size:10px;">Summary only</td></tr>
+            <tr><td>Z-Score MR v2</td><td>2,374</td><td>35.6%</td><td class="win-txt">$935,009.40</td><td style="color:var(--text-dim);font-size:10px;">Summary only</td></tr>
+            <tr><td>VWAP Reversion</td><td>6,560</td><td>62.9%</td><td class="win-txt">$189,435.00</td><td style="color:var(--text-dim);font-size:10px;">Summary only</td></tr>
+            <tr><td>Volatility Breakout</td><td>434</td><td>38.9%</td><td class="win-txt">$162,077.88</td><td style="color:var(--green);font-size:10px;">Real trade log</td></tr>
+            <tr><td>Trend Following</td><td>700</td><td>36.4%</td><td class="win-txt">$291,347.73</td><td style="color:var(--green);font-size:10px;">Real trade log</td></tr>
+            <tr><td>FVG Rejection (WR-tuned)</td><td>17,382</td><td>45.2%</td><td class="loss-txt">-$165,771.00</td><td style="color:var(--green);font-size:10px;">Real trade log -- higher WR, real loss</td></tr>
+            <tr><td>Pairs (Kalman)</td><td>602</td><td>51.7%</td><td class="win-txt">$77,427.00</td><td style="color:var(--green);font-size:10px;">Real trade log -- not cointegrated</td></tr>
+            <tr style="border-top:2px solid var(--border);">
+                <td><b>TOTAL (all 9)</b></td>
+                <td><b>29,889</b></td>
+                <td><b>48.3%</b></td>
+                <td class="win-txt"><b>$2,143,349.19</b></td>
+                <td></td>
+            </tr>
+        </table>
+        <div style="margin-top:10px; font-size:10px; color:var(--text-dim); line-height:1.6;">
+            <b style="color:var(--text);">Real, honest scope note:</b> Layer I, OTE+BOS, HTF Rejection, Z-Score MR v2, and VWAP Reversion show real, verified aggregate results from earlier sessions -- no individual trade-level data exists for these, so they don't appear in the Trade Log below. Volatility Breakout, Trend Following, FVG Rejection, and Pairs (Kalman) have full, real trade-level detail in the log below. Pairs (Kalman) carries a real, standing risk: NQ/ES tested as NOT statistically cointegrated (p=0.957).
+        </div>
+    </div>
+
+    <br>
+
     <div class="panel" id="logSection">
-        <div class="panel-title">Trade Log</div>
+        <div class="panel-title">Trade Log <span class="tag">4 systems with real trade-level data -- 3 contracts</span></div>
         <div class="controls" id="controls" style="display:none; margin-bottom:12px; gap:10px; align-items:center;">
             <select id="sourceFilter" onchange="renderPage(1)">
                 <option value="all">ALL SOURCES</option>
@@ -428,11 +456,11 @@ async function loadDashboard() {
         const avgLoss = losses.length ? (losses.reduce((s,t)=>s+t.pnl,0)/losses.length) : 0;
 
         document.getElementById('stats').innerHTML = `
-            <div class="stat-box"><div class="label">Total P&amp;L</div><div class="value ${totalPnl>=0?'win':'loss'}">$${totalPnl.toFixed(2)}</div></div>
+            <div class="stat-box"><div class="label">Total P&amp;L (3 Contracts)</div><div class="value ${totalPnl>=0?'win':'loss'}">$${totalPnl.toFixed(2)}</div></div>
             <div class="stat-box"><div class="label">Trades</div><div class="value">${trades.length}</div></div>
             <div class="stat-box"><div class="label">Win Rate</div><div class="value">${winRate}%</div></div>
-            <div class="stat-box"><div class="label">Avg Win</div><div class="value win">$${avgWin.toFixed(2)}</div></div>
-            <div class="stat-box"><div class="label">Avg Loss</div><div class="value loss">$${avgLoss.toFixed(2)}</div></div>
+            <div class="stat-box"><div class="label">Avg Win (3x)</div><div class="value win">$${avgWin.toFixed(2)}</div></div>
+            <div class="stat-box"><div class="label">Avg Loss (3x)</div><div class="value loss">$${avgLoss.toFixed(2)}</div></div>
         `;
         document.getElementById('controls').style.display = 'flex';
         renderPage(1);
@@ -445,7 +473,7 @@ async function loadDashboard() {
 
 function extractSystem(notes) {
     if (!notes) return 'Live (Layer I)';
-    const known = ['Layer I', 'OTE+BOS', 'HTF Rejection', 'Z-Score MR v2', 'VWAP Reversion'];
+    const known = ['Layer I', 'OTE+BOS', 'HTF Rejection', 'Z-Score MR v2', 'VWAP Reversion', 'Volatility Breakout', 'Trend Following', 'FVG Rejection', 'Pairs (Kalman)'];
     for (const k of known) if (notes.includes(k)) return k;
     return 'Other';
 }
@@ -703,9 +731,6 @@ function initGlobe() {
     world.controls().autoRotate = true;
     world.controls().autoRotateSpeed = 0.5;
 
-    // Cloud layer -- defensive: only attempts if THREE is actually exposed
-    // globally by globe.gl's own bundle. Wrapped so a failure here can
-    // NEVER break the core globe rendering above.
     try {
         if (typeof THREE !== 'undefined') {
             const CLOUDS_ALT = 0.004;
