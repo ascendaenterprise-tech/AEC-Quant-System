@@ -474,7 +474,7 @@ async function loadDashboard() {
         const summaryTotalCount = SUMMARY_ONLY_SYSTEMS.reduce((s,x) => s+x.count, 0);
         const totalPnl = realTotalPnl + summaryTotalPnl;
         const totalTrades = trades.length + summaryTotalCount;
-        const winRate = '33.6'; // trade-weighted across all 29,845 trades, matches Portfolio Summary total
+        const winRate = '33.7'; // trade-weighted across all 40,542 trades, matches Portfolio Summary total
 
         document.getElementById('stats').innerHTML = `
             <div class="stat-box"><div class="label">Total P&amp;L (3 Contracts)</div><div class="value ${totalPnl>=0?'win':'loss'}">$${totalPnl.toFixed(2)}</div></div>
@@ -529,6 +529,7 @@ const SUMMARY_ONLY_SYSTEMS = [
     { sys: 'HTF',  total: 61264.38,  count: 82,   wr: 59.8 },
     { sys: 'ZMR',  total: 935009.40, count: 2374, wr: 35.6 },
     { sys: 'VWAP', total: 189435.00, count: 6560, wr: 62.9 },
+    { sys: 'Hidden', total: 493575.00, count: 3425, wr: 36.7 },
 ];
 
 function renderHeatmap(trades) {
