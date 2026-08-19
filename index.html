@@ -387,7 +387,16 @@
             <tr><td>MTF-FVG</td><td>16,660</td><td>19.2%</td><td class="win-txt">$2,839,755.00</td><td style="color:var(--green);font-size:10px;">Real trade log -- multi-timeframe (5min+15min) confluence, replaces original FVG, 4/4 quarters</td></tr>
             <tr><td>PK</td><td>602</td><td>51.7%</td><td class="win-txt">$77,427.00</td><td style="color:var(--green);font-size:10px;">Real trade log -- not cointegrated</td></tr>
             <tr><td>KTE</td><td>7,950</td><td>33.1%</td><td class="win-txt">$2,869,395.18</td><td style="color:var(--green);font-size:10px;">Real trade log -- Keltner + regime filter, 3/4 quarters (Q4 real, known weakness)</td></tr>
-            <tr><td>Hidden</td><td>65,256</td><td>52.4%</td><td class="win-txt">$22,198,312.50</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed, 10 strategies combined</td></tr>
+            <tr><td>Hidden 1</td><td>3,425</td><td>36.7%</td><td class="win-txt">$493,575.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
+            <tr><td>Hidden 2</td><td>13,236</td><td>47.6%</td><td class="win-txt">$3,272,050.50</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
+            <tr><td>Hidden 3</td><td>6,530</td><td>50.4%</td><td class="win-txt">$1,720,485.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
+            <tr><td>Hidden 4</td><td>10,859</td><td>48.8%</td><td class="win-txt">$2,046,078.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
+            <tr><td>Hidden 5</td><td>1,651</td><td>49.4%</td><td class="win-txt">$103,341.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
+            <tr><td>Hidden 6</td><td>346</td><td>50.0%</td><td class="win-txt">$40,059.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
+            <tr><td>Hidden 7</td><td>5,432</td><td>50.9%</td><td class="win-txt">$2,377,533.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
+            <tr><td>Hidden 8</td><td>3,330</td><td>62.4%</td><td class="win-txt">$4,486,077.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
+            <tr><td>Hidden 9</td><td>7,132</td><td>48.8%</td><td class="win-txt">$5,401,194.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
+            <tr><td>Hidden 10</td><td>13,315</td><td>65.4%</td><td class="win-txt">$2,257,920.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
             <tr style="border-top:2px solid var(--border);">
                 <td><b>TOTAL (all 11)</b></td>
                 <td><b>102,373</b></td>
@@ -497,7 +506,8 @@ function extractSystem(notes) {
     const known = [
         ['Layer I', 'L1'], ['OTE+BOS', 'OTE'], ['HTF Rejection', 'HTF'],
         ['Z-Score MR v2', 'ZMR'], ['VWAP Reversion', 'VWAP'], ['Volatility Breakout', 'VB'],
-        ['Trend Following', 'TF'], ['FVG Rejection', 'FVG'], ['Pairs (Kalman)', 'PK']
+        ['Trend Following', 'TF'], ['MTF FVG Confluence', 'MTF-FVG'], ['Pairs (Kalman)', 'PK'],
+        ['Keltner Trend Expansion', 'KTE']
     ];
     for (const [k, abbr] of known) if (notes.includes(k)) return abbr;
     return 'Other';
@@ -529,7 +539,16 @@ const SUMMARY_ONLY_SYSTEMS = [
     { sys: 'HTF',  total: 61264.38,  count: 82,   wr: 59.8 },
     { sys: 'ZMR',  total: 935009.40, count: 2374, wr: 35.6 },
     { sys: 'VWAP', total: 189435.00, count: 6560, wr: 62.9 },
-    { sys: 'Hidden', total: 22198312.50, count: 65256, wr: 52.4 },
+    { sys: 'Hidden 1', total: 493575.0, count: 3425, wr: 36.7 },
+    { sys: 'Hidden 2', total: 3272050.5, count: 13236, wr: 47.6 },
+    { sys: 'Hidden 3', total: 1720485.0, count: 6530, wr: 50.4 },
+    { sys: 'Hidden 4', total: 2046078.0, count: 10859, wr: 48.8 },
+    { sys: 'Hidden 5', total: 103341.0, count: 1651, wr: 49.4 },
+    { sys: 'Hidden 6', total: 40059.0, count: 346, wr: 50.0 },
+    { sys: 'Hidden 7', total: 2377533.0, count: 5432, wr: 50.9 },
+    { sys: 'Hidden 8', total: 4486077.0, count: 3330, wr: 62.4 },
+    { sys: 'Hidden 9', total: 5401194.0, count: 7132, wr: 48.8 },
+    { sys: 'Hidden 10', total: 2257920.0, count: 13315, wr: 65.4 },
 ];
 
 function renderHeatmap(trades) {
