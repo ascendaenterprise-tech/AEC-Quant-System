@@ -387,12 +387,12 @@
             <tr><td>MTF-FVG</td><td>16,660</td><td>19.2%</td><td class="win-txt">$2,839,755.00</td><td style="color:var(--green);font-size:10px;">Real trade log -- multi-timeframe (5min+15min) confluence, replaces original FVG, 4/4 quarters</td></tr>
             <tr><td>PK</td><td>602</td><td>51.7%</td><td class="win-txt">$77,427.00</td><td style="color:var(--green);font-size:10px;">Real trade log -- not cointegrated</td></tr>
             <tr><td>KTE</td><td>7,950</td><td>33.1%</td><td class="win-txt">$2,869,395.18</td><td style="color:var(--green);font-size:10px;">Real trade log -- Keltner + regime filter, 3/4 quarters (Q4 real, known weakness)</td></tr>
-            <tr><td>Hidden</td><td>3,425</td><td>36.7%</td><td class="win-txt">$493,575.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
+            <tr><td>Hidden</td><td>65,256</td><td>52.4%</td><td class="win-txt">$22,198,312.50</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed, 10 strategies combined</td></tr>
             <tr style="border-top:2px solid var(--border);">
                 <td><b>TOTAL (all 11)</b></td>
-                <td><b>40,542</b></td>
-                <td><b>33.7%</b></td>
-                <td class="win-txt"><b>$8,511,845.37</b></td>
+                <td><b>102,373</b></td>
+                <td><b>45.5%</b></td>
+                <td class="win-txt"><b>$30,216,582.87</b></td>
                 <td></td>
             </tr>
         </table>
@@ -474,7 +474,7 @@ async function loadDashboard() {
         const summaryTotalCount = SUMMARY_ONLY_SYSTEMS.reduce((s,x) => s+x.count, 0);
         const totalPnl = realTotalPnl + summaryTotalPnl;
         const totalTrades = trades.length + summaryTotalCount;
-        const winRate = '33.7'; // trade-weighted across all 40,542 trades, matches Portfolio Summary total
+        const winRate = '45.5'; // trade-weighted across all 102,373 trades, matches Portfolio Summary total
 
         document.getElementById('stats').innerHTML = `
             <div class="stat-box"><div class="label">Total P&amp;L (3 Contracts)</div><div class="value ${totalPnl>=0?'win':'loss'}">$${totalPnl.toFixed(2)}</div></div>
@@ -529,7 +529,7 @@ const SUMMARY_ONLY_SYSTEMS = [
     { sys: 'HTF',  total: 61264.38,  count: 82,   wr: 59.8 },
     { sys: 'ZMR',  total: 935009.40, count: 2374, wr: 35.6 },
     { sys: 'VWAP', total: 189435.00, count: 6560, wr: 62.9 },
-    { sys: 'Hidden', total: 493575.00, count: 3425, wr: 36.7 },
+    { sys: 'Hidden', total: 22198312.50, count: 65256, wr: 52.4 },
 ];
 
 function renderHeatmap(trades) {
