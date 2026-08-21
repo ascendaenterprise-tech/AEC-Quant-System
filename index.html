@@ -159,6 +159,20 @@
         .grid-2 { grid-column: span 1; }
     }
 </style>
+
+<style>
+@media (max-width: 900px) {
+  #aec-institutional-records > div[style*="repeat(3,1fr)"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+@media (max-width: 600px) {
+  #aec-institutional-records > div[style*="repeat(3,1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -1385,6 +1399,59 @@ async function loadAllFeeds(manualRefresh) {
 loadAllFeeds(false);
 setInterval(function(){loadAllFeeds(true);}, 5*60*1000);
 </script>
+
+
+<!-- AEC INSTITUTIONAL RECORDS -->
+<section id="aec-institutional-records" class="panel" style="margin-top:18px;">
+  <div class="panel-title">
+    Institutional Records
+    <span class="tag">Founder &amp; Proprietary Technology</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+    <a href="AEC_Founder_Executive_and_AECQS_Proprietary_Document_Set.pdf" target="_blank"
+       style="display:block;text-decoration:none;color:inherit;">
+      <div class="launch-item" style="height:100%;">
+        <b>Founder &amp; Executive Authority</b>
+        <span>IZAIAH COTTLE · FOUNDER · CEO · OWNER</span>
+        <div class="msg" style="margin-top:6px;">
+          Institutional record of Izaiah Cottle’s executive role, ownership position, and relationship to AECQS.
+        </div>
+        <div style="margin-top:10px;color:var(--accent);font-size:10px;">OPEN DOCUMENT →</div>
+      </div>
+    </a>
+
+    <a href="AEC_Founder_Executive_and_AECQS_Proprietary_Document_Set.pdf#page=3" target="_blank"
+       style="display:block;text-decoration:none;color:inherit;">
+      <div class="launch-item" style="height:100%;">
+        <b>AECQS Proprietary Technology</b>
+        <span>AEC QUANTITATIVE TRADING SYSTEM</span>
+        <div class="msg" style="margin-top:6px;">
+          Proprietary development and intellectual-property declaration for AECQS and associated development materials.
+        </div>
+        <div style="margin-top:10px;color:var(--accent);font-size:10px;">OPEN DOCUMENT →</div>
+      </div>
+    </a>
+
+    <a href="AEC_Founder_Executive_and_AECQS_Proprietary_Document_Set.pdf#page=5" target="_blank"
+       style="display:block;text-decoration:none;color:inherit;">
+      <div class="launch-item" style="height:100%;">
+        <b>Founder &amp; Proprietary Technology Profile</b>
+        <span>INSTITUTIONAL EXECUTIVE RECORD</span>
+        <div class="msg" style="margin-top:6px;">
+          Executive profile covering Founder, Chief Executive Officer &amp; Owner responsibilities and AECQS development leadership.
+        </div>
+        <div style="margin-top:10px;color:var(--accent);font-size:10px;">OPEN DOCUMENT →</div>
+      </div>
+    </a>
+  </div>
+
+  <div style="margin-top:12px;padding:10px 12px;border:1px solid var(--border);background:rgba(255,255,255,0.025);font-size:10px;color:var(--text-dim);line-height:1.6;">
+    <b style="color:var(--text);">DOCUMENT STATUS:</b>
+    Institutional governance and proprietary-technology records. The documents are intended to be read together with applicable corporate,
+    intellectual-property, contractual, and other governing records.
+  </div>
+</section>
 
 </body>
 </html>
