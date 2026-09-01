@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>AEC TERMINAL</title>
+<title>AEC Wire | AECQS Research Terminal</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500;600&family=DM+Mono:wght@400;500&display=swap');
     :root {
@@ -178,8 +178,8 @@
 
     <div class="topbar">
         <div>
-            <h1>AEC :: Terminal</h1>
-            <div class="sub">BOOK 1 -- NQ -- 9 SYSTEMS -- L1 / OTE / HTF / ZMR / VWAP / VB / TF / FVG / PK -- 3 CONTRACTS</div>
+            <h1>AEC Wire :: AECQS Research Terminal</h1>
+            <div class="sub">AECQS-30 -- ACTIVE R&amp;D -- NQ -- MULTI-STRATEGY RESEARCH / ANALYSIS / EXECUTION</div>
         </div>
         <div class="clock" id="clockDisplay">--:--:--</div>
     </div>
@@ -237,7 +237,7 @@
     </div>
 
     <div class="stats-row" id="stats">
-        <div class="stat-box"><div class="label">Total P&amp;L (3 Contracts)</div><div class="value">--</div></div>
+        <div class="stat-box"><div class="label">Current Net Backtest P&amp;L</div><div class="value">--</div></div>
     </div>
 
     <div class="grid">
@@ -279,7 +279,7 @@
     <br>
 
     <div class="panel" id="heatmapSection">
-        <div class="panel-title">Strategy Heatmap <span class="tag">sized by trade count, colored by P&amp;L -- 4 real trade log, 5 summary only</span></div>
+        <div class="panel-title">Trade-Level Dataset Heatmap <span class="tag">available CSV records only -- not the full AECQS portfolio</span></div>
         <div class="heatmap" id="heatmap"></div>
     </div>
 
@@ -381,55 +381,44 @@
     <br>
 
     <div class="panel" id="breakdownSection">
-        <div class="panel-title">Strategy Breakdown <span class="tag">4 systems -- real, individual trade data -- 3 contracts</span></div>
+        <div class="panel-title">Trade-Level Dataset Breakdown <span class="tag">available CSV records only -- separate from portfolio checkpoint</span></div>
         <table id="strategyTable"><tr><th>System</th><th>Trades</th><th>Total P&amp;L</th><th>Win Rate</th></tr></table>
     </div>
 
     <br>
 
     <div class="panel" id="portfolioSummarySection">
-        <div class="panel-title">All 11 Systems -- Portfolio Summary <span class="tag">3 contracts -- real, verified aggregate figures</span></div>
+        <div class="panel-title">AECQS-30 -- Current Development Checkpoint <span class="tag">historical backtest / simulated research</span></div>
         <table>
-            <tr><th>System</th><th>Trades</th><th>Win Rate</th><th>Total P&amp;L (3x)</th><th>Data</th></tr>
-            <tr><td>L1</td><td>1,348</td><td>41.8%</td><td class="win-txt">$51,535.08</td><td style="color:var(--text-dim);font-size:10px;">Verified aggregate -- LIVE system</td></tr>
-            <tr><td>OTE</td><td>407</td><td>65.8%</td><td class="win-txt">$541,023.72</td><td style="color:var(--text-dim);font-size:10px;">Verified aggregate</td></tr>
-            <tr><td>HTF</td><td>82</td><td>59.8%</td><td class="win-txt">$61,264.38</td><td style="color:var(--text-dim);font-size:10px;">Verified aggregate</td></tr>
-            <tr><td>ZMR</td><td>2,374</td><td>35.6%</td><td class="win-txt">$935,009.40</td><td style="color:var(--text-dim);font-size:10px;">Verified aggregate</td></tr>
-            <tr><td>VWAP</td><td>6,560</td><td>62.9%</td><td class="win-txt">$189,435.00</td><td style="color:var(--text-dim);font-size:10px;">Verified aggregate</td></tr>
-            <tr><td>VB</td><td>434</td><td>38.9%</td><td class="win-txt">$162,077.88</td><td style="color:var(--green);font-size:10px;">Real trade log</td></tr>
-            <tr><td>TF</td><td>700</td><td>36.4%</td><td class="win-txt">$291,347.73</td><td style="color:var(--green);font-size:10px;">Real trade log</td></tr>
-            <tr><td>MTF-FVG</td><td>16,660</td><td>19.2%</td><td class="win-txt">$2,839,755.00</td><td style="color:var(--green);font-size:10px;">Real trade log -- multi-timeframe (5min+15min) confluence, replaces original FVG, 4/4 quarters</td></tr>
-            <tr><td>PK</td><td>602</td><td>51.7%</td><td class="win-txt">$77,427.00</td><td style="color:var(--green);font-size:10px;">Real trade log -- not cointegrated</td></tr>
-            <tr><td>KTE</td><td>7,950</td><td>33.1%</td><td class="win-txt">$2,869,395.18</td><td style="color:var(--green);font-size:10px;">Real trade log -- Keltner + regime filter, 3/4 quarters (Q4 real, known weakness)</td></tr>
-            <tr><td>Hidden 1</td><td>3,425</td><td>36.7%</td><td class="win-txt">$493,575.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
-            <tr><td>Hidden 2</td><td>13,236</td><td>47.6%</td><td class="win-txt">$3,272,050.50</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
-            <tr><td>Hidden 3</td><td>6,530</td><td>50.4%</td><td class="win-txt">$1,720,485.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
-            <tr><td>Hidden 4</td><td>10,859</td><td>48.8%</td><td class="win-txt">$2,046,078.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
-            <tr><td>Hidden 5</td><td>1,651</td><td>49.4%</td><td class="win-txt">$103,341.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
-            <tr><td>Hidden 6</td><td>346</td><td>50.0%</td><td class="win-txt">$40,059.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
-            <tr><td>Hidden 7</td><td>5,432</td><td>50.9%</td><td class="win-txt">$2,377,533.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
-            <tr><td>Hidden 8</td><td>3,330</td><td>62.4%</td><td class="win-txt">$4,486,077.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
-            <tr><td>Hidden 9</td><td>7,132</td><td>48.8%</td><td class="win-txt">$5,401,194.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
-            <tr><td>Hidden 10</td><td>13,315</td><td>65.4%</td><td class="win-txt">$2,257,920.00</td><td style="color:var(--text-dim);font-size:10px;">Real trade log -- proprietary, mechanics not disclosed</td></tr>
-            <tr style="border-top:2px solid var(--border);">
-                <td><b>TOTAL (all 11)</b></td>
-                <td><b>102,373</b></td>
-                <td><b>45.5%</b></td>
-                <td class="win-txt"><b>$30,216,582.87</b></td>
-                <td></td>
-            </tr>
+            <tr><th>Metric</th><th>Current Checkpoint</th><th>Classification</th></tr>
+            <tr><td>Current cumulative net backtest P&amp;L</td><td class="win-txt"><b>+$6,039,476.17</b></td><td>Historical backtest / simulated research</td></tr>
+            <tr><td>Total accepted trades</td><td><b>25,507</b></td><td>Portfolio-level checkpoint</td></tr>
+            <tr><td>Win rate</td><td><b>45.42%</b></td><td>Portfolio-level checkpoint</td></tr>
+            <tr><td>Profit factor</td><td><b>1.131</b></td><td>Portfolio-level checkpoint</td></tr>
+            <tr><td>Maximum drawdown</td><td class="loss-txt"><b>-$367,003.23</b></td><td>Portfolio-level checkpoint</td></tr>
+            <tr><td>Development status</td><td><b>Active R&amp;D</b></td><td>Not a final System 2 result</td></tr>
         </table>
-        <div style="margin-top:10px; font-size:10px; color:var(--text-dim); line-height:1.6;">
-            <b style="color:var(--text);">Real, honest scope note:</b> L1, OTE, HTF, ZMR, and VWAP show real, verified aggregate results from earlier sessions -- no individual trade-level data exists for these, so they don't appear in the Trade Log below. VB, TF, MTF-FVG, PK, and KTE have full, real trade-level detail in the log below. PK carries a real, standing risk: NQ/ES tested as NOT statistically cointegrated (p=0.957). KTE is 3/4 quarters positive, not 4/4 -- a real, known Q4 weakness. The total above was independently recomputed as the sum of the 11 rows in this table -- 33.7% is the trade-weighted average win rate across all 40,542 trades.
+        <div style="margin-top:12px; font-size:10px; color:var(--text-dim); line-height:1.65;">
+            <b style="color:var(--text);">Research disclosure:</b> These figures are the current supplied AECQS development checkpoint. They represent historical backtest/simulated research, not live or independently audited investment performance. AECQS remains under active research and development, so subsequent runs may supersede this checkpoint. Past or simulated performance does not guarantee future results.
+        </div>
+        <div style="margin-top:14px; border-top:1px solid var(--border); padding-top:12px;">
+            <div style="font-size:10px; text-transform:uppercase; letter-spacing:.7px; color:var(--text-dim); margin-bottom:8px;">Development History</div>
+            <table>
+                <tr><th>Checkpoint</th><th>Reported P&amp;L</th><th>Status</th></tr>
+                <tr><td>7-core baseline</td><td class="win-txt">+$1,031,859</td><td>Earlier Stage 2 checkpoint</td></tr>
+                <tr><td>10-family combined portfolio</td><td class="win-txt">+$1,450,037</td><td>Earlier combined checkpoint</td></tr>
+                <tr><td>13-entry research portfolio</td><td class="win-txt">+$2,090,248.23</td><td>Previous development checkpoint</td></tr>
+                <tr><td>AECQS-30 four-entry research run</td><td class="win-txt">+$6,039,476.17</td><td>Current development checkpoint</td></tr>
+            </table>
         </div>
     </div>
 
     <br>
 
     <div class="panel" id="logSection">
-        <div class="panel-title">Trade Log <span class="tag">4 of 9 systems -- 3 contracts</span></div>
+        <div class="panel-title">Trade Log <span class="tag">available historical trade-level records</span></div>
         <div style="background:rgba(200,137,58,0.12); border:1px solid rgba(200,137,58,0.4); padding:12px 14px; margin-bottom:14px; border-radius:6px; font-size:11px; color:var(--text); line-height:1.6;">
-            <b>Real, honest scope note:</b> this log shows individual trades for only 4 systems (VB, TF, FVG, PK). The other 5 systems (L1, OTE, HTF, ZMR, VWAP) have <b>no individual trade data available</b> -- only verified aggregate results, shown in the "All 9 Systems -- Portfolio Summary" table above. This is not a bug -- it's a real, honest data limitation.
+            <b>Dataset scope:</b> this table displays only the individual trade records actually present in <code>trade_log.csv</code>. It is intentionally <b>not</b> used to reconstruct or imply the full AECQS-30 portfolio checkpoint above. Aggregate-only or separately researched strategy families remain excluded unless their individual records are added to the CSV.
         </div>
         <div class="controls" id="controls" style="display:none; margin-bottom:12px; gap:10px; align-items:center;">
             <select id="sourceFilter" onchange="renderPage(1)">
@@ -453,7 +442,10 @@
 
 <script>
 function updateClock() {
-    document.getElementById('clockDisplay').textContent = new Date().toLocaleTimeString('en-US', {hour12:false}) + ' CT';
+    document.getElementById('clockDisplay').textContent = new Date().toLocaleTimeString('en-US', {
+        hour12:false,
+        timeZone:'America/Chicago'
+    }) + ' CT';
 }
 updateClock();
 setInterval(updateClock, 1000);
@@ -462,56 +454,84 @@ let allTrades = [];
 let currentPage = 1;
 const PAGE_SIZE = 50;
 
+const AECQS_CHECKPOINT = Object.freeze({
+    label: 'AECQS-30',
+    netPnl: 6039476.17,
+    acceptedTrades: 25507,
+    winRate: 45.42,
+    profitFactor: 1.131,
+    maxDrawdown: -367003.23
+});
+
+function renderCheckpointStats(csvCount = null) {
+    const csvBox = csvCount === null ? '' : `
+        <div class="stat-box"><div class="label">CSV Records Loaded</div><div class="value">${csvCount.toLocaleString()}</div></div>`;
+    document.getElementById('stats').innerHTML = `
+        <div class="stat-box"><div class="label">Current Net Backtest P&amp;L</div><div class="value win">+$${AECQS_CHECKPOINT.netPnl.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</div></div>
+        <div class="stat-box"><div class="label">Accepted Trades</div><div class="value">${AECQS_CHECKPOINT.acceptedTrades.toLocaleString()}</div></div>
+        <div class="stat-box"><div class="label">Win Rate</div><div class="value">${AECQS_CHECKPOINT.winRate.toFixed(2)}%</div></div>
+        <div class="stat-box"><div class="label">Profit Factor</div><div class="value">${AECQS_CHECKPOINT.profitFactor.toFixed(3)}</div></div>
+        <div class="stat-box"><div class="label">Max Drawdown</div><div class="value loss">-$${Math.abs(AECQS_CHECKPOINT.maxDrawdown).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</div></div>
+        ${csvBox}`;
+}
+
+function parseCsvLine(line) {
+    const out = [];
+    let field = '';
+    let quoted = false;
+    for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') {
+            if (quoted && line[i + 1] === '"') { field += '"'; i++; }
+            else quoted = !quoted;
+        } else if (ch === ',' && !quoted) {
+            out.push(field); field = '';
+        } else {
+            field += ch;
+        }
+    }
+    out.push(field);
+    return out;
+}
+
+function esc(value) {
+    return String(value ?? '')
+        .replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;').replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+}
+
 async function loadDashboard() {
+    renderCheckpointStats();
     try {
         const response = await fetch('trade_log.csv?t=' + Date.now());
         if (!response.ok) throw new Error('trade_log.csv not found');
         const text = await response.text();
-        const lines = text.trim().split('\n');
-        const headers = lines[0].split(',');
+        if (!text.trim()) throw new Error('trade_log.csv is empty');
+        const lines = text.trim().split(/\r?\n/);
+        const headers = parseCsvLine(lines[0]).map(h => h.trim());
         const trades = [];
         for (let i = 1; i < lines.length; i++) {
-            const cols = lines[i].split(',');
+            const cols = parseCsvLine(lines[i]);
             if (cols.length < headers.length) continue;
             const row = {};
-            headers.forEach((h, idx) => row[h.trim()] = cols[idx]);
-            const pnl = parseFloat(row.pnl);
-            if (!isNaN(pnl)) { row.pnl = pnl; trades.push(row); }
+            headers.forEach((h, idx) => row[h] = (cols[idx] ?? '').trim());
+            const pnl = Number.parseFloat(row.pnl);
+            if (Number.isFinite(pnl)) { row.pnl = pnl; trades.push(row); }
         }
-        if (trades.length === 0) return;
+        if (trades.length === 0) throw new Error('trade_log.csv contains no valid P&L rows');
 
         allTrades = trades.slice().reverse();
-        const wins = trades.filter(t => t.pnl > 0);
-        const losses = trades.filter(t => t.pnl <= 0);
-        const avgWin = wins.length ? (wins.reduce((s,t)=>s+t.pnl,0)/wins.length) : 0;
-        const avgLoss = losses.length ? (losses.reduce((s,t)=>s+t.pnl,0)/losses.length) : 0;
-
-        // Top stats box reflects ALL 9 systems (real trade log + summary-only
-        // aggregates), matching the "All 9 Systems -- Portfolio Summary" table
-        // and the Strategy Heatmap below. Avg Win/Loss can only be computed
-        // from individual trades, so those two stay scoped to the 4 systems
-        // with real trade-level data (FVG, PK, TF, VB) -- the 5 summary-only
-        // systems have no per-trade win/loss detail to average.
-        const realTotalPnl = trades.reduce((s,t) => s+t.pnl, 0);
-        const summaryTotalPnl = SUMMARY_ONLY_SYSTEMS.reduce((s,x) => s+x.total, 0);
-        const summaryTotalCount = SUMMARY_ONLY_SYSTEMS.reduce((s,x) => s+x.count, 0);
-        const totalPnl = realTotalPnl + summaryTotalPnl;
-        const totalTrades = trades.length + summaryTotalCount;
-        const winRate = '45.5'; // trade-weighted across all 102,373 trades, matches Portfolio Summary total
-
-        document.getElementById('stats').innerHTML = `
-            <div class="stat-box"><div class="label">Total P&amp;L (3 Contracts)</div><div class="value ${totalPnl>=0?'win':'loss'}">$${totalPnl.toFixed(2)}</div></div>
-            <div class="stat-box"><div class="label">Trades</div><div class="value">${totalTrades.toLocaleString()}</div></div>
-            <div class="stat-box"><div class="label">Win Rate</div><div class="value">${winRate}%</div></div>
-            <div class="stat-box"><div class="label">Avg Win (3x, 4 real systems)</div><div class="value win">$${avgWin.toFixed(2)}</div></div>
-            <div class="stat-box"><div class="label">Avg Loss (3x, 4 real systems)</div><div class="value loss">$${avgLoss.toFixed(2)}</div></div>
-        `;
+        renderCheckpointStats(trades.length);
         document.getElementById('controls').style.display = 'flex';
         renderPage(1);
         renderStrategyBreakdown(trades);
         renderHeatmap(trades);
     } catch (err) {
-        document.getElementById('stats').innerHTML = `<div class="stat-box"><div class="label">Error</div><div class="value" style="font-size:12px;">${err.message}</div></div>`;
+        const table = document.getElementById('tradeTable');
+        if (table) table.innerHTML = `<tr><th>Trade Log Status</th></tr><tr><td class="msg">${esc(err.message)}. Portfolio checkpoint metrics above remain available; add or repair trade_log.csv to populate individual trade records.</td></tr>`;
+        const controls = document.getElementById('controls');
+        if (controls) controls.style.display = 'none';
     }
 }
 
@@ -540,30 +560,11 @@ function renderStrategyBreakdown(trades) {
         const total = pnls.reduce((a,b)=>a+b,0);
         const wr = (100*pnls.filter(p=>p>0).length/pnls.length).toFixed(1);
         const cls = total>=0?'win-txt':'loss-txt';
-        rows += `<tr><td>${sys}</td><td>${pnls.length}</td><td class="${cls}">$${total.toFixed(2)}</td><td>${wr}%</td></tr>`;
+        rows += `<tr><td>${esc(sys)}</td><td>${pnls.length}</td><td class="${cls}">$${total.toFixed(2)}</td><td>${wr}%</td></tr>`;
     });
     document.getElementById('strategyTable').innerHTML = rows;
 }
 
-// Verified aggregate-only figures for the 5 systems with no individual trade log
-// (same real numbers as the "All 9 Systems -- Portfolio Summary" table below).
-const SUMMARY_ONLY_SYSTEMS = [
-    { sys: 'L1',   total: 51535.08,  count: 1348, wr: 41.8 },
-    { sys: 'OTE',  total: 541023.72, count: 407,  wr: 65.8 },
-    { sys: 'HTF',  total: 61264.38,  count: 82,   wr: 59.8 },
-    { sys: 'ZMR',  total: 935009.40, count: 2374, wr: 35.6 },
-    { sys: 'VWAP', total: 189435.00, count: 6560, wr: 62.9 },
-    { sys: 'Hidden 1', total: 493575.0, count: 3425, wr: 36.7 },
-    { sys: 'Hidden 2', total: 3272050.5, count: 13236, wr: 47.6 },
-    { sys: 'Hidden 3', total: 1720485.0, count: 6530, wr: 50.4 },
-    { sys: 'Hidden 4', total: 2046078.0, count: 10859, wr: 48.8 },
-    { sys: 'Hidden 5', total: 103341.0, count: 1651, wr: 49.4 },
-    { sys: 'Hidden 6', total: 40059.0, count: 346, wr: 50.0 },
-    { sys: 'Hidden 7', total: 2377533.0, count: 5432, wr: 50.9 },
-    { sys: 'Hidden 8', total: 4486077.0, count: 3330, wr: 62.4 },
-    { sys: 'Hidden 9', total: 5401194.0, count: 7132, wr: 48.8 },
-    { sys: 'Hidden 10', total: 2257920.0, count: 13315, wr: 65.4 },
-];
 
 function renderHeatmap(trades) {
     const groups = {};
@@ -573,8 +574,7 @@ function renderHeatmap(trades) {
         groups[sys].push(t.pnl);
     });
 
-    // Build one combined list (real per-trade systems + summary-only systems)
-    // so sizing and coloring are computed consistently across all 9.
+    // Heatmap intentionally reflects only individual records in trade_log.csv.
     const cells = Object.keys(groups).map(sys => {
         const pnls = groups[sys];
         return {
@@ -582,11 +582,8 @@ function renderHeatmap(trades) {
             total: pnls.reduce((a,b)=>a+b,0),
             count: pnls.length,
             wr: (100*pnls.filter(p=>p>0).length/pnls.length).toFixed(1),
-            summaryOnly: false
         };
-    }).concat(SUMMARY_ONLY_SYSTEMS.map(s => ({
-        sys: s.sys, total: s.total, count: s.count, wr: s.wr.toFixed(1), summaryOnly: true
-    })));
+    });
 
     const maxCount = Math.max(...cells.map(c => c.count));
     let html = '';
@@ -598,9 +595,9 @@ function renderHeatmap(trades) {
             ? `rgba(74, 222, 128, ${0.08 + intensity*0.25})`
             : `rgba(248, 113, 113, ${0.08 + intensity*0.25})`;
         html += `<div class="heat-cell" style="flex-basis:${flexBasis}px; background:${color};">
-            <div class="sys-name">${c.sys}</div>
+            <div class="sys-name">${esc(c.sys)}</div>
             <div class="sys-pnl ${c.total>=0?'win-txt':'loss-txt'}">$${c.total.toLocaleString(undefined,{maximumFractionDigits:0})}</div>
-            <div class="sys-meta">${c.count.toLocaleString()} trades -- ${c.wr}% win${c.summaryOnly ? ' -- summary only' : ''}</div>
+            <div class="sys-meta">${c.count.toLocaleString()} records -- ${c.wr}% win</div>
         </div>`;
     });
     document.getElementById('heatmap').innerHTML = html;
@@ -628,12 +625,13 @@ function renderPage(page) {
     let rows = '<tr><th>Entry</th><th>Sym</th><th>Side</th><th>In</th><th>Out</th><th>Qty</th><th>P&amp;L</th><th>Src</th><th>Reason</th></tr>';
     pageTrades.forEach(t => {
         const cls = t.pnl>0?'win-txt':'loss-txt';
+        const entryTs = t.entry_timestamp || t.entry_time || t.timestamp || '';
         rows += `<tr>
-            <td>${(t.entry_timestamp||'').substring(0,19)}</td>
-            <td>${t.symbol||''}</td><td>${t.side||''}</td>
-            <td>${t.entry_price||''}</td><td>${t.exit_price||''}</td><td>${t.qty||''}</td>
-            <td class="${cls}">$${t.pnl.toFixed(2)}</td>
-            <td>${t.source||'live'}</td><td>${t.notes||''}</td>
+            <td>${esc(entryTs.substring(0,19))}</td>
+            <td>${esc(t.symbol||'')}</td><td>${esc(t.side||'')}</td>
+            <td>${esc(t.entry_price||'')}</td><td>${esc(t.exit_price||'')}</td><td>${esc(t.qty||'')}</td>
+            <td class="${cls}">$${Number(t.pnl).toFixed(2)}</td>
+            <td>${esc(t.source||'research')}</td><td>${esc(t.notes||'')}</td>
         </tr>`;
     });
     document.getElementById('tradeTable').innerHTML = rows;
