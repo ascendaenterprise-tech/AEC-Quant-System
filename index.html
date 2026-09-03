@@ -6,9 +6,9 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500;600&family=DM+Mono:wght@400;500&display=swap');
     :root {
-        --bg: #06050D;
-        --panel-bg: #0D0C16;
-        --panel-bg-raised: #131220;
+        --bg: #000000;
+        --panel-bg: #050505;
+        --panel-bg-raised: #0A0A0A;
         --accent: #E8E8E8;
         --accent-dim: #888888;
         --border: rgba(255,255,255,0.1);
@@ -21,10 +21,7 @@
     * { box-sizing: border-box; }
     body {
         font-family: -apple-system, 'Segoe UI', sans-serif;
-        background:
-            radial-gradient(ellipse 800px 500px at 15% 0%, rgba(88,60,140,0.12) 0%, transparent 60%),
-            radial-gradient(ellipse 900px 600px at 85% 20%, rgba(58,90,138,0.10) 0%, transparent 60%),
-            radial-gradient(ellipse at top, #131220 0%, #06050D 65%);
+        background: #000000;
         background-attachment: fixed;
         color: var(--text);
         margin: 0;
@@ -58,12 +55,12 @@
     .stats-row { display: flex; gap: 14px; margin-bottom: 18px; flex-wrap: wrap; }
     .stat-box {
         border: 1px solid var(--border); background: linear-gradient(145deg, var(--panel-bg-raised), var(--panel-bg));
-        padding: 14px 20px; flex: 1; min-width: 130px; border-radius: 12px;
+        padding: 14px 20px; flex: 1; min-width: 0; border-radius: 12px;
         box-shadow: 0 10px 28px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
         transition: transform 0.15s ease-out;
     }
     .stat-box .label { color: var(--text-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .stat-box .value { font-size: 22px; font-weight: 700; margin-top: 6px; color: var(--text); }
+    .stat-box .value { font-size: clamp(15px, 1.45vw, 22px); font-weight: 700; margin-top: 6px; color: var(--text); max-width: 100%; overflow-wrap: anywhere; word-break: normal; line-height: 1.15; font-variant-numeric: tabular-nums; }
     .stat-box .value.win { color: var(--green); }
     .stat-box .value.loss { color: var(--red); }
     .grid { display: grid; grid-template-columns: 1fr 1fr 320px; gap: 16px; align-items: start; }
@@ -93,8 +90,8 @@
     }
     @keyframes livepulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     .chart-panel .chart-inner { height: 460px; border-radius: 6px; overflow: hidden; }
-    table { width: 100%; border-collapse: collapse; font-size: 12px; }
-    th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: clamp(10px, 0.85vw, 12px); table-layout: auto; }
+    th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
     th { color: var(--text-dim); text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px; font-weight: 500; }
     td { color: var(--text); }
     .win-txt { color: var(--green); }
@@ -179,12 +176,12 @@
     <div class="topbar">
         <div>
             <h1>AEC Wire :: AECQS Research Terminal</h1>
-            <div class="sub">AECQS-30 -- ACTIVE R&amp;D -- NQ -- MULTI-STRATEGY RESEARCH / ANALYSIS / EXECUTION</div>
+            <div class="sub">AECQS -- FINAL 10-ENTRY RESEARCH CONFIGURATION -- NQ / ES / YM -- SYSTEMATIC RESEARCH / ANALYSIS / EXECUTION</div>
         </div>
         <div class="clock" id="clockDisplay">--:--:--</div>
     </div>
 
-    <div class="panel globe-hero" id="globeHeroSection">
+    <div class="panel" id="aecqsFinalConfig" style="margin-bottom:18px"><div class="panel-title">AECQS Final Research Configuration <span class="tag">historical backtest / simulation</span></div><div class="stats-row"><div class="stat-box"><div class="label">Raw Combined Net P&amp;L</div><div class="value win">+$31,648,982.32</div></div><div class="stat-box"><div class="label">Historical Trades</div><div class="value">53,317</div></div><div class="stat-box"><div class="label">Research Markets</div><div class="value">3</div></div><div class="stat-box"><div class="label">Max Entries / Market</div><div class="value">10</div></div><div class="stat-box"><div class="label">Contracts / Entry</div><div class="value">4</div></div></div><table><thead><tr><th>Market</th><th>Net P&amp;L</th><th>Trades</th><th>PF</th><th>Win Rate</th><th>Max DD</th><th>Rules</th></tr></thead><tbody><tr><td>NQ</td><td class="win-txt">+$24,986,733.43</td><td>20,736</td><td>1.752</td><td>56.13%</td><td class="loss-txt">-$229,889.94</td><td>35</td></tr><tr><td>ES</td><td class="win-txt">+$4,673,845.44</td><td>13,875</td><td>1.292</td><td>50.49%</td><td class="loss-txt">-$120,141.61</td><td>23</td></tr><tr><td>YM</td><td class="win-txt">+$1,988,403.45</td><td>18,706</td><td>1.121</td><td>45.47%</td><td class="loss-txt">-$381,241.54</td><td>30</td></tr></tbody></table><div class="msg" style="margin-top:12px">Final 10-entry research configuration. 4 contracts per entry; up to 10 simultaneous entries per market; $7,500 modeled maximum initial risk per entry; $75,000 modeled risk cap per market. Base modeled costs: 0.25 point adverse slippage per side and $4.50 commission per side. Native strategy stops and targets unchanged. Maximum theoretical simultaneous exposure: 120 contracts and $225,000 modeled initial risk across NQ, ES and YM. Results are historical backtest/simulated research and are not realized cash profit, audited fund performance, investor returns, or assets under management. Combined portfolio profit factor and cross-portfolio maximum drawdown are not stated because they have not been calculated from combined portfolio-level data.</div></div><div class="panel globe-hero" id="globeHeroSection">
         <div class="panel-title">World Exchanges <span class="tag">drag to rotate</span></div>
         <div id="globeViz"></div>
     </div>
@@ -387,34 +384,6 @@
 
     <br>
 
-    <div class="panel" id="portfolioSummarySection">
-        <div class="panel-title">AECQS-30 -- Current Development Checkpoint <span class="tag">historical backtest / simulated research</span></div>
-        <table>
-            <tr><th>Metric</th><th>Current Checkpoint</th><th>Classification</th></tr>
-            <tr><td>Current cumulative net backtest P&amp;L</td><td class="win-txt"><b>+$6,039,476.17</b></td><td>Historical backtest / simulated research</td></tr>
-            <tr><td>Total accepted trades</td><td><b>25,507</b></td><td>Portfolio-level checkpoint</td></tr>
-            <tr><td>Win rate</td><td><b>45.42%</b></td><td>Portfolio-level checkpoint</td></tr>
-            <tr><td>Profit factor</td><td><b>1.131</b></td><td>Portfolio-level checkpoint</td></tr>
-            <tr><td>Maximum drawdown</td><td class="loss-txt"><b>-$367,003.23</b></td><td>Portfolio-level checkpoint</td></tr>
-            <tr><td>Development status</td><td><b>Active R&amp;D</b></td><td>Not a final System 2 result</td></tr>
-        </table>
-        <div style="margin-top:12px; font-size:10px; color:var(--text-dim); line-height:1.65;">
-            <b style="color:var(--text);">Research disclosure:</b> These figures are the current supplied AECQS development checkpoint. They represent historical backtest/simulated research, not live or independently audited investment performance. AECQS remains under active research and development, so subsequent runs may supersede this checkpoint. Past or simulated performance does not guarantee future results.
-        </div>
-        <div style="margin-top:14px; border-top:1px solid var(--border); padding-top:12px;">
-            <div style="font-size:10px; text-transform:uppercase; letter-spacing:.7px; color:var(--text-dim); margin-bottom:8px;">Development History</div>
-            <table>
-                <tr><th>Checkpoint</th><th>Reported P&amp;L</th><th>Status</th></tr>
-                <tr><td>7-core baseline</td><td class="win-txt">+$1,031,859</td><td>Earlier Stage 2 checkpoint</td></tr>
-                <tr><td>10-family combined portfolio</td><td class="win-txt">+$1,450,037</td><td>Earlier combined checkpoint</td></tr>
-                <tr><td>13-entry research portfolio</td><td class="win-txt">+$2,090,248.23</td><td>Previous development checkpoint</td></tr>
-                <tr><td>AECQS-30 four-entry research run</td><td class="win-txt">+$6,039,476.17</td><td>Current development checkpoint</td></tr>
-            </table>
-        </div>
-    </div>
-
-    <br>
-
     <div class="panel" id="logSection">
         <div class="panel-title">Trade Log <span class="tag">available historical trade-level records</span></div>
         <div style="background:rgba(200,137,58,0.12); border:1px solid rgba(200,137,58,0.4); padding:12px 14px; margin-bottom:14px; border-radius:6px; font-size:11px; color:var(--text); line-height:1.6;">
@@ -465,13 +434,40 @@ const AECQS_CHECKPOINT = Object.freeze({
 
 function renderCheckpointStats(csvCount = null) {
     const csvBox = csvCount === null ? '' : `
-        <div class="stat-box"><div class="label">CSV Records Loaded</div><div class="value">${csvCount.toLocaleString()}</div></div>`;
+        <div class="stat-box">
+            <div class="label">CSV Records Loaded</div>
+            <div class="value">${csvCount.toLocaleString()}</div>
+        </div>`;
+
     document.getElementById('stats').innerHTML = `
-        <div class="stat-box"><div class="label">Current Net Backtest P&amp;L</div><div class="value win">+$${AECQS_CHECKPOINT.netPnl.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</div></div>
-        <div class="stat-box"><div class="label">Accepted Trades</div><div class="value">${AECQS_CHECKPOINT.acceptedTrades.toLocaleString()}</div></div>
-        <div class="stat-box"><div class="label">Win Rate</div><div class="value">${AECQS_CHECKPOINT.winRate.toFixed(2)}%</div></div>
-        <div class="stat-box"><div class="label">Profit Factor</div><div class="value">${AECQS_CHECKPOINT.profitFactor.toFixed(3)}</div></div>
-        <div class="stat-box"><div class="label">Max Drawdown</div><div class="value loss">-$${Math.abs(AECQS_CHECKPOINT.maxDrawdown).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</div></div>
+        <div class="stat-box">
+            <div class="label">Raw Combined Net P&amp;L</div>
+            <div class="value win">+$${AECQS_CHECKPOINT.netPnl.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })}</div>
+        </div>
+
+        <div class="stat-box">
+            <div class="label">Historical Trades</div>
+            <div class="value">${AECQS_CHECKPOINT.acceptedTrades.toLocaleString()}</div>
+        </div>
+
+        <div class="stat-box">
+            <div class="label">Research Markets</div>
+            <div class="value">${AECQS_CHECKPOINT.researchMarkets}</div>
+        </div>
+
+        <div class="stat-box">
+            <div class="label">Max Entries / Market</div>
+            <div class="value">${AECQS_CHECKPOINT.maxEntriesPerMarket}</div>
+        </div>
+
+        <div class="stat-box">
+            <div class="label">Contracts / Entry</div>
+            <div class="value">${AECQS_CHECKPOINT.contractsPerEntry}</div>
+        </div>
+
         ${csvBox}`;
 }
 
@@ -888,7 +884,7 @@ async function initUsMap() {
             .attr('cy', d => { const p = projection([d.lng, d.lat]); return p ? p[1] : -100; })
             .attr('r', 4)
             .attr('fill', '#4ade80')
-            .attr('stroke', '#06050D')
+            .attr('stroke', '#000000')
             .attr('stroke-width', 1.5)
             .append('title')
             .text(d => d.name);
@@ -1024,7 +1020,7 @@ setInterval(loadWhales, 300000);
 <!-- ============ AEC WIRE -- NEWS & MARKET INTELLIGENCE ============ -->
 <style>
 :root{
-  --wire-ink:#06050D; --wire-ink2:#0D0C16; --wire-rule:rgba(255,255,255,0.1); --wire-rule-light:rgba(255,255,255,0.06);
+  --wire-ink:#000000; --wire-ink2:#050505; --wire-rule:rgba(255,255,255,0.1); --wire-rule-light:rgba(255,255,255,0.06);
   --wire-white:#FFFFFF; --wire-cream2:#C8C8C8; --wire-cream3:#888888; --wire-red:#B23A2E; --wire-green:#3FA85C;
   --font-mono:'DM Mono','Courier New',monospace;
 }
@@ -1138,7 +1134,7 @@ setInterval(loadWhales, 300000);
   </div>
 </header>
 
-<div style="background:#0D0C16;border-bottom:.5px solid var(--wire-rule)">
+<div style="background:#050505;border-bottom:.5px solid var(--wire-rule)">
   <div class="tradingview-widget-container">
     <div class="tradingview-widget-container__widget"></div>
     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
