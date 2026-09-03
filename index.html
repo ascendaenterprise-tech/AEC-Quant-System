@@ -424,18 +424,18 @@ let currentPage = 1;
 const PAGE_SIZE = 50;
 
 const AECQS_CHECKPOINT = Object.freeze({
-    label: 'AECQS-30',
-    netPnl: 6039476.17,
-    acceptedTrades: 25507,
-    winRate: 45.42,
-    profitFactor: 1.131,
-    maxDrawdown: -367003.23
+    label: 'AECQS Final 10-Entry Configuration',
+    netPnl: 31648982.32,
+    acceptedTrades: 53317,
+    researchMarkets: 'NQ / ES / YM',
+    maxEntriesPerMarket: 10,
+    contractsPerEntry: 4
 });
 
 function renderCheckpointStats(csvCount = null) {
     const csvBox = csvCount === null ? '' : `
         <div class="stat-box">
-            <div class="label">CSV Records Loaded</div>
+            <div class="label">Loaded Dataset Records</div>
             <div class="value">${csvCount.toLocaleString()}</div>
         </div>`;
 
@@ -654,7 +654,7 @@ async function loadStatus() {
         });
         panel.innerHTML = html;
     } catch (err) {
-        panel.innerHTML = `<div class="msg">system_status.json not pushed yet -- run auto_push.py on the executor machine.</div>`;
+        panel.innerHTML = `<div class="msg">Live executor status is currently unavailable.</div>`;
     }
 }
 
@@ -662,7 +662,7 @@ const FINNHUB_API_KEY = "YOUR_FREE_FINNHUB_API_KEY_HERE";
 async function loadNews() {
     const panel = document.getElementById('newsPanel');
     if (!FINNHUB_API_KEY || FINNHUB_API_KEY === "YOUR_FREE_FINNHUB_API_KEY_HERE") {
-        panel.innerHTML = `<div class="msg">No API key. Get one free at <a href="https://finnhub.io/register" target="_blank">finnhub.io/register</a>.</div>`;
+        panel.innerHTML = `<div class="msg">Market news feed is currently unavailable.</div>`;
         return;
     }
     try {
@@ -685,7 +685,7 @@ const MARKET_TICKERS = ["AAPL","MSFT","GOOGL","AMZN","NVDA","META","AVGO","TSLA"
 async function loadMarketHeatmap() {
     const panel = document.getElementById('marketHeatmap');
     if (!FINNHUB_API_KEY || FINNHUB_API_KEY === "YOUR_FREE_FINNHUB_API_KEY_HERE") {
-        panel.innerHTML = `<div class="msg">No API key set. Get one free at <a href="https://finnhub.io/register" target="_blank">finnhub.io/register</a>.</div>`;
+        panel.innerHTML = `<div class="msg">Live market heatmap is currently unavailable.</div>`;
         return;
     }
     try {
