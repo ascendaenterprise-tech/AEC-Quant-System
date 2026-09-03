@@ -224,12 +224,11 @@
             <div class="launch-item" onclick="jumpTo('chartSection')"><b>Chart</b><span>/CH</span></div>
             <div class="launch-item" onclick="jumpTo('statusSection')"><b>System Status</b><span>/SS</span></div>
             <div class="launch-item" onclick="jumpTo('newsSection')"><b>Market News</b><span>/MN</span></div>
-            <div class="launch-item" onclick="jumpTo('heatmapSection')"><b>Strategy Heatmap</b><span>/SH</span></div>
+            <div class="launch-item" onclick="jumpTo('heatmapSection')"><b>AECQS Markets</b><span>/AQ</span></div>
             <div class="launch-item" onclick="jumpTo('marketHeatSection')"><b>Market Heatmap</b><span>/MH</span></div>
             <div class="launch-item" onclick="jumpTo('whalesSection')"><b>13F Whales</b><span>/13F</span></div>
             <div class="launch-item" onclick="jumpTo('tvSection')"><b>Live TV</b><span>/TV</span></div>
-            <div class="launch-item" onclick="jumpTo('breakdownSection')"><b>Strategy Breakdown</b><span>/SB</span></div>
-            <div class="launch-item" onclick="jumpTo('logSection')"><b>Trade Log</b><span>/TL</span></div>
+            
         </div>
     </div>
 
@@ -276,8 +275,21 @@
     <br>
 
     <div class="panel" id="heatmapSection">
-        <div class="panel-title">Trade-Level Dataset Heatmap <span class="tag">available CSV records only -- not the full AECQS portfolio</span></div>
-        <div class="heatmap" id="heatmap"></div>
+        <div class="panel-title">AECQS Market Research Summary <span class="tag">final 10-entry historical backtest / simulation</span></div>
+        <div class="heatmap">
+            <div class="heat-cell" style="flex:1; min-width:240px; background:rgba(74,222,128,0.14);">
+                <div class="sys-name">NQ</div><div class="sys-pnl win-txt">+$24,986,733.43</div>
+                <div class="sys-meta">20,736 trades · 56.13% win · PF 1.752 · Max DD -$229,889.94</div>
+            </div>
+            <div class="heat-cell" style="flex:1; min-width:240px; background:rgba(74,222,128,0.10);">
+                <div class="sys-name">ES</div><div class="sys-pnl win-txt">+$4,673,845.44</div>
+                <div class="sys-meta">13,875 trades · 50.49% win · PF 1.292 · Max DD -$120,141.61</div>
+            </div>
+            <div class="heat-cell" style="flex:1; min-width:240px; background:rgba(74,222,128,0.08);">
+                <div class="sys-name">YM</div><div class="sys-pnl win-txt">+$1,988,403.45</div>
+                <div class="sys-meta">18,706 trades · 45.47% win · PF 1.121 · Max DD -$381,241.54</div>
+            </div>
+        </div>
     </div>
 
     <br>
@@ -378,32 +390,18 @@
     <br>
 
     <div class="panel" id="breakdownSection">
-        <div class="panel-title">Trade-Level Dataset Breakdown <span class="tag">available CSV records only -- separate from portfolio checkpoint</span></div>
-        <table id="strategyTable"><tr><th>System</th><th>Trades</th><th>Total P&amp;L</th><th>Win Rate</th></tr></table>
-    </div>
-
-    <br>
-
-    <div class="panel" id="logSection">
-        <div class="panel-title">Trade Log <span class="tag">available historical trade-level records</span></div>
-        <div style="background:rgba(200,137,58,0.12); border:1px solid rgba(200,137,58,0.4); padding:12px 14px; margin-bottom:14px; border-radius:6px; font-size:11px; color:var(--text); line-height:1.6;">
-            <b>Dataset scope:</b> this table displays only the individual trade records actually present in <code>trade_log.csv</code>. It is intentionally <b>not</b> used to reconstruct or imply the full AECQS-30 portfolio checkpoint above. Aggregate-only or separately researched strategy families remain excluded unless their individual records are added to the CSV.
-        </div>
-        <div class="controls" id="controls" style="display:none; margin-bottom:12px; gap:10px; align-items:center;">
-            <select id="sourceFilter" onchange="renderPage(1)">
-                <option value="all">ALL SOURCES</option>
-                <option value="live">LIVE</option>
-                <option value="backtest">BACKTEST</option>
-            </select>
-            <input id="searchBox" type="text" placeholder="search..." oninput="renderPage(1)">
-            <span id="pageInfo" style="color:var(--text-dim); font-size:11px; margin-left:auto;"></span>
-            <button onclick="prevPage()">&larr; PREV</button>
-            <button onclick="nextPage()">NEXT &rarr;</button>
-        </div>
-        <table id="tradeTable">
-            <tr><th>Entry</th><th>Sym</th><th>Side</th><th>In</th><th>Out</th><th>Qty</th><th>P&amp;L</th><th>Src</th><th>Reason</th></tr>
+        <div class="panel-title">AECQS Final Market Breakdown <span class="tag">market-level historical backtest / simulated research</span></div>
+        <table>
+            <thead><tr><th>Market</th><th>Net P&amp;L</th><th>Trades</th><th>Profit Factor</th><th>Win Rate</th><th>Max Drawdown</th><th>Rules</th></tr></thead>
+            <tbody>
+                <tr><td>NQ</td><td class="win-txt">+$24,986,733.43</td><td>20,736</td><td>1.752</td><td>56.13%</td><td class="loss-txt">-$229,889.94</td><td>35</td></tr>
+                <tr><td>ES</td><td class="win-txt">+$4,673,845.44</td><td>13,875</td><td>1.292</td><td>50.49%</td><td class="loss-txt">-$120,141.61</td><td>23</td></tr>
+                <tr><td>YM</td><td class="win-txt">+$1,988,403.45</td><td>18,706</td><td>1.121</td><td>45.47%</td><td class="loss-txt">-$381,241.54</td><td>30</td></tr>
+            </tbody>
         </table>
+        <div class="msg" style="margin-top:12px">Raw combined historical backtest net P&amp;L: +$31,648,982.32 across 53,317 historical trades. Market-level profit factors, win rates, and maximum drawdowns are not combined portfolio statistics. Results are historical backtest/simulated research and are not realized cash profit, audited or live fund performance, investor returns, or assets under management.</div>
     </div>
+
 
 <script src="https://unpkg.com/globe.gl"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -419,10 +417,6 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-let allTrades = [];
-let currentPage = 1;
-const PAGE_SIZE = 50;
-
 const AECQS_CHECKPOINT = Object.freeze({
     label: 'AECQS Final 10-Entry Configuration',
     netPnl: 31648982.32,
@@ -432,209 +426,18 @@ const AECQS_CHECKPOINT = Object.freeze({
     contractsPerEntry: 4
 });
 
-function renderCheckpointStats(csvCount = null) {
-    const csvBox = csvCount === null ? '' : `
-        <div class="stat-box">
-            <div class="label">Loaded Dataset Records</div>
-            <div class="value">${csvCount.toLocaleString()}</div>
-        </div>`;
-
-    document.getElementById('stats').innerHTML = `
-        <div class="stat-box">
-            <div class="label">Raw Combined Net P&amp;L</div>
-            <div class="value win">+$${AECQS_CHECKPOINT.netPnl.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            })}</div>
-        </div>
-
-        <div class="stat-box">
-            <div class="label">Historical Trades</div>
-            <div class="value">${AECQS_CHECKPOINT.acceptedTrades.toLocaleString()}</div>
-        </div>
-
-        <div class="stat-box">
-            <div class="label">Research Markets</div>
-            <div class="value">${AECQS_CHECKPOINT.researchMarkets}</div>
-        </div>
-
-        <div class="stat-box">
-            <div class="label">Max Entries / Market</div>
-            <div class="value">${AECQS_CHECKPOINT.maxEntriesPerMarket}</div>
-        </div>
-
-        <div class="stat-box">
-            <div class="label">Contracts / Entry</div>
-            <div class="value">${AECQS_CHECKPOINT.contractsPerEntry}</div>
-        </div>
-
-        ${csvBox}`;
+function renderCheckpointStats() {
+    const stats = document.getElementById('stats');
+    if (!stats) return;
+    stats.innerHTML = `
+        <div class="stat-box"><div class="label">Raw Combined Net P&amp;L</div><div class="value win">+$31,648,982.32</div></div>
+        <div class="stat-box"><div class="label">Historical Trades</div><div class="value">53,317</div></div>
+        <div class="stat-box"><div class="label">Research Markets</div><div class="value">NQ / ES / YM</div></div>
+        <div class="stat-box"><div class="label">Max Entries / Market</div><div class="value">10</div></div>
+        <div class="stat-box"><div class="label">Contracts / Entry</div><div class="value">4</div></div>`;
 }
 
-function parseCsvLine(line) {
-    const out = [];
-    let field = '';
-    let quoted = false;
-    for (let i = 0; i < line.length; i++) {
-        const ch = line[i];
-        if (ch === '"') {
-            if (quoted && line[i + 1] === '"') { field += '"'; i++; }
-            else quoted = !quoted;
-        } else if (ch === ',' && !quoted) {
-            out.push(field); field = '';
-        } else {
-            field += ch;
-        }
-    }
-    out.push(field);
-    return out;
-}
-
-function esc(value) {
-    return String(value ?? '')
-        .replaceAll('&', '&amp;').replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;').replaceAll('"', '&quot;')
-        .replaceAll("'", '&#39;');
-}
-
-async function loadDashboard() {
-    renderCheckpointStats();
-    try {
-        const response = await fetch('trade_log.csv?t=' + Date.now());
-        if (!response.ok) throw new Error('trade_log.csv not found');
-        const text = await response.text();
-        if (!text.trim()) throw new Error('trade_log.csv is empty');
-        const lines = text.trim().split(/\r?\n/);
-        const headers = parseCsvLine(lines[0]).map(h => h.trim());
-        const trades = [];
-        for (let i = 1; i < lines.length; i++) {
-            const cols = parseCsvLine(lines[i]);
-            if (cols.length < headers.length) continue;
-            const row = {};
-            headers.forEach((h, idx) => row[h] = (cols[idx] ?? '').trim());
-            const pnl = Number.parseFloat(row.pnl);
-            if (Number.isFinite(pnl)) { row.pnl = pnl; trades.push(row); }
-        }
-        if (trades.length === 0) throw new Error('trade_log.csv contains no valid P&L rows');
-
-        allTrades = trades.slice().reverse();
-        renderCheckpointStats(trades.length);
-        document.getElementById('controls').style.display = 'flex';
-        renderPage(1);
-        renderStrategyBreakdown(trades);
-        renderHeatmap(trades);
-    } catch (err) {
-        const table = document.getElementById('tradeTable');
-        if (table) table.innerHTML = `<tr><th>Trade Log Status</th></tr><tr><td class="msg">${esc(err.message)}. Portfolio checkpoint metrics above remain available; add or repair trade_log.csv to populate individual trade records.</td></tr>`;
-        const controls = document.getElementById('controls');
-        if (controls) controls.style.display = 'none';
-    }
-}
-
-function extractSystem(notes) {
-    if (!notes) return 'Live (L1)';
-    const known = [
-        ['Layer I', 'L1'], ['OTE+BOS', 'OTE'], ['HTF Rejection', 'HTF'],
-        ['Z-Score MR v2', 'ZMR'], ['VWAP Reversion', 'VWAP'], ['Volatility Breakout', 'VB'],
-        ['Trend Following', 'TF'], ['MTF FVG Confluence', 'MTF-FVG'], ['Pairs (Kalman)', 'PK'],
-        ['Keltner Trend Expansion', 'KTE']
-    ];
-    for (const [k, abbr] of known) if (notes.includes(k)) return abbr;
-    return 'Other';
-}
-
-function renderStrategyBreakdown(trades) {
-    const groups = {};
-    trades.forEach(t => {
-        const sys = extractSystem(t.notes);
-        if (!groups[sys]) groups[sys] = [];
-        groups[sys].push(t.pnl);
-    });
-    let rows = '<tr><th>System</th><th>Trades</th><th>Total P&amp;L</th><th>Win Rate</th></tr>';
-    Object.keys(groups).sort().forEach(sys => {
-        const pnls = groups[sys];
-        const total = pnls.reduce((a,b)=>a+b,0);
-        const wr = (100*pnls.filter(p=>p>0).length/pnls.length).toFixed(1);
-        const cls = total>=0?'win-txt':'loss-txt';
-        rows += `<tr><td>${esc(sys)}</td><td>${pnls.length}</td><td class="${cls}">$${total.toFixed(2)}</td><td>${wr}%</td></tr>`;
-    });
-    document.getElementById('strategyTable').innerHTML = rows;
-}
-
-
-function renderHeatmap(trades) {
-    const groups = {};
-    trades.forEach(t => {
-        const sys = extractSystem(t.notes);
-        if (!groups[sys]) groups[sys] = [];
-        groups[sys].push(t.pnl);
-    });
-
-    // Heatmap intentionally reflects only individual records in trade_log.csv.
-    const cells = Object.keys(groups).map(sys => {
-        const pnls = groups[sys];
-        return {
-            sys,
-            total: pnls.reduce((a,b)=>a+b,0),
-            count: pnls.length,
-            wr: (100*pnls.filter(p=>p>0).length/pnls.length).toFixed(1),
-        };
-    });
-
-    const maxCount = Math.max(...cells.map(c => c.count));
-    let html = '';
-    cells.sort((a,b) => a.sys.localeCompare(b.sys)).forEach(c => {
-        const sizeRatio = c.count / maxCount;
-        const flexBasis = Math.max(140, sizeRatio * 260);
-        const intensity = Math.min(1, Math.abs(c.total) / 100000);
-        const color = c.total >= 0
-            ? `rgba(74, 222, 128, ${0.08 + intensity*0.25})`
-            : `rgba(248, 113, 113, ${0.08 + intensity*0.25})`;
-        html += `<div class="heat-cell" style="flex-basis:${flexBasis}px; background:${color};">
-            <div class="sys-name">${esc(c.sys)}</div>
-            <div class="sys-pnl ${c.total>=0?'win-txt':'loss-txt'}">$${c.total.toLocaleString(undefined,{maximumFractionDigits:0})}</div>
-            <div class="sys-meta">${c.count.toLocaleString()} records -- ${c.wr}% win</div>
-        </div>`;
-    });
-    document.getElementById('heatmap').innerHTML = html;
-}
-
-function getFiltered() {
-    const source = document.getElementById('sourceFilter').value;
-    const search = document.getElementById('searchBox').value.toLowerCase();
-    return allTrades.filter(t => {
-        if (source !== 'all' && (t.source||'').toLowerCase() !== source) return false;
-        if (search) {
-            const hay = ((t.notes||'')+' '+(t.side||'')).toLowerCase();
-            if (!hay.includes(search)) return false;
-        }
-        return true;
-    });
-}
-
-function renderPage(page) {
-    const filtered = getFiltered();
-    const totalPages = Math.max(1, Math.ceil(filtered.length/PAGE_SIZE));
-    currentPage = Math.min(Math.max(1,page), totalPages);
-    const start = (currentPage-1)*PAGE_SIZE;
-    const pageTrades = filtered.slice(start, start+PAGE_SIZE);
-    let rows = '<tr><th>Entry</th><th>Sym</th><th>Side</th><th>In</th><th>Out</th><th>Qty</th><th>P&amp;L</th><th>Src</th><th>Reason</th></tr>';
-    pageTrades.forEach(t => {
-        const cls = t.pnl>0?'win-txt':'loss-txt';
-        const entryTs = t.entry_timestamp || t.entry_time || t.timestamp || '';
-        rows += `<tr>
-            <td>${esc(entryTs.substring(0,19))}</td>
-            <td>${esc(t.symbol||'')}</td><td>${esc(t.side||'')}</td>
-            <td>${esc(t.entry_price||'')}</td><td>${esc(t.exit_price||'')}</td><td>${esc(t.qty||'')}</td>
-            <td class="${cls}">$${Number(t.pnl).toFixed(2)}</td>
-            <td>${esc(t.source||'research')}</td><td>${esc(t.notes||'')}</td>
-        </tr>`;
-    });
-    document.getElementById('tradeTable').innerHTML = rows;
-    document.getElementById('pageInfo').textContent = `PAGE ${currentPage}/${totalPages} (${filtered.length})`;
-}
-function nextPage(){ renderPage(currentPage+1); }
-function prevPage(){ renderPage(currentPage-1); }
+function loadDashboard() { renderCheckpointStats(); }
 
 async function loadStatus() {
     const panel = document.getElementById('statusPanel');
