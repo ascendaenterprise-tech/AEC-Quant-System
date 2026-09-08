@@ -176,12 +176,30 @@
     <div class="topbar">
         <div>
             <h1>AEC Wire :: AECQS Research Terminal</h1>
-            <div class="sub">AECQS -- FINAL 10-ENTRY RESEARCH CONFIGURATION -- NQ / ES / YM -- SYSTEMATIC RESEARCH / ANALYSIS / EXECUTION</div>
+            <div class="sub">AECQS -- UNIFIED MULTI-ASSET RESEARCH -- NQ / ES / YM / EQUITIES -- SHARED-ACCOUNT SIMULATION</div>
         </div>
         <div class="clock" id="clockDisplay">--:--:--</div>
     </div>
 
-    <div class="panel" id="aecqsFinalConfig" style="margin-bottom:18px"><div class="panel-title">AECQS Final Research Configuration <span class="tag">historical backtest / simulation</span></div><div class="stats-row"><div class="stat-box"><div class="label">Raw Combined Net P&amp;L</div><div class="value win">+$31,648,982.32</div></div><div class="stat-box"><div class="label">Historical Trades</div><div class="value">53,317</div></div><div class="stat-box"><div class="label">Research Markets</div><div class="value">3</div></div><div class="stat-box"><div class="label">Max Entries / Market</div><div class="value">10</div></div><div class="stat-box"><div class="label">Contracts / Entry</div><div class="value">4</div></div></div><table><thead><tr><th>Market</th><th>Net P&amp;L</th><th>Trades</th><th>PF</th><th>Win Rate</th><th>Max DD</th><th>Rules</th></tr></thead><tbody><tr><td>NQ</td><td class="win-txt">+$24,986,733.43</td><td>20,736</td><td>1.752</td><td>56.13%</td><td class="loss-txt">-$229,889.94</td><td>35</td></tr><tr><td>ES</td><td class="win-txt">+$4,673,845.44</td><td>13,875</td><td>1.292</td><td>50.49%</td><td class="loss-txt">-$120,141.61</td><td>23</td></tr><tr><td>YM</td><td class="win-txt">+$1,988,403.45</td><td>18,706</td><td>1.121</td><td>45.47%</td><td class="loss-txt">-$381,241.54</td><td>30</td></tr></tbody></table><div class="msg" style="margin-top:12px">Final 10-entry research configuration. 4 contracts per entry; up to 10 simultaneous entries per market; $7,500 modeled maximum initial risk per entry; $75,000 modeled risk cap per market. Base modeled costs: 0.25 point adverse slippage per side and $4.50 commission per side. Native strategy stops and targets unchanged. Maximum theoretical simultaneous exposure: 120 contracts and $225,000 modeled initial risk across NQ, ES and YM. Results are historical backtest/simulated research and are not realized cash profit, audited fund performance, investor returns, or assets under management. Combined portfolio profit factor and cross-portfolio maximum drawdown are not stated because they have not been calculated from combined portfolio-level data.</div></div><div class="panel globe-hero" id="globeHeroSection">
+    <div class="panel" id="aecqsFinalConfig" style="margin-bottom:18px">
+        <div class="panel-title">AECQS Unified Multi-Asset Research <span class="tag">08 SEP 2026 · historical simulation / backtest</span></div>
+        <div class="stats-row">
+            <div class="stat-box"><div class="label">Liquidity-Cap Ending Value</div><div class="value win">$1,500,989,975.35</div></div>
+            <div class="stat-box"><div class="label">Uncapped Ending Value</div><div class="value">$1,637,097,075.58</div></div>
+            <div class="stat-box"><div class="label">Uncapped Net Profit</div><div class="value win">+$1,636,097,075.58</div></div>
+            <div class="stat-box"><div class="label">Combined Closed Entries</div><div class="value">107,167</div></div>
+            <div class="stat-box"><div class="label">Account Profit Factor</div><div class="value">2.898</div></div>
+            <div class="stat-box"><div class="label">Pooled Win Rate</div><div class="value">53.61%</div></div>
+        </div>
+        <table><thead><tr><th>System</th><th>Net Contribution</th><th>Closed Entries</th><th>PF</th><th>Win Rate</th><th>Wins / Losses</th><th>Profit Share</th></tr></thead><tbody>
+            <tr><td>NQ</td><td class="win-txt">+$75,391,307.60</td><td>54,463</td><td>1.942</td><td>57.95%</td><td>31,562 / 22,901</td><td>4.61%</td></tr>
+            <tr><td>ES</td><td class="win-txt">+$10,543,705.84</td><td>33,728</td><td>1.257</td><td>51.06%</td><td>17,220 / 16,508</td><td>0.64%</td></tr>
+            <tr><td>YM</td><td class="win-txt">+$1,988,403.45</td><td>18,706</td><td>1.121</td><td>45.47%</td><td>8,505 / 10,201</td><td>0.12%</td></tr>
+            <tr><td>Equities</td><td class="win-txt">+$1,548,173,658.70</td><td>270</td><td>3.138</td><td>61.11%</td><td>165 / 105</td><td>94.63%</td></tr>
+            <tr><td><b>TOTAL</b></td><td class="win-txt"><b>+$1,636,097,075.58</b></td><td><b>107,167</b></td><td><b>2.898</b></td><td><b>53.61%</b></td><td><b>57,452 / 49,715</b></td><td><b>100%</b></td></tr>
+        </tbody></table>
+        <div class="msg" style="margin-top:12px">One shared $1,000,000 starting-account simulation across NQ, ES, YM and equities. The $1,500,989,975.35 headline is the specified partial 10% ADV-cap scenario; the detailed trade economics, annual returns and risk measures shown on this terminal describe the uncapped $1,637,097,075.58 account unless specifically stated otherwise. Results are historical simulated/backtested research, not realized cash profit, audited/live fund performance, investor returns, or assets under management. The specified liquidity-cap scenario does not establish executable capacity at the ending scale.</div>
+    </div><div class="panel globe-hero" id="globeHeroSection">
         <div class="panel-title">World Exchanges <span class="tag">drag to rotate</span></div>
         <div id="globeViz"></div>
     </div>
@@ -275,20 +293,12 @@
     <br>
 
     <div class="panel" id="heatmapSection">
-        <div class="panel-title">AECQS Market Research Summary <span class="tag">final 10-entry historical backtest / simulation</span></div>
+        <div class="panel-title">AECQS System Attribution <span class="tag">uncapped shared-account branch</span></div>
         <div class="heatmap">
-            <div class="heat-cell" style="flex:1; min-width:240px; background:rgba(74,222,128,0.14);">
-                <div class="sys-name">NQ</div><div class="sys-pnl win-txt">+$24,986,733.43</div>
-                <div class="sys-meta">20,736 trades · 56.13% win · PF 1.752 · Max DD -$229,889.94</div>
-            </div>
-            <div class="heat-cell" style="flex:1; min-width:240px; background:rgba(74,222,128,0.10);">
-                <div class="sys-name">ES</div><div class="sys-pnl win-txt">+$4,673,845.44</div>
-                <div class="sys-meta">13,875 trades · 50.49% win · PF 1.292 · Max DD -$120,141.61</div>
-            </div>
-            <div class="heat-cell" style="flex:1; min-width:240px; background:rgba(74,222,128,0.08);">
-                <div class="sys-name">YM</div><div class="sys-pnl win-txt">+$1,988,403.45</div>
-                <div class="sys-meta">18,706 trades · 45.47% win · PF 1.121 · Max DD -$381,241.54</div>
-            </div>
+            <div class="heat-cell" style="flex:1; min-width:220px; background:rgba(74,222,128,0.14);"><div class="sys-name">NQ</div><div class="sys-pnl win-txt">+$75,391,307.60</div><div class="sys-meta">54,463 entries · 57.95% win · PF 1.942</div></div>
+            <div class="heat-cell" style="flex:1; min-width:220px; background:rgba(74,222,128,0.10);"><div class="sys-name">ES</div><div class="sys-pnl win-txt">+$10,543,705.84</div><div class="sys-meta">33,728 entries · 51.06% win · PF 1.257</div></div>
+            <div class="heat-cell" style="flex:1; min-width:220px; background:rgba(74,222,128,0.08);"><div class="sys-name">YM</div><div class="sys-pnl win-txt">+$1,988,403.45</div><div class="sys-meta">18,706 entries · 45.47% win · PF 1.121</div></div>
+            <div class="heat-cell" style="flex:1; min-width:220px; background:rgba(74,222,128,0.18);"><div class="sys-name">EQUITIES</div><div class="sys-pnl win-txt">+$1,548,173,658.70</div><div class="sys-meta">270 positions · 61.11% win · PF 3.138 · 27 baskets</div></div>
         </div>
     </div>
 
@@ -390,16 +400,36 @@
     <br>
 
     <div class="panel" id="breakdownSection">
-        <div class="panel-title">AECQS Final Market Breakdown <span class="tag">market-level historical backtest / simulated research</span></div>
-        <table>
-            <thead><tr><th>Market</th><th>Net P&amp;L</th><th>Trades</th><th>Profit Factor</th><th>Win Rate</th><th>Max Drawdown</th><th>Rules</th></tr></thead>
-            <tbody>
-                <tr><td>NQ</td><td class="win-txt">+$24,986,733.43</td><td>20,736</td><td>1.752</td><td>56.13%</td><td class="loss-txt">-$229,889.94</td><td>35</td></tr>
-                <tr><td>ES</td><td class="win-txt">+$4,673,845.44</td><td>13,875</td><td>1.292</td><td>50.49%</td><td class="loss-txt">-$120,141.61</td><td>23</td></tr>
-                <tr><td>YM</td><td class="win-txt">+$1,988,403.45</td><td>18,706</td><td>1.121</td><td>45.47%</td><td class="loss-txt">-$381,241.54</td><td>30</td></tr>
-            </tbody>
-        </table>
-        <div class="msg" style="margin-top:12px">Raw combined historical backtest net P&amp;L: +$31,648,982.32 across 53,317 historical trades. Market-level profit factors, win rates, and maximum drawdowns are not combined portfolio statistics. Results are historical backtest/simulated research and are not realized cash profit, audited or live fund performance, investor returns, or assets under management.</div>
+        <div class="panel-title">AECQS Institutional Research Record <span class="tag">shared-account simulated research</span></div>
+        <table><thead><tr><th>Metric</th><th>Result</th><th>Metric</th><th>Result</th></tr></thead><tbody>
+            <tr><td>Starting capital</td><td>$1,000,000.00</td><td>Uncapped ending value</td><td class="win-txt">$1,637,097,075.58</td></tr>
+            <tr><td>Specified 10% ADV-cap ending value</td><td class="win-txt">$1,500,989,975.35</td><td>ADV-cap difference</td><td class="loss-txt">-$136,107,100.23 (-8.3%)</td></tr>
+            <tr><td>Gross profit</td><td>$2,497,894,116.41</td><td>Gross loss</td><td class="loss-txt">-$861,797,040.83</td></tr>
+            <tr><td>Expectancy / entry</td><td>$15,266.80</td><td>Payoff ratio</td><td>2.508</td></tr>
+            <tr><td>Average winning entry</td><td>$43,477.93</td><td>Average losing entry</td><td class="loss-txt">-$17,334.75</td></tr>
+            <tr><td>CAGR</td><td>338.73%</td><td>Annualized volatility</td><td>52.04%</td></tr>
+            <tr><td>Sharpe ratio</td><td>3.116</td><td>Sortino ratio</td><td>5.243</td></tr>
+            <tr><td>Calmar ratio</td><td>8.180</td><td>Max observed drawdown</td><td class="loss-txt">-41.41% / -$761,594,973.35</td></tr>
+            <tr><td>Positive / negative days</td><td>768 / 489</td><td>Daily observations</td><td>1,257</td></tr>
+            <tr><td>Best dollar day</td><td class="win-txt">+$187,732,014.95</td><td>Worst dollar day</td><td class="loss-txt">-$177,607,725.46</td></tr>
+        </tbody></table>
+        <div class="panel-title" style="margin-top:18px">Annual Account Development <span class="tag">uncapped account</span></div>
+        <table><thead><tr><th>Year</th><th>Account P&amp;L</th><th>Ending Account Value</th><th>Return</th></tr></thead><tbody>
+            <tr><td>2021 (partial)</td><td class="win-txt">+$4,329,463.97</td><td>$5,329,463.97</td><td>432.95%</td></tr>
+            <tr><td>2022</td><td class="win-txt">+$22,019,772.81</td><td>$27,349,236.79</td><td>413.17%</td></tr>
+            <tr><td>2023</td><td class="win-txt">+$34,924,819.35</td><td>$62,274,056.14</td><td>127.70%</td></tr>
+            <tr><td>2024</td><td class="win-txt">+$206,125,957.72</td><td>$268,400,013.86</td><td>331.00%</td></tr>
+            <tr><td>2025</td><td class="win-txt">+$345,252,006.75</td><td>$613,652,020.61</td><td>128.63%</td></tr>
+            <tr><td>2026 (partial)</td><td class="win-txt">+$1,023,445,054.97</td><td>$1,637,097,075.58</td><td>166.78%</td></tr>
+        </tbody></table>
+        <div class="panel-title" style="margin-top:18px">Equity Sleeve Research <span class="tag">shared-capital implementation</span></div>
+        <table><thead><tr><th>Measure</th><th>Result</th><th>Measure</th><th>Result</th></tr></thead><tbody>
+            <tr><td>Stock positions / rebalances</td><td>270 / 27</td><td>Winning positions</td><td>165 / 270 (61.11%)</td></tr>
+            <tr><td>Winning baskets</td><td>19 / 27 (70.4%)</td><td>Best / worst basket</td><td>+105.96% / -23.82%</td></tr>
+            <tr><td>Mean / median basket return</td><td>+18.07% / +14.64%</td><td>Basket return std. dev.</td><td>30.77%</td></tr>
+            <tr><td>Longest win / loss basket streak</td><td>5 / 2</td><td>Equity net contribution</td><td class="win-txt">+$1,548,173,658.70</td></tr>
+        </tbody></table>
+        <div class="msg" style="margin-top:12px">Research basis: futures retain fixed four-contract reconstructed sizing; equities invest available cash above a $500,000 futures reserve. The reconstructed equity rule uses a 252-session lookback, 21-session skip, rank-squared top-ten weights, 36-session holding periods, fractional shares and 20 bps round-trip equity costs. The owner-verified partial liquidity scenario caps RKLB in rebalances 18-22 and ECHO in rebalance 24 at 10% of average daily volume. Updated trade-level attribution and a recalculated risk series for the capped scenario were not supplied. Options research is excluded. Historical simulation only; not externally audited or realized investor performance.</div>
     </div>
 
 
@@ -418,23 +448,26 @@ updateClock();
 setInterval(updateClock, 1000);
 
 const AECQS_CHECKPOINT = Object.freeze({
-    label: 'AECQS Final 10-Entry Configuration',
-    netPnl: 31648982.32,
-    acceptedTrades: 53317,
-    researchMarkets: 'NQ / ES / YM',
-    maxEntriesPerMarket: 10,
-    contractsPerEntry: 4
+    label: 'AECQS Unified Multi-Asset Research — 08 Sep 2026',
+    liquidityCapEndingValue: 1500989975.35,
+    uncappedEndingValue: 1637097075.58,
+    uncappedNetProfit: 1636097075.58,
+    acceptedEntries: 107167,
+    accountProfitFactor: 2.898,
+    pooledWinRate: 53.61,
+    researchSystems: 'NQ / ES / YM / Equities'
 });
 
 function renderCheckpointStats() {
     const stats = document.getElementById('stats');
     if (!stats) return;
     stats.innerHTML = `
-        <div class="stat-box"><div class="label">Raw Combined Net P&amp;L</div><div class="value win">+$31,648,982.32</div></div>
-        <div class="stat-box"><div class="label">Historical Trades</div><div class="value">53,317</div></div>
-        <div class="stat-box"><div class="label">Research Markets</div><div class="value">NQ / ES / YM</div></div>
-        <div class="stat-box"><div class="label">Max Entries / Market</div><div class="value">10</div></div>
-        <div class="stat-box"><div class="label">Contracts / Entry</div><div class="value">4</div></div>`;
+        <div class="stat-box"><div class="label">Liquidity-Cap Ending Value</div><div class="value win">$1,500,989,975.35</div></div>
+        <div class="stat-box"><div class="label">Uncapped Ending Value</div><div class="value">$1,637,097,075.58</div></div>
+        <div class="stat-box"><div class="label">Uncapped Net Profit</div><div class="value win">+$1,636,097,075.58</div></div>
+        <div class="stat-box"><div class="label">Closed Entries</div><div class="value">107,167</div></div>
+        <div class="stat-box"><div class="label">Account PF</div><div class="value">2.898</div></div>
+        <div class="stat-box"><div class="label">Pooled Win Rate</div><div class="value">53.61%</div></div>`;
 }
 
 function loadDashboard() { renderCheckpointStats(); }
