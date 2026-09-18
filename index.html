@@ -182,23 +182,20 @@
     </div>
 
     <div class="panel" id="aecqsFinalConfig" style="margin-bottom:18px">
-        <div class="panel-title">AECQS Unified Multi-Asset Research <span class="tag">08 SEP 2026 · historical simulation / backtest</span></div>
+        <div class="panel-title">AECQS Unified Multi-Asset Research <span class="tag">18 SEP 2026 · historical simulation / backtest</span></div>
         <div class="stats-row">
-            <div class="stat-box"><div class="label">Liquidity-Cap Ending Value</div><div class="value win">$1,500,989,975.35</div></div>
-            <div class="stat-box"><div class="label">Uncapped Ending Value</div><div class="value">$1,637,097,075.58</div></div>
-            <div class="stat-box"><div class="label">Uncapped Net Profit</div><div class="value win">+$1,636,097,075.58</div></div>
-            <div class="stat-box"><div class="label">Combined Closed Entries</div><div class="value">107,167</div></div>
-            <div class="stat-box"><div class="label">Account Profit Factor</div><div class="value">2.898</div></div>
-            <div class="stat-box"><div class="label">Pooled Win Rate</div><div class="value">53.61%</div></div>
+            <div class="stat-box"><div class="label">Growth V1 Ending Value</div><div class="value win">$2,427,396,383.55</div></div>
+            <div class="stat-box"><div class="label">Growth V1 CAGR</div><div class="value">68.15%</div></div>
+            <div class="stat-box"><div class="label">Growth V1 Max Drawdown</div><div class="value loss-txt">-45.70%</div></div>
+            <div class="stat-box"><div class="label">Controlled V3 Ending Value</div><div class="value win">$287,042,712.72</div></div>
+            <div class="stat-box"><div class="label">Controlled V3 CAGR</div><div class="value">45.84%</div></div>
+            <div class="stat-box"><div class="label">Controlled V3 Max Drawdown</div><div class="value">-11.64%</div></div>
         </div>
-        <table><thead><tr><th>System</th><th>Net Contribution</th><th>Closed Entries</th><th>PF</th><th>Win Rate</th><th>Wins / Losses</th><th>Profit Share</th></tr></thead><tbody>
-            <tr><td>NQ</td><td class="win-txt">+$75,391,307.60</td><td>54,463</td><td>1.942</td><td>57.95%</td><td>31,562 / 22,901</td><td>4.61%</td></tr>
-            <tr><td>ES</td><td class="win-txt">+$10,543,705.84</td><td>33,728</td><td>1.257</td><td>51.06%</td><td>17,220 / 16,508</td><td>0.64%</td></tr>
-            <tr><td>YM</td><td class="win-txt">+$1,988,403.45</td><td>18,706</td><td>1.121</td><td>45.47%</td><td>8,505 / 10,201</td><td>0.12%</td></tr>
-            <tr><td>Equities</td><td class="win-txt">+$1,548,173,658.70</td><td>270</td><td>3.138</td><td>61.11%</td><td>165 / 105</td><td>94.63%</td></tr>
-            <tr><td><b>TOTAL</b></td><td class="win-txt"><b>+$1,636,097,075.58</b></td><td><b>107,167</b></td><td><b>2.898</b></td><td><b>53.61%</b></td><td><b>57,452 / 49,715</b></td><td><b>100%</b></td></tr>
+        <table><thead><tr><th>System</th><th>Company status</th><th>Starting capital</th><th>Ending value</th><th>CAGR</th><th>Max closed-day drawdown</th><th>Research classification</th></tr></thead><tbody>
+            <tr><td><b>AECQS Growth V1</b></td><td><b>Exclusively reserved for Ascenda Enterprise Capital LLC</b></td><td>$1,000,000</td><td class="win-txt">$2,427,396,383.55</td><td>68.15%</td><td class="loss-txt">-45.70%</td><td>Company-only historical research; not offered for sale or license</td></tr>
+            <tr><td><b>AECQS Controlled V3</b></td><td>Institutional diligence candidate subject to separate agreements and legal review</td><td>$1,000,000</td><td class="win-txt">$287,042,712.72</td><td>45.84%</td><td>-11.64%</td><td>Historical research only; not a public offering</td></tr>
         </tbody></table>
-        <div class="msg" style="margin-top:12px">One shared $1,000,000 starting-account simulation across NQ, ES, YM and equities. The $1,500,989,975.35 headline is the specified partial 10% ADV-cap scenario; the detailed trade economics, annual returns and risk measures shown on this terminal describe the uncapped $1,637,097,075.58 account unless specifically stated otherwise. Results are historical simulated/backtested research, not realized cash profit, audited/live fund performance, investor returns, or assets under management. The specified liquidity-cap scenario does not establish executable capacity at the ending scale.</div>
+        <div class="msg" style="margin-top:12px">Both configurations use one shared $1,000,000 simulated account across NQ, ES, YM and equities over approximately 15 years. Growth V1 accounting reconciles independently and 330,378 futures trades reproduce exactly, but equity point-in-time membership, capacity, historical margin and intraday liquidation feasibility remain unverified. Growth V1 base explicit-cost research ends at $2,351,019,271.19; adverse and severe cost paths become insolvent. Controlled V3 independently reproduces exactly; its base explicit-cost research ends at $246,172,403.67 with -12.46% maximum closed-day drawdown. All figures are hypothetical backtests—not actual company trading, audited performance, investor returns, assets under management, executable capacity, expected returns or guarantees.</div>
     </div><div class="panel globe-hero" id="globeHeroSection">
         <div class="panel-title">World Exchanges <span class="tag">drag to rotate</span></div>
         <div id="globeViz"></div>
@@ -402,18 +399,16 @@
     <div class="panel" id="breakdownSection">
         <div class="panel-title">AECQS Institutional Research Record <span class="tag">shared-account simulated research</span></div>
         <table><thead><tr><th>Metric</th><th>Result</th><th>Metric</th><th>Result</th></tr></thead><tbody>
-            <tr><td>Starting capital</td><td>$1,000,000.00</td><td>Uncapped ending value</td><td class="win-txt">$1,637,097,075.58</td></tr>
-            <tr><td>Specified 10% ADV-cap ending value</td><td class="win-txt">$1,500,989,975.35</td><td>ADV-cap difference</td><td class="loss-txt">-$136,107,100.23 (-8.3%)</td></tr>
-            <tr><td>Gross profit</td><td>$2,497,894,116.41</td><td>Gross loss</td><td class="loss-txt">-$861,797,040.83</td></tr>
-            <tr><td>Expectancy / entry</td><td>$15,266.80</td><td>Payoff ratio</td><td>2.508</td></tr>
-            <tr><td>Average winning entry</td><td>$43,477.93</td><td>Average losing entry</td><td class="loss-txt">-$17,334.75</td></tr>
-            <tr><td>CAGR</td><td>338.73%</td><td>Annualized volatility</td><td>52.04%</td></tr>
-            <tr><td>Sharpe ratio</td><td>3.116</td><td>Sortino ratio</td><td>5.243</td></tr>
-            <tr><td>Calmar ratio</td><td>8.180</td><td>Max observed drawdown</td><td class="loss-txt">-41.41% / -$761,594,973.35</td></tr>
-            <tr><td>Positive / negative days</td><td>768 / 489</td><td>Daily observations</td><td>1,257</td></tr>
-            <tr><td>Best dollar day</td><td class="win-txt">+$187,732,014.95</td><td>Worst dollar day</td><td class="loss-txt">-$177,607,725.46</td></tr>
+            <tr><td>Growth V1 starting capital</td><td>$1,000,000.00</td><td>Growth V1 ending value</td><td class="win-txt">$2,427,396,383.55</td></tr>
+            <tr><td>Growth V1 net profit</td><td class="win-txt">$2,426,396,383.55</td><td>Growth V1 CAGR</td><td>68.15%</td></tr>
+            <tr><td>Growth V1 Sharpe / Sortino</td><td>1.44 / 2.21</td><td>Growth V1 Calmar</td><td>1.49</td></tr>
+            <tr><td>Growth V1 max drawdown</td><td class="loss-txt">-45.70%</td><td>Growth V1 max drawdown dollars</td><td class="loss-txt">-$841,137,127.69</td></tr>
+            <tr><td>Controlled V3 ending value</td><td class="win-txt">$287,042,712.72</td><td>Controlled V3 CAGR</td><td>45.84%</td></tr>
+            <tr><td>Controlled V3 max drawdown</td><td>-11.64%</td><td>Controlled V3 base-cost drawdown</td><td>-12.46%</td></tr>
+            <tr><td>Verification</td><td>Independent accounting rerun exact</td><td>Execution certification</td><td class="loss-txt">Not established</td></tr>
+            <tr><td>Growth V1 availability</td><td colspan="3"><b>Exclusively reserved for Ascenda Enterprise Capital LLC. Not for sale, license, client use or third-party deployment.</b></td></tr>
         </tbody></table>
-        <div class="panel-title" style="margin-top:18px">Annual Account Development <span class="tag">uncapped account</span></div>
+        <div class="panel-title" style="margin-top:18px">Prior Five-Year Research Checkpoint <span class="tag">archived superseded branch</span></div>
         <table><thead><tr><th>Year</th><th>Account P&amp;L</th><th>Ending Account Value</th><th>Return</th></tr></thead><tbody>
             <tr><td>2021 (partial)</td><td class="win-txt">+$4,329,463.97</td><td>$5,329,463.97</td><td>432.95%</td></tr>
             <tr><td>2022</td><td class="win-txt">+$22,019,772.81</td><td>$27,349,236.79</td><td>413.17%</td></tr>
