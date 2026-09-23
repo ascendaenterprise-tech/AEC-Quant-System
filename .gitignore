@@ -1,0 +1,10 @@
+strategies/
+trade_logs/
+handoff_docs/
+trade_log.csv
+backtest_results_*.csv
+NQ_5min_*.csv
+manual_trading_history.csv
+merge_backtest_into_log.py
+update_dashboard_*.py
+auto_push.py
