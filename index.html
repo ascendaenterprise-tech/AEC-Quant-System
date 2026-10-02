@@ -179,6 +179,7 @@
             <h1>AEC Wire :: AECQS Research Terminal</h1>
             <div class="sub">AECQS -- CONTROLLED / GROWTH CONFIGURATIONS -- NQ / ES / YM + EQUITIES -- SYSTEMATIC RESEARCH</div>
         </div>
+        <div><a href="terminal.html" style="display:inline-block;border:1px solid currentColor;padding:8px 14px;margin-right:14px;text-decoration:none;color:inherit;font-size:12px;letter-spacing:.12em">OPEN AEC TERMINAL &rarr;</a></div>
         <div class="clock" id="clockDisplay">--:--:--</div>
     </div>
 
@@ -218,9 +219,7 @@
             <div class="panel-title">Global Markets <span class="tag">live indices</span></div>
             <div class="tradingview-widget-container">
                 <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"en","width":"100%","height":"280","isTransparent":true,"showSymbolLogo":true,"tabs":[{"title":"Indices","symbols":[{"s":"FOREXCOM:SPXUSD","d":"S&P 500"},{"s":"FOREXCOM:NSXUSD","d":"Nasdaq"},{"s":"FOREXCOM:DJI","d":"Dow"},{"s":"TVC:UKX","d":"FTSE 100"},{"s":"XETR:DAX","d":"DAX"},{"s":"TVC:NI225","d":"Nikkei 225"},{"s":"TVC:HSI","d":"Hang Seng"}]}]}
-                </script>
+                <script type="application/json" data-aec-yahoo="overview">{"tabs":[{"title":"Indices","symbols":[{"y":"^GSPC","d":"S&P 500"},{"y":"^NDX","d":"Nasdaq"},{"y":"^DJI","d":"Dow"},{"y":"^FTSE","d":"FTSE 100"},{"y":"^GDAXI","d":"DAX"},{"y":"^N225","d":"Nikkei 225"},{"y":"^HSI","d":"Hang Seng"}]}]}</script>
             </div>
         </div>
     </div>
@@ -255,21 +254,15 @@
             <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; height:460px;">
                 <div class="tradingview-widget-container" style="height:100%;">
                     <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                    {"symbol":"NASDAQ:QQQ","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","isTransparent":true,"autosize":true,"largeChartUrl":""}
-                    </script>
+                    <script type="application/json" data-aec-yahoo="mini">{"y":"QQQ","title":"QQQ","height":"100%"}</script>
                 </div>
                 <div class="tradingview-widget-container" style="height:100%;">
                     <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                    {"symbol":"AMEX:SPY","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","isTransparent":true,"autosize":true,"largeChartUrl":""}
-                    </script>
+                    <script type="application/json" data-aec-yahoo="mini">{"y":"SPY","title":"SPY","height":"100%"}</script>
                 </div>
                 <div class="tradingview-widget-container" style="height:100%;">
                     <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                    {"symbol":"CBOE:VIX","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","isTransparent":true,"autosize":true,"largeChartUrl":""}
-                    </script>
+                    <script type="application/json" data-aec-yahoo="mini">{"y":"^VIX","title":"VIX","height":"100%"}</script>
                 </div>
             </div>
         </div>
@@ -361,18 +354,14 @@
             <div class="panel-title">Technical Rating <span class="tag">NQ 1H</span></div>
             <div class="tradingview-widget-container">
                 <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-                {"interval":"1h","width":"100%","isTransparent":true,"height":"400","symbol":"CME_MINI:NQ1!","showIntervalTabs":true,"displayMode":"single","locale":"en","colorTheme":"dark"}
-                </script>
+                <script type="application/json" data-aec-yahoo="snapshot">{"y":"NQ=F","title":"NQ Futures","height":"400"}</script>
             </div>
         </div>
         <div class="panel" id="screenerSection">
             <div class="panel-title">Screener <span class="tag">Futures</span></div>
             <div class="tradingview-widget-container">
                 <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-                {"width":"100%","height":"400","defaultColumn":"overview","defaultScreen":"most_capitalized","market":"futures","showToolbar":true,"colorTheme":"dark","locale":"en","isTransparent":true}
-                </script>
+                <script type="application/json" data-aec-yahoo="screener">{"rows":[["ES=F","E-mini S&P 500"],["NQ=F","E-mini Nasdaq 100"],["YM=F","E-mini Dow"],["RTY=F","E-mini Russell 2000"],["CL=F","Crude Oil"],["GC=F","Gold"],["SI=F","Silver"],["NG=F","Natural Gas"],["ZN=F","10Y T-Note"],["6E=F","Euro FX"]]}</script>
             </div>
         </div>
     </div>
@@ -918,9 +907,7 @@ setInterval(loadWhales, 300000);
 <div style="background:#050505;border-bottom:.5px solid var(--wire-rule)">
   <div class="tradingview-widget-container">
     <div class="tradingview-widget-container__widget"></div>
-    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-    {"symbols":[{"proName":"FOREXCOM:NSXUSD","title":"NAS100"},{"proName":"FOREXCOM:SPXUSD","title":"SPX"},{"proName":"FOREXCOM:DJI","title":"DOW"},{"proName":"OANDA:XAUUSD","title":"GOLD"},{"proName":"OANDA:WTIUSD","title":"OIL"},{"proName":"FX:EURUSD","title":"EUR/USD"},{"proName":"FX:GBPUSD","title":"GBP/USD"},{"proName":"FX:USDJPY","title":"USD/JPY"},{"proName":"BINANCE:BTCUSDT","title":"BTC"},{"proName":"CBOE:VIX","title":"VIX"},{"proName":"TVC:DXY","title":"DXY"}],"showSymbolLogo":false,"isTransparent":true,"displayMode":"adaptive","colorTheme":"dark","locale":"en"}
-    </script>
+    <script type="application/json" data-aec-yahoo="tape">{"symbols":[{"y":"^NDX","title":"NAS100"},{"y":"^GSPC","title":"SPX"},{"y":"^DJI","title":"DOW"},{"y":"GC=F","title":"GOLD"},{"y":"CL=F","title":"OIL"},{"y":"EURUSD=X","title":"EUR/USD"},{"y":"GBPUSD=X","title":"GBP/USD"},{"y":"JPY=X","title":"USD/JPY"},{"y":"BTC-USD","title":"BTC"},{"y":"^VIX","title":"VIX"},{"y":"DX-Y.NYB","title":"DXY"}]}</script>
   </div>
 </div>
 
@@ -1006,9 +993,7 @@ setInterval(loadWhales, 300000);
         <div class="side-title">Markets</div>
         <div class="tradingview-widget-container">
           <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-          {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"en","width":"100%","height":"280","isTransparent":true,"showSymbolLogo":false,"tabs":[{"title":"Indices","symbols":[{"s":"FOREXCOM:NSXUSD","d":"NAS100"},{"s":"FOREXCOM:SPXUSD","d":"SPX"},{"s":"FOREXCOM:DJI","d":"DOW"}]},{"title":"Forex","symbols":[{"s":"FX:EURUSD"},{"s":"FX:GBPUSD"},{"s":"FX:USDJPY"}]},{"title":"Commodities","symbols":[{"s":"OANDA:XAUUSD","d":"Gold"},{"s":"OANDA:WTIUSD","d":"Oil"}]}]}
-          </script>
+          <script type="application/json" data-aec-yahoo="overview">{"tabs":[{"title":"Indices","symbols":[{"y":"^NDX","d":"NAS100"},{"y":"^GSPC","d":"SPX"},{"y":"^DJI","d":"DOW"}]},{"title":"Forex","symbols":[{"y":"EURUSD=X","d":"EUR/USD"},{"y":"GBPUSD=X","d":"GBP/USD"},{"y":"JPY=X","d":"USD/JPY"}]},{"title":"Commodities","symbols":[{"y":"GC=F","d":"Gold"},{"y":"CL=F","d":"Oil"}]}]}</script>
         </div>
       </div>
       <div class="aec-cta">
@@ -1228,5 +1213,6 @@ setInterval(function(){loadAllFeeds(true);}, 5*60*1000);
   </div>
 </section>
 
+<script src="aec-yahoo.js"></script>
 </body>
 </html>
