@@ -479,7 +479,7 @@ function prRender(){
    row('Total accepted trades',c=>na)+row('Average profit (winning day)',c=>c.avgw==null?na:`<span class="up">+${fmt(c.avgw,2)}%</span>`)+
    row('Average loss (losing day)',c=>c.avgl==null?na:`<span class="dn">${fmt(c.avgl,2)}%</span>`)+row('Profit factor (days)',c=>p(c.pf,2))+
    row('Winning / losing days',c=>c.nw==null?na:fmt(c.nw,0)+' / '+fmt(c.nl,0))+`</table>
-  <div class="msg">Win rate and average profit/loss are per trading day, not per trade: the saved results hold daily returns only, no trade ledger, so accepted trades show n/a. Growth V5 is the saved median path ($10.73B; the headline run is $11.04B, DD -39.53%). Controlled daily average win/loss was not saved. Growth sizes above $1M are approximate.</div>`}
+  <div class="msg">Win rate and average profit/loss are per trading day, not per trade: the saved results hold daily returns only, no trade ledger, so accepted trades show n/a. Growth V5 is the saved median path ($10.73B; the headline run is $12.50B, DD -39.52%). Controlled daily average win/loss was not saved. Growth sizes above $1M are approximate.</div>`}
 function dtab(t){DTAB=t;$('tabd').classList.toggle('on',t==='d');$('tabp').classList.toggle('on',t==='p');t==='p'?prRender():dqRender()}
 $('tabd').onclick=()=>dtab('d');$('tabp').onclick=()=>dtab('p');
 function dqRender(){
