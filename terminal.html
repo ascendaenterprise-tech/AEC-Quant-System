@@ -124,6 +124,49 @@ canvas{display:block}
 button.chip{font:inherit;cursor:pointer;color:var(--fg);background:var(--panel)}button.chip:hover{border-color:var(--amber);color:var(--amber)}
 @keyframes flup{from{background:rgba(63,168,92,.45)}to{background:transparent}}@keyframes fldn{from{background:rgba(229,96,79,.45)}to{background:transparent}}
 .flu{animation:flup 1.4s ease-out}.fld{animation:fldn 1.4s ease-out}
+/* MOBILE (phones) — additive; desktop untouched */
+@media(max-width:700px){
+html{-webkit-text-size-adjust:100%}
+body{padding-inline:6px;padding-block:4px 8px;gap:5px;font-size:12px}
+.brand{gap:8px}.brand svg{width:22px;height:22px}
+.wm{font-size:16px;letter-spacing:.2em}.wm small{font-size:8.5px;letter-spacing:.14em;white-space:normal}
+.brand .sp{display:none}
+.brand .chip{font-size:10px;padding:2px 6px}
+.top{gap:5px}.top .chip{flex:1 1 auto;text-align:center}
+.cmd{flex:1 1 100%;min-width:0;padding:4px 8px}
+.cmd input{font-size:16px;text-transform:uppercase}
+.go{padding:5px 12px;font-size:12px}
+.fkeys{display:flex;overflow-x:auto;gap:4px;padding-bottom:3px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.fkeys::-webkit-scrollbar{display:none}
+.fkeys button{flex:0 0 auto;min-height:32px;padding:4px 10px;overflow:visible;text-overflow:clip}
+.strip{font-size:10px}.strip>div{padding:3px 6px;gap:3px 10px}
+.grid{gap:5px}
+.w.t2{height:380px}.w.t3{height:230px}
+.w:has(table):not(:has(canvas)):not(:has(.tm)),.w:has(.msg),.w:has(.kv),.w:has(.al),.w:has(.lg),.w:has(.res){height:auto!important;min-height:0}
+.w>.b{max-height:62vh}
+.w:has(.tm)>.b,.w:has(.mapc)>.b,.w:has(canvas)>.b{max-height:none}
+.w>h3{font-size:10px;padding:5px 8px;letter-spacing:.06em}
+.w>h3 .mx{min-width:30px;min-height:24px}
+.w.max{inset:0;height:auto!important}
+.w.max>.b{max-height:none}
+th,td{padding:3px 5px;font-size:11px}
+.rng{padding:4px 6px}.rng button,.nf button,.vbar button,.vt button,.vt select{min-height:28px;padding:2px 9px}
+.big{font-size:20px}
+.dock{position:static;grid-template-columns:1fr;padding-top:5px}
+.dbody{height:auto;max-height:46vh}
+.dq{grid-template-columns:repeat(2,minmax(0,1fr))}
+.dq b{font-size:14px}
+.ni{grid-template-columns:44px 64px 1fr;gap:6px;padding:4px 6px}
+.vgrid{--vc:1!important;padding:4px;gap:4px}
+.vt .vf{max-height:none}
+.vbar{padding:4px;gap:4px}.vbar input{flex:1 1 140px;min-width:0;font-size:16px}
+.kv{padding:5px 6px;gap:2px 10px}
+.status{gap:6px 10px;font-size:10px}
+.ov{padding:6px}
+.sug{max-height:40vh}
+img,svg,canvas,iframe,video{max-width:100%}
+}
+@media(max-width:380px){.wm{font-size:14px;letter-spacing:.14em}.fkeys button{padding:4px 8px;font-size:10.5px}}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500;600&family=DM+Mono:wght@400;500&display=swap">
 

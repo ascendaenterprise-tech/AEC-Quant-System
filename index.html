@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AEC Wire | AECQS Research Terminal</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500;600&family=DM+Mono:wght@400;500&display=swap');
@@ -171,6 +172,39 @@
 </style>
 
 <script src="aec-media-health.js" defer></script>
+<style id="mobile-qs">
+@media(max-width:700px){
+body{padding:10px;overflow-x:hidden}
+.topbar{flex-wrap:wrap;gap:8px;align-items:center}
+.topbar h1{font-size:22px;line-height:1.1;flex:1 1 100%}
+.topbar .sub{font-size:9.5px;line-height:1.4}
+.topbar .clock{width:100%;text-align:left}
+.topbar a,.topbar .btn{font-size:11px;padding:6px 10px}
+.cmdbar{padding:8px 10px;flex-wrap:wrap}
+.cmdbar input{font-size:16px;min-width:0}
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat-box{padding:10px 12px;min-width:0}
+.stat-box .label{font-size:10px}
+.stat-box .value{font-size:17px;overflow-wrap:normal;word-break:normal;white-space:nowrap}
+.panel{padding:12px;border-radius:10px;max-width:100%;min-width:0}
+.panel-title{flex-wrap:wrap;gap:4px}
+.chart-panel .chart-inner{height:300px}
+.globe-hero{height:auto;padding:12px}.globe-hero #globeViz{height:320px}
+.globe-borderless{height:260px}
+.panel,.grid>*{min-width:0}
+.panel:has(table){overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{font-size:11px}
+th,td{padding:6px 6px;overflow-wrap:break-word;word-break:normal;hyphens:none}
+th{font-size:9px}
+.controls select,.controls input,.controls button{font-size:16px;min-height:36px}
+.heat-cell{min-height:64px;padding:8px}
+.launch-item{min-width:calc(50% - 6px);flex:1 1 calc(50% - 6px)}
+img,svg,canvas,iframe,video{max-width:100%;height:auto}
+pre,code{white-space:pre-wrap;overflow-wrap:anywhere}
+#wireRoot .wire-layout{grid-template-columns:1fr}
+}
+@media(max-width:380px){.stats-row{grid-template-columns:1fr}.topbar h1{font-size:20px}}
+</style>
 </head>
 <body>
 
