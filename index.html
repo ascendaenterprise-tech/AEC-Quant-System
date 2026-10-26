@@ -1259,5 +1259,52 @@ setInterval(function(){loadAllFeeds(true);}, 5*60*1000);
 </section>
 
 <script src="aec-yahoo.js"></script>
+
+<style id="aecIntroCss">
+#aecIntro{position:fixed;inset:0;z-index:99999;overflow:hidden;perspective:1400px;background:transparent;pointer-events:auto;cursor:pointer}
+#aecIntro .door{position:absolute;top:0;bottom:0;width:50.2%;background:#0a0a0a;transition:transform 1s cubic-bezier(.7,0,.2,1),opacity .6s .5s;will-change:transform}
+#aecIntro .dl{left:0;transform-origin:left center}#aecIntro .dr{right:0;transform-origin:right center}
+#aecIntro.open .dl{transform:translateX(-102%) rotateY(-28deg)}#aecIntro.open .dr{transform:translateX(102%) rotateY(28deg)}
+#aecIntro .floor{position:absolute;left:-50%;right:-50%;bottom:-8%;height:62%;transform:rotateX(72deg);transform-origin:bottom;opacity:0;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 1px,transparent 1px 64px),repeating-linear-gradient(0deg,rgba(255,255,255,.16) 0 1px,transparent 1px 64px);
+  animation:aecFloorIn 1.2s .15s forwards,aecFloorMove 2.4s linear infinite;mask-image:linear-gradient(to top,#000 20%,transparent 95%);-webkit-mask-image:linear-gradient(to top,#000 20%,transparent 95%)}
+@keyframes aecFloorIn{to{opacity:1}}@keyframes aecFloorMove{from{background-position:0 0,0 0}to{background-position:0 0,0 64px}}
+#aecIntro .stage{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.1rem;color:#f4f4f2;transition:opacity .45s,transform .9s;transform-style:preserve-3d}
+#aecIntro.open .stage{opacity:0;transform:scale(1.25)}
+#aecIntro svg{width:min(34vw,170px);min-width:110px;height:auto;overflow:visible}
+#aecIntro polygon{fill:none;stroke:#f4f4f2;stroke-linejoin:miter;transform-box:fill-box;transform-origin:center;opacity:0;animation:aecDrop .9s cubic-bezier(.2,.8,.25,1.12) forwards}
+#aecIntro polygon:nth-child(1){animation-delay:.1s}#aecIntro polygon:nth-child(2){animation-delay:.28s}#aecIntro polygon:nth-child(3){animation-delay:.46s}#aecIntro polygon:nth-child(4){animation-delay:.64s}#aecIntro polygon:nth-child(5){animation-delay:.82s}
+@keyframes aecDrop{0%{opacity:0;transform:translateY(-70vh) rotateX(75deg) scale(1.15)}55%{opacity:1}78%{transform:translateY(7px) rotateX(0) scale(1)}100%{opacity:1;transform:none}}
+#aecIntro .word{font:500 clamp(.8rem,2.2vw,1.15rem)/1 'Helvetica Neue',Arial,sans-serif;letter-spacing:.42em;text-transform:uppercase;opacity:0;transform:translateY(14px);animation:aecUp .7s 1.55s forwards;text-align:center;padding-left:.42em}
+#aecIntro .sub{font:400 clamp(.62rem,1.6vw,.8rem)/1.5 ui-monospace,Menlo,monospace;letter-spacing:.2em;text-transform:uppercase;color:#a3a39e;opacity:0;animation:aecUp .7s 1.95s forwards;text-align:center;padding:0 16px}
+@keyframes aecUp{to{opacity:1;transform:none}}
+#aecIntro .skip{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));background:none;border:1px solid rgba(255,255,255,.28);color:#d6d6d0;font:11px ui-monospace,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;padding:8px 12px;cursor:pointer;opacity:.0;animation:aecUp .4s .6s forwards}
+#aecIntro.open .door{opacity:0}
+@media (prefers-reduced-motion:reduce){#aecIntro{display:none!important}}
+</style>
+<div id="aecIntro" role="presentation" aria-hidden="true">
+  <div class="door dl"></div><div class="door dr"></div>
+  <div class="floor"></div>
+  <div class="stage">
+    <svg viewBox="-72 -72 144 144"><polygon points="0,-66 66,0 0,66 -66,0" stroke-width="3.2"/><polygon points="0,-51 51,0 0,51 -51,0" stroke-width="2.8"/><polygon points="0,-37 37,0 0,37 -37,0" stroke-width="2.6"/><polygon points="0,-23 23,0 0,23 -23,0" stroke-width="2.4"/><polygon points="0,-9 9,0 0,9 -9,0" stroke-width="2.2"/></svg>
+    <div class="word">Ascenda Enterprise Capital</div>
+    <div class="sub">Quantitative research · Data · Infrastructure</div>
+  </div>
+  <button class="skip" type="button">Skip</button>
+</div>
+<script>
+(function(){
+  var el=document.getElementById('aecIntro'); if(!el) return;
+  var seen=false; try{seen=sessionStorage.getItem('aecIntroSeen')==='1'}catch(e){}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(seen||reduce||/[?&]nointro/.test(location.search)){el.remove();return;}
+  try{sessionStorage.setItem('aecIntroSeen','1')}catch(e){}
+  var prev=document.documentElement.style.overflow; document.documentElement.style.overflow='hidden';
+  var done=false;
+  function open(){ if(done) return; done=true; el.classList.add('open'); setTimeout(function(){document.documentElement.style.overflow=prev; el.remove();},1300); }
+  setTimeout(open,3300); setTimeout(open,6000);
+  el.addEventListener('click',open); document.addEventListener('keydown',open,{once:true});
+})();
+</script>
 </body>
 </html>
