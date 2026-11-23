@@ -1,4 +1,7 @@
+<!doctype html>
+<html lang="en">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AEC Terminal</title>
+<link rel="canonical" href="https://ascendaenterprisecapital.com/AEC-Quant-System/terminal.html">
 <style>
 /* Layout: AEC terminal in the AECQS palette (ink black, white type, green/red signals, muted amber for mnemonics). Wordmark bar, function-key strip, workspace tabs, tiled windows with maximize, linked active security. */
 :root{
@@ -637,3 +640,4 @@ if(location.hash.length>1){const h=location.hash.slice(1).toUpperCase();if(['MKT
 function all(){mapLayers();legend();if(STALE.size)$('stalew').textContent='STALE DATA: '+[...STALE].map(x=>x+' ends '+dstr(DATA[x].d.at(-1))).join(', ');tape();indices();movers();rates();fx();cm();corrW();ftW();alW();aqsPanels();secChip();fk();redraw()}
 all();let rz;window.addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(redraw,150)});
 </script>
+<p class="aec-ftstrip" style="text-align:center;font-size:12px;line-height:1.6;margin:14px auto;padding:0 16px;max-width:960px;opacity:.85">Izaiah Cottle, Founder &amp; Chief Executive Officer &middot; Ascenda Enterprise Capital LLC &middot; <a href="https://ascendaenterprisecapital.com/privacy-policy.html" style="color:inherit;text-decoration:underline">Privacy</a> &middot; <a href="https://ascendaenterprisecapital.com/terms-of-service.html" style="color:inherit;text-decoration:underline">Terms</a> &middot; <a href="https://ascendaenterprisecapital.com/regulatory-disclosures.html" style="color:inherit;text-decoration:underline">Disclosures</a> &middot; <a href="https://ascendaenterprisecapital.com/aec-risk-disclosure.html" style="color:inherit;text-decoration:underline">Risk disclosure</a></p>
